@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP Exam Prep - PMP Lite Mock Exam 8</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1e3c;
+    --navy-mid: #1a2f57;
+    --navy-light: #243d6e;
+    --gold: #c9a84c;
+    --gold-light: #e4c97a;
+    --cream: #faf8f3;
+    --cream-dark: #f0ece0;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --correct: #1a6b45;
+    --correct-bg: #d1fae5;
+    --wrong: #991b1b;
+    --wrong-bg: #fee2e2;
+    --partial: #92400e;
+    --partial-bg: #fef3c7;
+    --border: #ddd8c4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .header-title span { color: #fff; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; display: block; font-weight: 300; margin-top: 1px; }
+
+  .score-bar { display: flex; gap: 20px; align-items: center; }
+  .score-chip {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    text-align: center;
+  }
+  .score-chip .val { font-size: 1.35rem; font-weight: 600; color: var(--gold-light); line-height: 1; }
+  .score-chip .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .pct-chip {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    text-align: center;
+  }
+  .pct-chip .val { font-size: 1.35rem; font-weight: 600; color: #fff; line-height: 1; }
+  .pct-chip .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+
+  /* GLOBAL EXAM TIMER */
+  .exam-timer-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 10px;
+    padding: 7px 10px;
+    color: #fff;
+  }
+  .exam-timer-main { display: flex; flex-direction: column; min-width: 120px; }
+  .exam-timer-value {
+    font-size: 1.25rem;
+    line-height: 1;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--gold-light);
+  }
+  .exam-timer-value.warn { color: #fef3c7; }
+  .exam-timer-value.critical { color: #fecaca; }
+  .exam-timer-label {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+  .exam-timer-btn {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    padding: 6px 9px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .exam-timer-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .pace-strip {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6px 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.72);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .pace-strip strong { color: var(--gold-light); font-weight: 600; }
+  .btn-flag {
+    padding: 9px 14px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-flag:hover { border-color: var(--gold); color: var(--navy); }
+  .btn-flag.flagged { border-color: var(--gold); background: #fff8df; color: #7a5a00; }
+
+  /* PROGRESS */
+  .progress-wrap { background: var(--navy-mid); height: 4px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.4s ease; }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  #questionsList { padding-top: 20px; }
+
+  /* FILTER / NAV BAR */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: sticky;
+    top: 56px;
+    background: var(--cream);
+    z-index: 90;
+    padding: 12px 0 10px;
+    border-bottom: 1px solid var(--border);
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .filter-bar label { font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-right: 4px; }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    color: var(--muted);
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--navy-light); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .spacer { flex: 1; }
+  .jump-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .jump-wrap input {
+    width: 56px;
+    padding: 5px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .jump-wrap button {
+    padding: 5px 10px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .q-num {
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .q-text { font-size: 0.95rem; line-height: 1.65; color: var(--text); flex: 1; white-space: pre-wrap; }
+
+  /* OPTIONS */
+  .q-options { padding: 16px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+  }
+  .opt:hover { border-color: var(--navy-light); background: #f8f9ff; }
+  .opt.selected { border-color: var(--navy); background: #f0f3ff; }
+  .opt.correct-reveal { border-color: var(--correct); background: var(--correct-bg); }
+  .opt.wrong-reveal { border-color: var(--wrong); background: var(--wrong-bg); }
+  .opt.neutral-reveal { border-color: var(--border); background: var(--cream); cursor: default; }
+  .opt-letter {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .opt.selected .opt-letter { color: #fff; border-color: var(--navy); background: var(--navy); }
+  .opt.correct-reveal .opt-letter { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .opt.wrong-reveal .opt-letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+  .opt-text { font-size: 0.88rem; line-height: 1.55; color: var(--text); flex: 1; white-space: pre-wrap; }
+
+  /* ACTIONS */
+  .q-actions { padding: 12px 24px 16px; display: flex; align-items: center; gap: 10px; }
+  .btn-submit {
+    padding: 9px 22px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-submit:hover { background: var(--navy-light); }
+  .btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+  .btn-clear {
+    padding: 9px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-clear:hover { border-color: var(--wrong); color: var(--wrong); }
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .result-badge.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-badge.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .result-badge.partial { background: var(--partial-bg); color: var(--partial); }
+
+  /* EXPLANATION */
+  .explanation {
+    margin: 0 24px 20px;
+    padding: 16px 18px;
+    background: #f8f9ff;
+    border-left: 3px solid var(--navy-light);
+    border-radius: 0 10px 10px 0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #374151;
+    display: none;
+    white-space: pre-wrap;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { display: block; color: var(--navy); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+
+  /* SAVE INDICATOR */
+  #saveIndicator {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    opacity: 0;
+    transition: opacity 0.4s;
+    white-space: nowrap;
+  }
+
+  /* RESET MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 10px; }
+  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 10px; justify-content: center; }
+  .btn-danger { padding: 10px 24px; background: var(--wrong); color: #fff; border: none; border-radius: 8px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .btn-cancel { padding: 10px 24px; background: transparent; color: var(--muted); border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+  /* TRY AGAIN */
+  .reset-btn {
+    padding: 9px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin: 0 24px 20px;
+    display: block;
+  }
+  .reset-btn:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* TIMER */
+  .q-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 24px;
+    border-top: 1px solid var(--cream-dark);
+    background: #fafafa;
+  }
+  .timer-display {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    font-weight: 600;
+    min-width: 54px;
+  }
+  .timer-display.running { color: #1a6b45; }
+  .btn-timer {
+    padding: 5px 13px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+  }
+  .btn-timer:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-timer.running { border-color: #1a6b45; color: #1a6b45; background: #f0fdf4; }
+  .btn-timer-reset {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-size: 0.72rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .btn-timer-reset:hover { border-color: var(--wrong); color: var(--wrong); }
+  .timer-label { font-size: 0.72rem; color: var(--muted); margin-right: 2px; }
+
+  /* EMPTY STATE */
+  #emptyState { text-align: center; padding: 60px 20px; color: var(--muted); display: none; }
+  #emptyState .icon { font-size: 2.5rem; margin-bottom: 12px; }
+  #emptyState p { font-size: 0.9rem; }
+
+
+
+  /* EXAM MODE / BREAKS */
+  .mode-toggle {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    white-space: nowrap;
+  }
+  .mode-toggle button {
+    padding: 5px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+  }
+  .mode-toggle button.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+  .section-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+    padding: 5px 10px;
+    border-radius: 14px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+  .q-card.locked {
+    opacity: 0.66;
+  }
+  .locked-notice {
+    margin: 0 24px 18px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--cream-dark);
+    color: var(--muted);
+    font-size: 0.78rem;
+    border-left: 3px solid var(--gold);
+  }
+  .break-timer-value {
+    font-size: 2.2rem;
+    color: var(--navy);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin: 14px 0 4px;
+  }
+  .break-note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-wrap: wrap; }
+    .score-bar { gap: 10px; flex-wrap: wrap; }
+    .pace-strip { flex-direction: column; gap: 4px; }
+    .score-chip .val, .pct-chip .val { font-size: 1.1rem; }
+    .header-title { font-size: 1.05rem; }
+    .main { padding: 20px 16px 60px; }
+    .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
+    .explanation { margin-left: 16px; margin-right: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-title">PMP Exam Prep<span>PMP Lite Mock Exam 8 · 51 Questions · PDF input</span></div>
+    <div class="score-bar">
+      <div class="exam-timer-wrap"><div class="exam-timer-main"><div class="exam-timer-value" id="globalTimerVal">00:00:00</div><div class="exam-timer-label">Time Remaining</div></div><button class="exam-timer-btn" id="globalTimerToggle" onclick="toggleGlobalTimer()">▶ Start</button><button class="exam-timer-btn" onclick="resetGlobalTimer()">↺</button></div>
+      <div class="section-chip" id="sectionStatus">Test 13</div>
+      <div id="saveIndicator">✓ Saved</div>
+      <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
+      <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
+    </div>
+  </div>
+  <div class="pace-strip"><span id="paceStatus">Pace target: start when ready.</span><span>Test limit: <strong id="examLimit">00:00:00</strong></span></div>
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="filter-bar">
+    <label>Show:</label>
+    <button class="filter-btn active" onclick="setFilter('all')" id="filter-all"><span id="allBtn">All (51)</span></button>
+    <button class="filter-btn" onclick="setFilter('unanswered')" id="filter-unanswered"><span id="fb-unanswered">Unanswered</span></button>
+    <button class="filter-btn" onclick="setFilter('correct')" id="filter-correct"><span id="fb-correct">✓ Correct</span></button>
+    <button class="filter-btn" onclick="setFilter('wrong')" id="filter-wrong"><span id="fb-wrong">✗ Wrong</span></button>
+    <button class="filter-btn" onclick="setFilter('flagged')" id="filter-flagged"><span id="fb-flagged">⚑ Flagged</span></button>
+    <button class="filter-btn" onclick="jumpToLastAnswered()" id="lastAnsweredBtn">↳ Last answered</button>
+    <div class="spacer"></div><div class="jump-wrap"><span>Jump to</span><input type="number" id="jumpInput" min="1" max="51"><button onclick="jumpToQuestion()">Go</button></div>
+  </div>
+  <div id="questionsList"></div><div id="emptyState"><div class="icon">⌕</div><p>No questions match this filter.</p></div>
+</div>
+<div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
+<script>
+const TEST_META = {"seq": 13, "name": "PMP Lite Mock Exam 8", "timeMinutes": 60, "slug": "PMP_Lite_Mock_Exam_8"};
+const QUIZ_DATA = [{"num": 1, "text": "You have overheard two functional managers arguing about the impacts\nthat your project will have on their departments. What is your best\nresponse?", "options": {"A": "Do nothing", "B": "Analyze and report to each manager the impact your project will\nhave on their departments in terms of time and resources required\nand the relative enterprise priority of your project", "C": "Inform the managers that the project sponsors already considered\nthis impact when they decided to implement the project", "D": "Put in advance requests for resources from each department"}, "correct": ["B"], "explanation": "B - Analyze and report to each manager the impact your project will\nhave on theirs. Not only will this help the functional managers plan\nproactively for those times that their resources will be required by your\nproject, it will also ease hostility and promote cooperation among staff.\nPMI's Code of Conduct mandates that project managers act in good\nfaith and provide timely and accurate information to affected\nstakeholders. [PMI Code of Ethics and Professional Conduct] [Prof.\nResponsibility]"}, {"num": 2, "text": "A large construction project for a logistics company will require the\nexpenditure of a large amount of capital. The finance group works with\nthe project manager to project set limits when expenses will be incurred\nin a given project and to determine whether there are ways to smooth\nout or level the spending to avoid a single large expenditure in one\nquarter and none in the next. This is an example of:", "options": {"A": "Levelized Billing", "B": "Funding Limit Reconciliation", "C": "A financial review", "D": "Rescheduling"}, "correct": ["B"], "explanation": "B - Large variations in the periodic expenditure of funds are usually\nundesirable for organizational operations. Therefore, the expenditure of\nfunds is reconciled with the funding limits set by the customer or\nperforming organization on the disbursement of funds for the project.\n[PMBOK 6th edition, Page 253] [Project Cost Management]"}, {"num": 3, "text": "Calculation of late finish dates and late start dates for the uncompleted\nportion of the project is called ____________.", "options": {"A": "Schedule compression", "B": "An arrow diagram", "C": "A backward pass", "D": "A forward pass"}, "correct": ["C"], "explanation": "C - Calculation of late finish dates and late start dates for the\nuncompleted portion of the project is called a backward pass. [PMBOK\n6th edition, Page 210] [Project Schedule Management]"}, {"num": 4, "text": "Which of the following PMBOK processes is about using existing\nknowledge and creating new knowledge to achieve the project’s\nobjectives and contribute to organizational learning?", "options": {"A": "Use Project Knowledge", "B": "Create Project Knowledge", "C": "Contribute Project Knowledge", "D": "Manage Project Knowledge"}, "correct": ["D"], "explanation": "D - Manage Project Knowledge is the PMBOK process about using\nexisting knowledge and creating new knowledge to achieve the\nproject’s objectives and contribute to organizational learning. The rest\nof the choices are not PMBOK processes. [PMBOK 6th edition, Page\n98] [Project Scope Management]"}, {"num": 5, "text": "The on-demand scheduling approach used in agile environments is\nbased on the theory-of-constraints and pull-based scheduling concepts\nfrom lean manufacturing to limit a team’s work in progress. This is also\ncalled:", "options": {"A": "5S", "B": "Kanban", "C": "Andon", "D": "Gemba"}, "correct": ["B"], "explanation": "B - The on-demand scheduling approach used in agile environments is\nbased on the theory-of-constraints and pull-based scheduling concepts\nfrom lean manufacturing to limit a team’s work in progress. This is also\ncalled Kanban system. [PMBOK 6th edition, Page 177] [Project\nStakeholder Management]"}, {"num": 6, "text": "While rating a proposal, one of the requirements was: \"The proposed\nproject manager needs to be a certified Project Management\nProfessional, PMP®\" This is an example of:", "options": {"A": "Constraints", "B": "Source Selection Criteria", "C": "Assumptions", "D": "Good practice"}, "correct": ["B"], "explanation": "B - This is an example of source selection criteria used to rate or score\nproposals. [PMBOK 6th edition, Page 478] [Project Procurement\nManagement]"}, {"num": 7, "text": "Which of the following is Deming's method for continuous\nimprovement?", "options": {"A": "Plan-Act-Check-Do", "B": "Plan-Do-Check-Act", "C": "Check-Plan-Do-Act", "D": "Plan-Check-Do-Act"}, "correct": ["B"], "explanation": "B - Deming's model is Plan-Do-Check-Act. [PMBOK 6th edition, Page\n275] [Project Quality Management]"}, {"num": 8, "text": "A decision tree is a Perform Quantitative Risk Analysis technique. A\ndecision tree is represented by a Decision Tree Diagram. The decision\ntree describes a situation under consideration, the implications of each\nof the available choices, and the possible scenarios. A Decision Tree\nDiagram shows how to make a decision among alternative capital\nstrategies known as:", "options": {"A": "Alternative nodes", "B": "Question points", "C": "Decision nodes", "D": "Checkpoints"}, "correct": ["C"], "explanation": "C - The decision points are known as Decision nodes. The decision tree\nincorporates the cost of each available choice, the possibilities of each\nof the available choices, and possible scenarios. It shows how to make a\ndecision among alternative capital strategies (decision nodes) when the\nenvironment is not known with certainty. [PMBOK 6th edition, Page\n435] [Project Risk Management]"}, {"num": 9, "text": "While applying the logical relationships to the project activities, a\nproject manager must be careful not to:", "options": {"A": "Have closed loops relationships between activities", "B": "Have FF relationships for the critical activities", "C": "Have FS relationships for the non-critical activities", "D": "Select the relationship with the highest impact"}, "correct": ["A"], "explanation": "A - Multiple relationships between the same activities are not\nrecommended, so a decision has to be made to select the relationship\nwith the highest impact. Closed loops are also not recommended in\nlogical relationships. [PMBOK 6th edition, Page 190] [Project\nProcurement Management]"}, {"num": 10, "text": "The enterprise environmental factors play an important role during the\ndevelopment of the project stakeholder engagement plan. The following\nlist gives the most significant enterprise environmental factors\nconsidered during the Plan Stakeholder Engagement process except\none. Which one is it?", "options": {"A": "Organizational culture", "B": "Organizational communication requirements", "C": "Organizational structure", "D": "Political climate"}, "correct": ["B"], "explanation": "B - Organizational communication requirements should be considered\nduring project stakeholder engagement plan development. However,\nthese are part of organizational process assets and not enterprise\nenvironmental factors. [PMBOK 6th edition, Pages 519, 520] [Project\nStakeholder Management]"}, {"num": 11, "text": "There are numerous ways to share information among project\nstakeholders. Which of the following is the most efficient\ncommunication method?", "options": {"A": "Push communication", "B": "Interactive communication", "C": "Pull communication", "D": "Manual communication"}, "correct": ["B"], "explanation": "B - Interactive communication is the most efficient form of\ncommunication as it requires multidirectional exchange of information.\n[PMBOK 6th edition, Page 374] [Project Communications\nManagement]"}, {"num": 12, "text": "A summary milestone schedule would normally be part of which\ndocument?", "options": {"A": "Project sign-off document", "B": "Project charter", "C": "Project requirements document", "D": "Project scope statement"}, "correct": ["B"], "explanation": "B - The summary milestone schedule is normally included as part of the\nproject charter, which documents the business need, understanding of\ncustomer's needs, and other high-level items. [PMBOK 6th edition,\nPage 81] [Project Integration Management]"}, {"num": 13, "text": "Which of the following processes deals with maintaining the integrity\nof baselines by releasing only approved changes for incorporation into\nthe project management plan?", "options": {"A": "Perform Integrated Change Control", "B": "Direct and Manage Project Work", "C": "Develop Project Management Plan", "D": "Monitor and Control Project Work"}, "correct": ["A"], "explanation": "A - Maintaining the integrity of baselines is done in the Perform\nIntegrated Change Control process. This process is conducted from\nproject inception through project completion. [PMBOK 6th edition,\nPage 113] [Project Integration Management]"}, {"num": 14, "text": "For complex and high value projects, activities of business analysis get\nstarted well before the project is initiated. Typically in such cases, the\nrequirements management process starts with:", "options": {"A": "Plan Scope Management", "B": "Collect Requirements", "C": "Define Scope", "D": "Needs Assessment"}, "correct": ["D"], "explanation": "D - For complex and high value projects, activities of business analysis\nget started well before the project is initiated. Typically in such cases,\nthe requirements management process starts with a business need\nanalysis. The rest of the choices are the processes that are performed\nonce the project has been initiated. [PMBOK 6th edition, Page 132]\n[Project Quality Management]"}, {"num": 15, "text": "The Manage Stakeholder Engagement process is a very important\nproject management process. An ineffective effort in this process can\nsabotage the whole project. Which of the following is the key benefit of\nthis process?", "options": {"A": "It makes the Manage Communications process redundant.", "B": "It produces the stakeholder engagement plan.", "C": "It increases support and minimizes resistance from stakeholders.", "D": "Lessons learned are documented during this process."}, "correct": ["C"], "explanation": "C - Lessons learned can get documented during any project\nmanagement process. The key benefit of the Manage Stakeholder\nEngagement process is that it allows the project manager to increase\nsupport and minimize resistance from stakeholders, significantly\nincreasing the changes to achieve project success. [PMBOK 6th edition,\nPage 523] [Project Stakeholder Management]"}, {"num": 16, "text": "When possible, the detailed project schedule _________ throughout the\nproject to adjust for knowledge gained, increased understanding of the\nrisk, and value-added activities.", "options": {"A": "Should stand firm", "B": "Should remain flexible", "C": "Must be avoided", "D": "Must be inflated"}, "correct": ["B"], "explanation": "B - Ideally the detailed project schedule should remain flexible\nthroughout the project to adjust for knowledge gained, increased\nunderstanding of the risk, and value-added activities. [PMBOK 6th\nedition, Page 175] [Project Schedule Management]"}, {"num": 17, "text": "The formula for Cost Variance is:", "options": {"A": "CV=EV-AC", "B": "CV=AC-EV", "C": "CV=BAC-(AC-EV)", "D": "CV=SV-BC"}, "correct": ["A"], "explanation": "A - CV equals earned value (EV) minus actual cost (AC). [PMBOK 6th\nedition, Page 262] [Project Cost Management]"}, {"num": 18, "text": "Which of the following should be avoided while applying logical\nrelationships to project activities:", "options": {"A": "Applying the SS relationship with a lead", "B": "Applying the SS relationship with a lag", "C": "Applying the SF relationship", "D": "Applying multiple relationships between the same activities"}, "correct": ["D"], "explanation": "D - Multiple relationships between the same activities are not\nrecommended, so a decision has to be made to select the relationship\nwith the highest impact. Closed loops are also not recommended in\nlogical relationships. The other choices are valid approaches. [PMBOK\n6th edition, Page 190] [Project Quality Management]"}, {"num": 19, "text": "A detailed milestone list is created as an output of what process?", "options": {"A": "Sequence Activities", "B": "Define Activities", "C": "Develop Project Charter", "D": "Develop Schedule"}, "correct": ["B"], "explanation": "B - A detailed milestone list is created as an output of the Define\nActivities process and includes information on whether the milestone is\nmandatory or optional. Note that the project charter also contains\nmilestone information but at a higher level. [PMBOK 6th edition, Page\n186] [Project Schedule Management]"}, {"num": 20, "text": "In projects where there is a gap between the real business requirements\nand the stated business requirements, agile methods are extremely\nhelpful. Agile methods provide a solution to this problem by:", "options": {"A": "Completing the project quickly so that gap is significantly\nreduced.", "B": "Replacing the project manager with a Scrum master in order to\nexpedite the project.", "C": "Purposefully building and reviewing prototypes and release\nversions to refine requirements.", "D": "Eliminating the documentation altogether from the project\nmanagement approach."}, "correct": ["C"], "explanation": "C - Agile methods purposefully build and review prototypes and release\nversions in order to refine the requirements. As a result, scope is\ndefined and redefined throughout the project. [PMBOK 6th edition,\nPage 133] [Prof. Responsibility]"}, {"num": 21, "text": "To ensure effective communications throughout a project lifecycle, a\nproject manager should develop a communications plan early in the\nproject. When developing a communications plan, a project manager\nmust consider a number of factors. Which of the following is the least\nimportant consideration among the list while developing a\ncommunications plan?", "options": {"A": "What kind of communication is required?", "B": "Which PMBOK processes are required on the project?", "C": "Where should the information be stored?", "D": "What time zones and language barriers are involved?"}, "correct": ["B"], "explanation": "B - The project manager must tailor the PMBOK processes to meet the\nneeds of the project. However, this is a consideration while developing\nthe overall project management plan for the project. The rest of the\nchoices are more of a concern during the Plan Communications\nManagement process. [PMBOK 6th edition, Page 366] [Project\nCommunications Management]"}, {"num": 22, "text": "Tim is the project manager for a shopping mall construction project\nwhich is in its fourth month of execution. According to the project\ncontract, Tim can only issue project invoices when the project is 25%,\n50%, 75% and 100% complete in terms of the approved project\nschedule. Recently the 25% milestone has been reached and Tim is\nready to issue his first invoice. According to the contract, the project\nmust be completed in 12 months. What is the project’s SPI?", "options": {"A": "0.25", "B": "0.75", "C": "0.33", "D": "1.33"}, "correct": ["B"], "explanation": "B - Since the 25% schedule milestone has been achieved, the project’s\nearned schedule (ES) is 25%. Further the project is in its third month of\nexecution so the actual time is 33.33% (i.e. 4 months / 12 months). SPI\n= ES/AT = 25% / 33.33% = 0.75. [PMBOK 6th edition, Page 233]\n[Project Schedule Management]"}, {"num": 23, "text": "You find out that a project team member has stolen some material from\nthe workplace. The team member regrets the theft and promises not to\nrepeat it again. You must:", "options": {"A": "Get a statement in writing from the project team member saying\nhe will not repeat such an activity", "B": "Document the matter for your archives", "C": "Inform your HR department about the matter", "D": "Keep quiet until it repeats for a second time"}, "correct": ["C"], "explanation": "C - The correct option is to inform your company's HR department.\nThis is a disciplinary matter, and the project manager needs to let the\ncompany guidelines handle the situation. [PMI Code of Ethics and\nProfessional Conduct] [Prof. Responsibility]"}, {"num": 24, "text": "As part of the Develop Team process, the project manager has planned\nfor some Team Building activities. Team Building Activities should\ntake place throughout the project lifecycle but will have greater benefit\nwhen conducted:", "options": {"A": "On a need basis", "B": "At the end of the project lifecycle", "C": "Early in the project lifecycle", "D": "In the middle of the project lifecycle"}, "correct": ["C"], "explanation": "C - Team Building Activities should take place throughout the project\nlife cycle, but have greater benefit when conducted early in the project\nlife cycle. [PMBOK 6th edition, Page 341] [Project Resource\nManagement]"}, {"num": 25, "text": "Due to the scarce nature of organizational resources, several trends have\nbecome popular in the past several years. Which of the following is\nNOT a resource management method:", "options": {"A": "Kaizen", "B": "Critical path method", "C": "Total productive maintenance", "D": "Theory of constraints"}, "correct": ["B"], "explanation": "B - Due to scarce nature of critical resources, several trends have\nbecome popular in the past several years, including but not limited to,\nKaizen, Total Productive Maintenance, and Theory of Constraints etc.\nCritical Path Method is a project scheduling technique. [PMBOK 6th\nedition, Page 310] [Prof. Responsibility]"}, {"num": 26, "text": "Collect Requirements, Develop Schedule, and Perform Qualitative Risk\nAnalysis are all part of what process group?", "options": {"A": "Planning", "B": "Scope Planning", "C": "Monitor and Controlling", "D": "Executing"}, "correct": ["A"], "explanation": "A - All activities listed are planning activities. [PMBOK 6th edition,\nPage 25] [Project Framework]"}, {"num": 27, "text": "You have assembled a group of subject matter experts (SMEs) to define\nrisk probability and impact levels. You and your team are still in what\nprocess group?", "options": {"A": "Risk", "B": "Monitor and Controlling", "C": "Quantitative Analysis", "D": "Planning"}, "correct": ["D"], "explanation": "D - The probability and impact definitions are developed during the\nPlan Risk Management process which is a part of the Planning process\ngroup. [PMBOK 6th edition, Page 407] [Project Risk Management]"}, {"num": 28, "text": "Which of the following is a tool or technique of the Manage\nStakeholder Engagement process?", "options": {"A": "Communication technology", "B": "Communication models", "C": "Communication standard", "D": "Communication skills"}, "correct": ["D"], "explanation": "D - Communication skills is a tool and technique of the Manage\nStakeholder Engagement process. [PMBOK 6th edition, Page 523]\n[Project Stakeholder Management]"}, {"num": 29, "text": "Which of the following is not an input to the Develop Project Charter\nprocess?", "options": {"A": "Agreements", "B": "Business Case", "C": "Benefits management plan", "D": "Stakeholder register"}, "correct": ["D"], "explanation": "D - The stakeholder register is not an input to the Develop Project\nCharter process. [PMBOK 6th edition, Page 75] [Project Integration\nManagement]"}, {"num": 30, "text": "The Plan Stakeholder Engagement process has many inputs. Which of\nthe following is an input to the Plan Stakeholder Engagement process\nthat comes from the Conduct Procurements process?", "options": {"A": "Project management plan", "B": "Project charter", "C": "Historic stakeholder engagement plans", "D": "Agreements"}, "correct": ["D"], "explanation": "D - Agreements are inputs to the Plan Stakeholder Engagement process\nthat are provided by the Conduct Procurements process [PMBOK 6th\nedition, Page 517] [Project Stakeholder Management]"}, {"num": 31, "text": "You have the project management responsibility of a virtual team\ncomprising team members from the same company who live in\nwidespread geographic areas, employees who work from home offices\nand employees with mobility impairments. Virtual teams are formed as\na result of which of the following processes?", "options": {"A": "Acquire Resources", "B": "Plan Resource Management", "C": "Estimate Activity Resources", "D": "Develop Schedule"}, "correct": ["A"], "explanation": "A - Virtual teams are formed as a result of the Acquire Resources\nprocess. [PMBOK 6th edition, Page 333] [Project Resource\nManagement]"}, {"num": 32, "text": "The term ________ indicates the degree to which a particular product\nor service meets requirements, while _____________ indicates a\ncategory or rank used to distinguish that item from other similar items.", "options": {"A": "Quality, grade", "B": "Grade, standard", "C": "Grade, quality", "D": "Quality, standard"}, "correct": ["A"], "explanation": "A - Grade is a category or rank used to distinguish items that have the\nsame functional use; Quality indicates the degree to which items have\nmeet requirements. [PMBOK 6th edition, Page 274] [Project Quality\nManagement]"}, {"num": 33, "text": "Visiting a construction site to ensure the completed work is the same\nwork specified in the requirements is:", "options": {"A": "Milestone", "B": "Scope validation", "C": "Variance Analysis", "D": "Requirements traceability"}, "correct": ["B"], "explanation": "B - Inspection is a scope validation technique that includes activities\n(such as measuring, examining, and verifying) to determine whether\nwork and deliverables meet requirements and product acceptance\ncriteria. [PMBOK 6th edition, Page 163] [Project Scope Management]"}, {"num": 34, "text": "A Responsibility Assignment Matrix illustrates the connections\nbetween the work that needs to be done and the project team members.\nA RACI chart is a type of Responsibility Assignment matrix in which\nthe names of the roles being documented are:", "options": {"A": "Responsible, Administration, Check, and Inform", "B": "Reportable, Actionable, Check, and Inform", "C": "Responsible, Accountable, Consult, and Inform", "D": "Reportable, Actionable, Consult, and Implement"}, "correct": ["C"], "explanation": "C - In a RACI chart, the names of roles are Responsible, Accountable,\nConsult and Inform. [PMBOK 6th edition, Page 317] [Project Resource\nManagement]"}, {"num": 35, "text": "While reviewing project procurement and accounting records for your\nproject, you discover there is a pattern of unauthorized expenses by a\nspecific resource. These expenses are not within the scope of the project\nand were somewhat camouflaged within a number of large and\ncomplicated expense reports. What do you do?", "options": {"A": "If the total expenses are less than 1 percent of the project budget,\ndo nothing", "B": "Fire the resource", "C": "Notify the appropriate management immediately", "D": "Confront the resource"}, "correct": ["C"], "explanation": "C - Notify the appropriate management of the unauthorized expenses.\nProject managers are required by PMI's Code of Ethics to report any\nunethical or illegal behaviors or activities to the appropriate\nmanagement. Not doing so violates the PMI code. [PMI Code of Ethics\nand Professional Conduct] [Prof. Responsibility]"}, {"num": 36, "text": "Due to the unexpected release of a similar product from a competitor,\nthe Widgets International executive team has stepped up the pressure on\nthe product team to release the Widget product three months earlier.\nThe project manager uses what technique to shorten the schedule but\nmaintain the project scope?", "options": {"A": "Schedule compression", "B": "Rolling wave planning", "C": "Schedule network analysis", "D": "Schedule management planning"}, "correct": ["A"], "explanation": "A - Schedule compression is the technique of shortening the project\nschedule duration without reducing scope. [PMBOK 6th edition, Page\n215] [Project Schedule Management]"}, {"num": 37, "text": "Which of the following indicates the required cost performance in order\nto complete the project on budget?", "options": {"A": "TCPI", "B": "CPI", "C": "EAC", "D": "SPI"}, "correct": ["A"], "explanation": "A - The To-Complete Performance Index (TCPI) indicates the required\ncost performance in order to complete the project on budget. [PMBOK\n6th edition, Page 266] [Project Cost Management]"}, {"num": 38, "text": "A project to design and build a new aircraft is cancelled after the project\nhas been underway for some time. What process is employed to\ndocument what work was done and to what extent it was completed?", "options": {"A": "Validate Scope", "B": "Control Scope", "C": "Control Quality", "D": "Close Project or Phase"}, "correct": ["D"], "explanation": "D - If the project is terminated early, the Close Project or Phase process\nshould establish and document the level and extent of completion.\n[PMBOK 6th edition, Page 121] [Project Integration Management]"}, {"num": 39, "text": "The project manager of a large construction project is responsible for\nensuring that all changes to the building plans are approved and tracked\nbefore they are implemented. These activities form part of which\nprocess?", "options": {"A": "Validate Scope", "B": "Perform Configuration Management", "C": "Perform Integrated change control", "D": "Control Quality"}, "correct": ["C"], "explanation": "C - Integrated change control includes maintaining the integrity of\nbaselines by releasing only approved changes for incorporation into\nproject products or services and by maintaining their related\nconfiguration and planning documentation. [PMBOK 6th edition, Page\n113] [Project Integration Management]"}, {"num": 40, "text": "Vendor selection, vendor management, and documentation of lessons\nlearned are tasks that fall under this process:", "options": {"A": "Procurement management", "B": "Deliverable management", "C": "Conduct Procurements", "D": "Scope management"}, "correct": ["C"], "explanation": "C - The Conduct Procurements process involves collecting sellers’\nresponses, selecting the seller, and awarding the contract. [PMBOK 6th\nedition, Page 482] [Project Procurement Management]"}, {"num": 41, "text": "The Conduct Procurements process receives bids or proposals and\napplies criteria to select one or more sellers who are both qualified and\nacceptable as a seller. Which of the following techniques is not a valid\ntechnique for this process?", "options": {"A": "Make-or-buy analysis", "B": "Proposal Evaluation Techniques", "C": "Advertising", "D": "Bidder Conference"}, "correct": ["A"], "explanation": "A - Make-or-buy analysis is not a valid technique in the Conduct\nProcurements process. The other three choices are valid techniques.\n[PMBOK 6th edition, Page 482] [Project Procurement Management]"}, {"num": 42, "text": "You are managing a project that requires an environmental permit to do\nwork. The approval is in the final stages when a confidential, reliable\nreport is brought to your notice. The report indicates there is a high risk\nof an environmental hazard due to the project. Your manager tells you it\nis better to keep quiet at this stage since losses from terminating the\nproject might be very high. You must:", "options": {"A": "Send an email to your manager documenting the matter and\ndisowning ownership of the project", "B": "Inform the necessary authorities of the hazard, even if it means\ncancelling the project", "C": "Wait for the project to start and see if the information in the report\nis true", "D": "Keep quiet about the matter since you will follow your manager's\ninstructions"}, "correct": ["B"], "explanation": "B - The best option is to inform the necessary authorities about the\nreport so that the right decision can be made, even if it means the\nproject will be cancelled. [PMI Code of Ethics and Professional\nConduct] [Prof. Responsibility]"}, {"num": 43, "text": "A Work Breakdown Structure is a hierarchical illustration of all the\nwork to be done in a project. A WBS component does not represent:", "options": {"A": "Products", "B": "Results", "C": "Services", "D": "Project activities"}, "correct": ["D"], "explanation": "D - Upper level WBS components are decomposed into more easily\nmanaged elements and can be process- or product-oriented. The lowest\nlevel of the WBS is the work packages. The project activities are\nobtained by further decomposing the work packages. The activities\nbecome a part of the project schedule and not the WBS. [PMBOK 6th\nedition, Page 156] [Project Scope Management]"}, {"num": 44, "text": "Work Performance Information is not an output of which of the\nfollowing processes?", "options": {"A": "Validate Scope", "B": "Manage Communications", "C": "Monitor Risks", "D": "Control Scope"}, "correct": ["B"], "explanation": "B - Work Performance information is not an output of the Manage\nCommunications Process. [PMBOK 6th edition, Page 379] [Project\nRisk Management]"}, {"num": 45, "text": "The business case to justify a project typically contains:", "options": {"A": "The project's BAC and ETC", "B": "Identification of alternatives", "C": "Project WBS", "D": "Variance Analysis"}, "correct": ["B"], "explanation": "B - The business case for any project includes the analysis of the\nsituation, recommended solution and Identification of alternative\nsolutions. [PMBOK 6th edition, Page 31] [Project Integration\nManagement]"}, {"num": 46, "text": "Which of the following is not a Risk Diagramming technique?", "options": {"A": "Influence diagrams", "B": "Control charts", "C": "Decision trees", "D": "Tornado diagram"}, "correct": ["B"], "explanation": "B - The business case for any project includes the analysis of the\nsituation, recommended solution and Identification of alternative\nsolutions. [PMBOK 6th edition, Page 31] [Project Risk Management]"}, {"num": 47, "text": "The Cost of Quality principle includes:", "options": {"A": "The costs of ensuring conformance to requirements", "B": "The costs involved when changes are made to the requirements", "C": "The cost of deploying a project Configuration Management\nSystem", "D": "The costs associated with eliminating requirements"}, "correct": ["A"], "explanation": "A - Quality costs are the total costs incurred by investment in\npreventing nonconformance to requirements, appraising the product or\nservice for conformance to requirements, and failing to meet\nrequirements (rework). [PMBOK 6th edition, Pages 282, 283] [Project\nQuality Management]"}, {"num": 48, "text": "The most recent analysis of Microcorp's new fabrication facility\nrenovation project shows a CPI value of less than 1.0. What does this\nindicate?", "options": {"A": "The cost has overrun estimates.", "B": "The cost has underrun estimates.", "C": "The project is running ahead of schedule.", "D": "The schedule has slipped."}, "correct": ["A"], "explanation": "A - A CPI value of less than 1.0 indicates a cost overrun of the\nestimates. A CPI value greater than 1.0 indicates a cost underrun of the\nestimates. [PMBOK 6th edition, Page 263] [Project Cost Management]"}, {"num": 49, "text": "Robert is managing a road construction project. Due to unseasonal\nweather conditions, the team productivity might be above or below\ntarget. This is an example of:", "options": {"A": "Ambiguity risk", "B": "Variability risk", "C": "Mitigated risk", "D": "Opportunity risk"}, "correct": ["B"], "explanation": "B - Examples of variability risks include: productivity may be above or\nbelow target, the number of errors found during testing may be higher\nor lower than expected, or unseasonal weather conditions may occur\nduring the construction phase. [PMBOK 6th edition, Page 398] [Project\nRisk Management]"}, {"num": 50, "text": "Which of the following is NOT a valid WBS creation approach:", "options": {"A": "Parametric approach", "B": "Top-down approach", "C": "Use of organizational guidelines", "D": "Use of WBS templates"}, "correct": ["A"], "explanation": "A - A WBS structure may be created through various approaches. Some\nof the popular methods include the top-down approach, the use of\norganization-specific guidelines, and the use of WBS templates.\nParametric approach is an estimation technique and not a valid WBS\ncreation technique. [PMBOK 6th edition, Page 159] [Project Risk\nManagement]"}, {"num": 51, "text": "Project performance measurements assess the magnitude of variation\nfrom the original cost baseline. Once the degree of cost variation is\nknown, what step is performed next?", "options": {"A": "Audit the project team", "B": "Upgrade the configuration management database with new\ncontrols.", "C": "Replanning", "D": "Perform root cause analysis of the variance’s cause relative to the\ncost baseline\nPMP Lite Mock Exam 8"}, "correct": ["D"], "explanation": "D - Project performance measurements are used to assess the magnitude\nof variation. Important aspects of project cost control include\ndetermining the cause of variance relative to the cost baseline.\n[PMBOK 6th edition, Page 262] [Project Scope Management]"}];
+
+const storageKey = 'pmp_test_' + TEST_META.seq + '_' + TEST_META.slug;
+let state = { answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null };
+try { const saved = JSON.parse(localStorage.getItem(storageKey)||'null'); if(saved) state = {...state, ...saved, globalRunning:false, lastTick:null}; } catch(e) {}
+function save(){ localStorage.setItem(storageKey, JSON.stringify(state)); const el=document.getElementById('saveIndicator'); el.style.opacity=1; setTimeout(()=>el.style.opacity=0,700); }
+function fmt(s){ s=Math.max(0,Math.floor(s)); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
+function correctSet(q){ return new Set(q.correct||[]); }
+function ansSet(n){ return new Set(state.answers[n]||[]); }
+function isCorrect(q){ const a=ansSet(q.num), c=correctSet(q); if(a.size!==c.size) return false; for(const x of c){ if(!a.has(x)) return false; } return true; }
+function partial(q){ const a=ansSet(q.num), c=correctSet(q); if(a.size===0 || isCorrect(q)) return false; for(const x of a){ if(c.has(x)) return true; } return false; }
+function render(){
+  document.querySelector('.header-title').innerHTML = 'PMP Exam Prep<span>'+escapeHtml(TEST_META.name)+' · '+QUIZ_DATA.length+' Questions · PDF input</span>';
+  document.getElementById('examLimit').textContent = fmt(TEST_META.timeMinutes*60);
+  document.getElementById('sectionStatus').textContent = 'Test '+TEST_META.seq;
+  document.getElementById('allBtn').textContent = 'All ('+QUIZ_DATA.length+')';
+  const list=document.getElementById('questionsList'); list.innerHTML='';
+  let visible=0;
+  for(const q of QUIZ_DATA){
+    const submitted=!!state.submitted[q.num];
+    const c=submitted && isCorrect(q); const p=submitted && partial(q);
+    if(state.filter==='unanswered' && submitted) continue;
+    if(state.filter==='correct' && !c) continue;
+    if(state.filter==='wrong' && (!submitted || c)) continue;
+    if(state.filter==='flagged' && !state.flagged[q.num]) continue;
+    visible++;
+    const multi=(q.correct||[]).length>1;
+    const card=document.createElement('div'); card.className='q-card'; card.id='q'+q.num;
+    let opts='';
+    for(const [letter,text] of Object.entries(q.options)){
+      const selected=(state.answers[q.num]||[]).includes(letter);
+      let cls='opt';
+      if(!submitted && selected) cls+=' selected';
+      if(submitted){
+        if((q.correct||[]).includes(letter)) cls+=' correct-reveal';
+        else if(selected) cls+=' wrong-reveal';
+        else cls+=' neutral-reveal';
+      }
+      opts += `<div class="${cls}" onclick="selectOpt(${q.num},'${letter}')"><div class="opt-letter">${letter}</div><div class="opt-text">${escapeHtml(text)}</div></div>`;
+    }
+    let badge='';
+    if(submitted){ badge = c ? '<span class="result-badge correct">✓ Correct</span>' : (p ? '<span class="result-badge partial">◐ Partial</span>' : '<span class="result-badge wrong">✗ Incorrect</span>'); }
+    card.innerHTML = `<div class="q-header"><div class="q-num">Q${q.num}</div><div class="q-text">${escapeHtml(q.text)}</div></div><div class="q-options">${opts}</div><div class="q-actions"><button class="btn-submit" onclick="submitQ(${q.num})" ${submitted?'disabled':''}>Submit</button><button class="btn-clear" onclick="clearQ(${q.num})" ${submitted?'disabled':''}>Clear</button><button class="btn-flag ${state.flagged[q.num]?'flagged':''}" onclick="flagQ(${q.num})">⚑ ${state.flagged[q.num]?'Flagged':'Flag'}</button>${badge}</div><div class="explanation ${submitted?'show':''}"><strong>Answer Key and Explanation</strong>${escapeHtml(q.explanation||'')}</div>`;
+    list.appendChild(card);
+  }
+  document.getElementById('emptyState').style.display=visible?'none':'block';
+  updateStats();
+}
+function selectOpt(n,l){ const q=QUIZ_DATA.find(x=>x.num===n); if(!q || state.submitted[n]) return; const multi=(q.correct||[]).length>1; let arr=state.answers[n]||[]; if(multi){ arr=arr.includes(l)?arr.filter(x=>x!==l):arr.concat(l); } else { arr=[l]; } state.answers[n]=arr; save(); render(); }
+function submitQ(n){ if(!state.answers[n] || state.answers[n].length===0) return; state.submitted[n]=true; save(); render(); }
+function clearQ(n){ if(state.submitted[n]) return; delete state.answers[n]; save(); render(); }
+function flagQ(n){ state.flagged[n]=!state.flagged[n]; save(); render(); }
+function setFilter(f){ state.filter=f; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); const el=document.getElementById('filter-'+f); if(el)el.classList.add('active'); save(); render(); }
+function jumpToQuestion(){ const n=parseInt(document.getElementById('jumpInput').value,10); const el=document.getElementById('q'+n); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+function jumpToLastAnswered(){ const nums=Object.keys(state.submitted).map(Number).sort((a,b)=>b-a); if(nums.length){ const el=document.getElementById('q'+nums[0]); if(el)el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+function updateStats(){ const submitted=QUIZ_DATA.filter(q=>state.submitted[q.num]); const correct=submitted.filter(isCorrect).length; document.getElementById('scoreVal').textContent=correct; document.getElementById('pctVal').textContent=submitted.length?Math.round(correct/submitted.length*100)+'%':'—'; document.getElementById('fb-unanswered').textContent='Unanswered ('+(QUIZ_DATA.length-submitted.length)+')'; document.getElementById('fb-correct').textContent='✓ Correct ('+correct+')'; document.getElementById('fb-wrong').textContent='✗ Wrong ('+(submitted.length-correct)+')'; document.getElementById('fb-flagged').textContent='⚑ Flagged ('+Object.values(state.flagged).filter(Boolean).length+')'; document.getElementById('progressFill').style.width=(submitted.length/QUIZ_DATA.length*100)+'%'; updateTimerDisplay(); }
+function updateTimerDisplay(){ const el=document.getElementById('globalTimerVal'); el.textContent=fmt(state.globalRemaining); el.classList.toggle('warn',state.globalRemaining<=600 && state.globalRemaining>120); el.classList.toggle('critical',state.globalRemaining<=120); document.getElementById('globalTimerToggle').textContent=state.globalRunning?'Pause':'▶ Start'; const answered=Object.keys(state.submitted).length; const elapsed=TEST_META.timeMinutes*60-state.globalRemaining; const pace=answered?Math.round(elapsed/answered):0; document.getElementById('paceStatus').innerHTML = 'Answered: <strong>'+answered+'/'+QUIZ_DATA.length+'</strong> · Average pace: <strong>'+pace+' sec/question</strong>'; }
+function toggleGlobalTimer(){ state.globalRunning=!state.globalRunning; state.lastTick=Date.now(); save(); updateTimerDisplay(); }
+function resetGlobalTimer(){ state.globalRunning=false; state.globalRemaining=TEST_META.timeMinutes*60; state.lastTick=null; save(); updateTimerDisplay(); }
+setInterval(()=>{ if(state.globalRunning){ const now=Date.now(); const delta=Math.floor((now-(state.lastTick||now))/1000); if(delta>0){ state.globalRemaining=Math.max(0,state.globalRemaining-delta); state.lastTick=now; if(state.globalRemaining<=0) state.globalRunning=false; save(); updateTimerDisplay(); } }},1000);
+function showResetModal(){ document.getElementById('resetModal').classList.add('show'); }
+function hideResetModal(){ document.getElementById('resetModal').classList.remove('show'); }
+function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
+function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+render();
+
+</script>
+</body>
+</html>

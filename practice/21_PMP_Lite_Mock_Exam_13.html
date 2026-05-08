@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP Exam Prep - PMP Lite Mock Exam 13</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1e3c;
+    --navy-mid: #1a2f57;
+    --navy-light: #243d6e;
+    --gold: #c9a84c;
+    --gold-light: #e4c97a;
+    --cream: #faf8f3;
+    --cream-dark: #f0ece0;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --correct: #1a6b45;
+    --correct-bg: #d1fae5;
+    --wrong: #991b1b;
+    --wrong-bg: #fee2e2;
+    --partial: #92400e;
+    --partial-bg: #fef3c7;
+    --border: #ddd8c4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .header-title span { color: #fff; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; display: block; font-weight: 300; margin-top: 1px; }
+
+  .score-bar { display: flex; gap: 20px; align-items: center; }
+  .score-chip {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    text-align: center;
+  }
+  .score-chip .val { font-size: 1.35rem; font-weight: 600; color: var(--gold-light); line-height: 1; }
+  .score-chip .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .pct-chip {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    text-align: center;
+  }
+  .pct-chip .val { font-size: 1.35rem; font-weight: 600; color: #fff; line-height: 1; }
+  .pct-chip .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+
+  /* GLOBAL EXAM TIMER */
+  .exam-timer-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 10px;
+    padding: 7px 10px;
+    color: #fff;
+  }
+  .exam-timer-main { display: flex; flex-direction: column; min-width: 120px; }
+  .exam-timer-value {
+    font-size: 1.25rem;
+    line-height: 1;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--gold-light);
+  }
+  .exam-timer-value.warn { color: #fef3c7; }
+  .exam-timer-value.critical { color: #fecaca; }
+  .exam-timer-label {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+  .exam-timer-btn {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    padding: 6px 9px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .exam-timer-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .pace-strip {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6px 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.72);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .pace-strip strong { color: var(--gold-light); font-weight: 600; }
+  .btn-flag {
+    padding: 9px 14px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-flag:hover { border-color: var(--gold); color: var(--navy); }
+  .btn-flag.flagged { border-color: var(--gold); background: #fff8df; color: #7a5a00; }
+
+  /* PROGRESS */
+  .progress-wrap { background: var(--navy-mid); height: 4px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.4s ease; }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  #questionsList { padding-top: 20px; }
+
+  /* FILTER / NAV BAR */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: sticky;
+    top: 56px;
+    background: var(--cream);
+    z-index: 90;
+    padding: 12px 0 10px;
+    border-bottom: 1px solid var(--border);
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .filter-bar label { font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-right: 4px; }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    color: var(--muted);
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--navy-light); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .spacer { flex: 1; }
+  .jump-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .jump-wrap input {
+    width: 56px;
+    padding: 5px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .jump-wrap button {
+    padding: 5px 10px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .q-num {
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .q-text { font-size: 0.95rem; line-height: 1.65; color: var(--text); flex: 1; white-space: pre-wrap; }
+
+  /* OPTIONS */
+  .q-options { padding: 16px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+  }
+  .opt:hover { border-color: var(--navy-light); background: #f8f9ff; }
+  .opt.selected { border-color: var(--navy); background: #f0f3ff; }
+  .opt.correct-reveal { border-color: var(--correct); background: var(--correct-bg); }
+  .opt.wrong-reveal { border-color: var(--wrong); background: var(--wrong-bg); }
+  .opt.neutral-reveal { border-color: var(--border); background: var(--cream); cursor: default; }
+  .opt-letter {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .opt.selected .opt-letter { color: #fff; border-color: var(--navy); background: var(--navy); }
+  .opt.correct-reveal .opt-letter { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .opt.wrong-reveal .opt-letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+  .opt-text { font-size: 0.88rem; line-height: 1.55; color: var(--text); flex: 1; white-space: pre-wrap; }
+
+  /* ACTIONS */
+  .q-actions { padding: 12px 24px 16px; display: flex; align-items: center; gap: 10px; }
+  .btn-submit {
+    padding: 9px 22px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-submit:hover { background: var(--navy-light); }
+  .btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+  .btn-clear {
+    padding: 9px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-clear:hover { border-color: var(--wrong); color: var(--wrong); }
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .result-badge.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-badge.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .result-badge.partial { background: var(--partial-bg); color: var(--partial); }
+
+  /* EXPLANATION */
+  .explanation {
+    margin: 0 24px 20px;
+    padding: 16px 18px;
+    background: #f8f9ff;
+    border-left: 3px solid var(--navy-light);
+    border-radius: 0 10px 10px 0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #374151;
+    display: none;
+    white-space: pre-wrap;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { display: block; color: var(--navy); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+
+  /* SAVE INDICATOR */
+  #saveIndicator {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    opacity: 0;
+    transition: opacity 0.4s;
+    white-space: nowrap;
+  }
+
+  /* RESET MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 10px; }
+  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 10px; justify-content: center; }
+  .btn-danger { padding: 10px 24px; background: var(--wrong); color: #fff; border: none; border-radius: 8px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .btn-cancel { padding: 10px 24px; background: transparent; color: var(--muted); border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+  /* TRY AGAIN */
+  .reset-btn {
+    padding: 9px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin: 0 24px 20px;
+    display: block;
+  }
+  .reset-btn:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* TIMER */
+  .q-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 24px;
+    border-top: 1px solid var(--cream-dark);
+    background: #fafafa;
+  }
+  .timer-display {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    font-weight: 600;
+    min-width: 54px;
+  }
+  .timer-display.running { color: #1a6b45; }
+  .btn-timer {
+    padding: 5px 13px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+  }
+  .btn-timer:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-timer.running { border-color: #1a6b45; color: #1a6b45; background: #f0fdf4; }
+  .btn-timer-reset {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-size: 0.72rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .btn-timer-reset:hover { border-color: var(--wrong); color: var(--wrong); }
+  .timer-label { font-size: 0.72rem; color: var(--muted); margin-right: 2px; }
+
+  /* EMPTY STATE */
+  #emptyState { text-align: center; padding: 60px 20px; color: var(--muted); display: none; }
+  #emptyState .icon { font-size: 2.5rem; margin-bottom: 12px; }
+  #emptyState p { font-size: 0.9rem; }
+
+
+
+  /* EXAM MODE / BREAKS */
+  .mode-toggle {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    white-space: nowrap;
+  }
+  .mode-toggle button {
+    padding: 5px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+  }
+  .mode-toggle button.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+  .section-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+    padding: 5px 10px;
+    border-radius: 14px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+  .q-card.locked {
+    opacity: 0.66;
+  }
+  .locked-notice {
+    margin: 0 24px 18px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--cream-dark);
+    color: var(--muted);
+    font-size: 0.78rem;
+    border-left: 3px solid var(--gold);
+  }
+  .break-timer-value {
+    font-size: 2.2rem;
+    color: var(--navy);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin: 14px 0 4px;
+  }
+  .break-note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-wrap: wrap; }
+    .score-bar { gap: 10px; flex-wrap: wrap; }
+    .pace-strip { flex-direction: column; gap: 4px; }
+    .score-chip .val, .pct-chip .val { font-size: 1.1rem; }
+    .header-title { font-size: 1.05rem; }
+    .main { padding: 20px 16px 60px; }
+    .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
+    .explanation { margin-left: 16px; margin-right: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-title">PMP Exam Prep<span>PMP Lite Mock Exam 13 · 50 Questions · PDF input</span></div>
+    <div class="score-bar">
+      <div class="exam-timer-wrap"><div class="exam-timer-main"><div class="exam-timer-value" id="globalTimerVal">00:00:00</div><div class="exam-timer-label">Time Remaining</div></div><button class="exam-timer-btn" id="globalTimerToggle" onclick="toggleGlobalTimer()">▶ Start</button><button class="exam-timer-btn" onclick="resetGlobalTimer()">↺</button></div>
+      <div class="section-chip" id="sectionStatus">Test 21</div>
+      <div id="saveIndicator">✓ Saved</div>
+      <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
+      <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
+    </div>
+  </div>
+  <div class="pace-strip"><span id="paceStatus">Pace target: start when ready.</span><span>Test limit: <strong id="examLimit">00:00:00</strong></span></div>
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+<div class="main">
+  <div class="filter-bar">
+    <label>Show:</label>
+    <button class="filter-btn active" onclick="setFilter('all')" id="filter-all"><span id="allBtn">All (50)</span></button>
+    <button class="filter-btn" onclick="setFilter('unanswered')" id="filter-unanswered"><span id="fb-unanswered">Unanswered</span></button>
+    <button class="filter-btn" onclick="setFilter('correct')" id="filter-correct"><span id="fb-correct">✓ Correct</span></button>
+    <button class="filter-btn" onclick="setFilter('wrong')" id="filter-wrong"><span id="fb-wrong">✗ Wrong</span></button>
+    <button class="filter-btn" onclick="setFilter('flagged')" id="filter-flagged"><span id="fb-flagged">⚑ Flagged</span></button>
+    <button class="filter-btn" onclick="jumpToLastAnswered()" id="lastAnsweredBtn">↳ Last answered</button>
+    <div class="spacer"></div><div class="jump-wrap"><span>Jump to</span><input type="number" id="jumpInput" min="1" max="50"><button onclick="jumpToQuestion()">Go</button></div>
+  </div>
+  <div id="questionsList"></div><div id="emptyState"><div class="icon">⌕</div><p>No questions match this filter.</p></div>
+</div>
+<div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
+<script>
+const TEST_META = {"seq": 21, "name": "PMP Lite Mock Exam 13", "timeMinutes": 60, "slug": "PMP_Lite_Mock_Exam_13"};
+const QUIZ_DATA = [{"num": 1, "text": "You have completed your estimates for your project and have\ndetermined that it will take 10 months to complete. However, your\nproject sponsor insists that it be completed in nine months. How do you\nhandle this?", "options": {"A": "Increase the budget by 10 percent", "B": "Inform the sponsor you will have to explore the options before\ncommitting to that timeline", "C": "Reduce scope", "D": "Add resources"}, "correct": ["B"], "explanation": "B - Inform the sponsor you must explore other options before\ncommitting to that timeline. Changing the budget, reducing scope, or\nadding resources are activities that must be agreed on by the project\nstakeholders before you can proceed. PMI requires project managers to\nprovide timely and accurate information, and to follow all decision-\nmaking processes and policies. [PMI Code of Ethics and Professional\nConduct] [Prof. Responsibility]"}, {"num": 2, "text": "A project manager prepared a composite resource calendar. Which of\nthe following is unlikely to be part of the resource calendar?", "options": {"A": "Availability of Resources", "B": "Skills of Human Resources", "C": "Cost of Resources", "D": "Capabilities of Human Resources"}, "correct": ["C"], "explanation": "C - A resource calendar does not usually contain cost information. The\nother choices are valid constituents of a resource calendar. [PMBOK\n6th edition, Page 323]"}, {"num": 3, "text": "You have just become the project manager of a project already in\nexecution. During your first week on the job, you receive multiple\nrequests from different stakeholders asking for project reports in\nvarious formats. These requests overwhelm you. What should you do\nfirst?", "options": {"A": "Ignore the requests and send the standard project report", "B": "Issue a change request", "C": "Stakeholders are always right, fulfill their requests on top priority", "D": "Review the communications management plan"}, "correct": ["D"], "explanation": "D - The first step should be to determine if the requests are legitimate or\nnot. The ideal place to locate this information is the communications\nmanagement plan. The communications management plan documents\nstakeholder communication requirements including the content,\nlanguage and format. [PMBOK 6th edition, Page 377] [Project\nStakeholder Management]"}, {"num": 4, "text": "A project was awarded based on a competitive proposal. Management\nmade a commitment that a few key team members would work on the\nproject. When such assignments happen, they are:", "options": {"A": "Bargaining agreements", "B": "Schedule constraints", "C": "Assignment risk", "D": "Pre-assignments"}, "correct": ["D"], "explanation": "D - When team members are assigned to projects in advance of the start\nof the project, they are termed as pre-assignments. Such assignments\ncan happen when resources are promised as part of a competitive\nproposal, when projects are dependent on critical resources, or if some\nstaff assignments have been defined in the project charter. [PMBOK 6th\nedition, Page 333] [Project Resource Management]"}, {"num": 5, "text": "You have recently been assigned to a research project. Although there\nis a limited number of key stakeholders, there is a big number of other\nstakeholders involved in this project, especially the ones who will be\nusing the research’s outcome. You have some specific questions. Which\nof the following is the best way to quickly obtain responses from a big\ngroup of stakeholders?", "options": {"A": "Focus groups", "B": "Questionnaires", "C": "Interviews", "D": "Phone calls"}, "correct": ["B"], "explanation": "B - Questionnaires offer a quick way of obtaining responses from a big\ngroup of people especially when the specific questions are known in\nadvance. Interviews, phone conversations and focus groups are more\ntime consuming techniques. [PMBOK 6th edition, Page 143] [Project\nStakeholder Management]"}, {"num": 6, "text": "Your project team members have just started to work together and are\nnow adjusting their work habits and behaviors to support each other.\nWhich stage of the Tuckman ladder has your team just entered?", "options": {"A": "Norming", "B": "Performing", "C": "Forming", "D": "Storming"}, "correct": ["A"], "explanation": "A - During the norming stage, the project team members start to work\ntogether and adjust their work habits and behaviors to support each\nother. [PMBOK 6th edition, Page 338] [Project Resource Management]"}, {"num": 7, "text": "A project manager had scheduled a number of training programs for his\nteam. However, he was aware that apart from planned training,\nunplanned training also took place in a number of ways. Which of these\nis not one of the ways in which unplanned training can take place?", "options": {"A": "Classroom", "B": "Observation", "C": "Project performance appraisals", "D": "Conversation"}, "correct": ["A"], "explanation": "A - Scheduled training occurs as stated in the Human Resource plan\nand can include online, classroom, on-the-job, etc. Unplanned training\ncan take place through conversation, observation, and project\nperformance appraisals. [PMBOK 6th edition, Page 342] [Project\nResource Management]"}, {"num": 8, "text": "As part of the procurement process, the procuring organization elected\nto have an estimate of costs prepared by an outside professional\nestimator. The estimator came up with an estimate of $500,000.\nHowever, the cost estimates prepared by prospective sellers were in the\nrange of $200,000. How can this be best interpreted?", "options": {"A": "The procurement statement of work was deficient and ambiguous.", "B": "The professional estimator has inflated the estimate of costs.", "C": "The prospective sellers do not have the required skills to do the\nproject.", "D": "Prospective sellers are trying to underbid and win the project."}, "correct": ["A"], "explanation": "A - When prospective bids are significantly different from the estimates\nprepared by a professional estimator, it likely means that the\nprocurement statement of work (SOW) was deficient or that the\nprospective sellers have misunderstood the procurement SOW. The\nother choices jump to conclusions without relevant data. It is possible\nthat some prospective sellers do not have the skills or are trying to\nunderbid; but in this case, all of them are off by a large percentage.\nHence, it points to a deficient statement of work. [PMBOK 6th edition,\nPage 479] [Project Procurement Management]"}, {"num": 9, "text": "Which of the following allows a project management team to\ncommunicate all approved and rejected changes to the stakeholders\nconsistently?", "options": {"A": "Configuration management system", "B": "Verification management system", "C": "Configuration status accounting", "D": "Change management board"}, "correct": ["A"], "explanation": "A- A configuration/change management system, including change\ncontrol processes, provides a mechanism for the project management\nteam to communicate all approved and rejected changes to the\nstakeholders consistently. [PMBOK 6th edition, Page 115]"}, {"num": 10, "text": "Which of the following are more important inputs to the Manage\nStakeholder Engagement process in relation to the others?", "options": {"A": "Risk management plan and Scope management plan", "B": "Communications management plan and Cost management plan", "C": "Stakeholder engagement plan and Schedule management plan", "D": "Stakeholder engagement plan and Communications management\nplan"}, "correct": ["D"], "explanation": "D - Any component of the project management plan can be used as an\ninput but the most important ones are the communications management\nplan, the risk management plan, the stakeholder engagement plan and\nthe change management plan. [PMBOK 6th edition, Page 525]"}, {"num": 11, "text": "Which of the following is incorrect?", "options": {"A": "Contingency reserves are not part of the project cost baseline.", "B": "Management reserves are not part of the project cost baseline.", "C": "The project manager needs to get approval before spending\nmanagement reserve.", "D": "Reserves are usually included in the total budget of a project."}, "correct": ["A"], "explanation": "A - Contingency reserves are included in the project cost baseline.\n[PMBOK 6th edition, Page 254] [Project Cost Management]"}, {"num": 12, "text": "Linda is a first-time project manager and is analyzing a project\nschedule. She intends to apply resource leveling, and she has the\nfollowing guidelines on Resource Leveling. Which of these four\nstatements is incorrect?", "options": {"A": "Resource Leveling can often cause the critical path to change.", "B": "Resource Leveling is applied to a schedule before it has been\nanalyzed by the critical path method.", "C": "Resource Leveling is applied to keep resource usage at a constant\nlevel.", "D": "Resource Leveling is necessary when resources have been over-\nallocated."}, "correct": ["B"], "explanation": "B - Resource leveling is a schedule network analysis technique. It is\napplied to a schedule that has already been analyzed by the critical path\nmethod. [PMBOK 6th edition, Page 211] [Project Schedule\nManagement]"}, {"num": 13, "text": "The Code of Ethics and Professional Conduct has as its foundation four\nvalues identified by practitioners from the global project management\ncommunity. They are:", "options": {"A": "Respect, fairness, transparency, and freedom", "B": "Responsibility, transparency, fairness, and honesty", "C": "Respect, freedom, honesty, and transparency", "D": "Responsibility, respect, fairness, and honesty"}, "correct": ["D"], "explanation": "D - The values that practitioners from the global project management\ncommunity have identified as being the most important are:\nResponsibility, respect, fairness, and honesty. These values form the\nbasis for the Code of Ethics and Professional Conduct. [PMI Code of\nEthics and Professional Conduct] [Prof. Responsibility]"}, {"num": 14, "text": "Prompt lists are usually developed based on historical information and\nknowledge accumulated from previous similar projects. Which of the\nfollowing statements about risk prompt lists is wrong?", "options": {"A": "The prompt list can be used as a framework", "B": "The lowest level of the Risk Breakdown Structure (RBS) cannot\nbe used as a risk prompt list.", "C": "Prompt lists can be used for idea generation", "D": "Prompt list is a predetermined list of risk categories"}, "correct": ["B"], "explanation": "B - The lowest level in the RBS can be used as a basic risk prompt list.\nThe other statements are all true. [PMBOK 6th edition, Page 416]\n[Project Risk Management]"}, {"num": 15, "text": "Lena is managing the construction of a new office facility for her\ncompany. The project is halfway through the execution. The project\nsponsor has asked Lena to ensure that all key project stakeholders are\nstill committed to the project. How can Lena assess the stakeholders'\ncurrent engagement levels?", "options": {"A": "By analyzing the most recent issue register", "B": "By reviewing the Stakeholders Engagement Assessment Matrix\nlast updated during the planning phase of the project", "C": "By requesting the key stakeholders to submit a signed declaration\nof commitment", "D": "By communicating and interacting with the key stakeholders"}, "correct": ["D"], "explanation": "D - The stakeholders' current engagement levels can be assessed by\ncommunicating and interacting with them. Reviewing the Stakeholders\nEngagement Assessment Matrix developed during the planning phase\nof the project will be of little help, if it has not been reviewed since\nthen. Analyzing the issue register can indicate stakeholder engagement\nlevels, but this document alone is not sufficient to determine the current\nengagement levels. Asking the stakeholders to sign a declaration of\ncommitment is ridiculous. [PMBOK 6th edition, Page 524] [Project\nStakeholder Management]"}, {"num": 16, "text": "The list of identified risks is found in the risk register. However, the\noverall high-level project risks is first listed in the:", "options": {"A": "Scope statement", "B": "Requirement document", "C": "Project charter", "D": "Risk management plan"}, "correct": ["C"], "explanation": "C - The project charter is a document that authorizes the project. Along\nwith details such as the purpose of the project, project objectives, high-\nlevel requirements, etc., it also lists the overall project risks. [PMBOK\n6th edition, Page 81] [Project Integration Management]"}, {"num": 17, "text": "A number of identified risks occurred early in a project. As a result,\nmost of the project objectives ended up in jeopardy. The project\nmanager decided to present a case to management that the project be\nclosed down. This is an example of:", "options": {"A": "Risk Acceptance", "B": "Risk Mitigation", "C": "Risk Avoidance", "D": "Risk Transfer"}, "correct": ["C"], "explanation": "C - Risk avoidance involves changing the project management plan to\neliminate the risk. Although an extreme situation, shutting down a\nproject constitutes a radical but legitimate avoidance strategy. [PMBOK\n6th edition, Page 443] [Project Risk Management]"}, {"num": 18, "text": "20 percent of the work was completed in a project. At this stage, the\nproject manager determined that the budget at completion (BAC) was\nno longer viable and developed a forecasted estimate at completion\n(EAC). What index can the project manager use to look at the\ncalculated projection of cost performance that must be achieved on the\nremaining work?", "options": {"A": "Schedule Performance Index (SPI)", "B": "Cost Performance Index (CPI)", "C": "Cost Variance (CV)", "D": "To-Complete Performance Index (TCPI)"}, "correct": ["D"], "explanation": "D - The to-complete performance index (TCPI) is the calculated\nprojection of cost performance that must be achieved on the remaining\nwork to meet a specified goal such as the BAC or EAC. It is defined as\nthe work remaining divided by the funds remaining. [PMBOK 6th\nedition, Page 266] [Project Cost Management]"}, {"num": 19, "text": "A project uses rounding of activity cost estimates data to the nearest\n$100, uses staff hours as the unit of measure for resources, and has a\nvariance threshold of 10 percent deviation from the baseline plan. These\napproaches are typically documented in the:", "options": {"A": "Cost management plan", "B": "Scope Statement", "C": "WBS", "D": "Project charter"}, "correct": ["A"], "explanation": "A - Cost management processes and their associated tools and\ntechniques are documented in the cost management plan. These include\nparameters such as the level of accuracy (how much rounding), units of\nmeasure (staff hours, weeks, etc.), and control thresholds (percentage\ndeviation from baseline plan). [PMBOK 6th edition, Pages 238, 239]\n[Project Cost Management]"}, {"num": 20, "text": "You are two days late on reporting the status for a project you are\nmanaging. The status report indicates that the project is lagging behind\nschedule. During the current week, you are confident of making up\nsome of the lost time. How should you report project status?", "options": {"A": "Since the status report is already due, do nothing. Send out the\nstatus report next week when the project is back on track.", "B": "Since the status report is already two days overdue, you may\ncommunicate to stakeholders that you will send a consolidated\nstatus report next week. In this manner, you can avoid being\nuntruthful or falsifying reports.", "C": "Send out a status report to all stakeholders indicating that the\nproject is on track. Once this week goes by, things will be fine,\nand the status reports will be back to normal.", "D": "You should report project status exactly as it is. You may also\nmention that you expect to make up some of the lost ground but\nwill truthfully represent current status."}, "correct": ["D"], "explanation": "D - As practitioners in the global project management community, it is\nour responsibility to be honest in our communications and conduct. We\nneed to provide accurate information even if it is not favorable to us.\n[PMI Code of Ethics and Professional Conduct] [Prof. Responsibility]"}, {"num": 21, "text": "You are a business development manager at a mid-sized automobile\nmanufacturing company. Recently, you were given a project to assess\nthe feasibility of manufacturing light-duty trucks in a Southeast Asian\ncountry. To develop a cost estimate, you visit the country with a team\nof experts to analyze local resources such as power, labor, and real\nestate. After the visit, you discuss the findings with an automobile\nmanufacturing consultant. The consultant notes that the local laws and\ngovernment bureaucracy typically make foreign investors spend more\nthan a year obtaining all necessary permits. To avoid these delays, the\nconsultant advises giving a small amount of company stock to the son\nof the country’s president. In return, the president’s son will personally\nexpedite the issuing of all required permits. What should you do?", "options": {"A": "Add the opportunity costs associated with the year delay in getting\npermitted without local assistance.", "B": "Notify your company that a bribe is necessary to avoid lengthy\ndelays in permitting.", "C": "Facilitate a meeting with the president’s son and your managing\ndirector to finalize the details of the stock for services\narrangement.", "D": "Determine the legality of the proposed exchange of stock for\npermitting assistance."}, "correct": ["D"], "explanation": "D - Determine the legality of the proposed exchange of stock for\nassistance with permitting. If this arrangement does not violate the laws\nof your country, the country where you are hoping to start work,\ncorporate regulations, or industry regulations, the cost of the exchange\nmay well offset the opportunity cost of a yearlong permitting delay.\nOnce the legality has been established, a plan forward can be\ndeveloped. [PMI Code of Ethics and Professional Conduct] [Prof.\nResponsibility]"}, {"num": 22, "text": "Sally, a project manager who is a PMP, discovered an error in the\nestimation of a project. A certain cost was double calculated; as a result,\nthe budget, which is already approved, was now in excess by $25,000.\nShe knows that publicizing this information may cause her to get a poor\nperformance appraisal, since her company is meticulous about such\nmatters. What should she do?", "options": {"A": "She does not need to do anything since this will have a positive\nimpact on the project's spend and margins.", "B": "Since the excess funds won't be required, she can now use the\nfunding to make additional investments for the project.", "C": "She should bring this to the notice of the appropriate stakeholders\nand have the necessary steps taken to decrease the budget.", "D": "She does not need to do anything since the budget is already\napproved. This situation is okay as long as the extra funds are not\nspent."}, "correct": ["C"], "explanation": "C - She needs to notify management and the appropriate stakeholders of\nthis discrepancy so that corrective action can be taken. She needs to do\nthis even at the cost of receiving a poor performance appraisal. [PMI\nCode of Ethics and Professional Conduct] [Prof. Responsibility]"}, {"num": 23, "text": "Conformance to requirements and fitness for use are key concepts in\nquality management. Which of the following is another name for\ncustomer needs?", "options": {"A": "Scope creep", "B": "Process mapping", "C": "Voice of the Customer", "D": "Prompt list"}, "correct": ["C"], "explanation": "C - In quality management, customer needs and requirements are also\nknown as voice of the customer (VOC). [PMBOK 6th edition, Page\n145] [Project Quality Management]"}, {"num": 24, "text": "At the beginning of the project, a project manager realized that the\ntechnical expertise of the team was limited, a risk to the project.\nMidway through the project, the project manager decided this was no\nlonger a risk and considered it outdated. As part of which process\nwould he do the risk reassessment?", "options": {"A": "Perform Qualitative Risk Analysis", "B": "Perform Quantitative Risk Analysis", "C": "Identify Risks", "D": "Monitor Risks"}, "correct": ["D"], "explanation": "D - Risk reassessment is performed as part of the Monitor Risks\nprocess. Such project risk reassessments should be regularly scheduled\nand may result in the closure of outdated risks. [PMBOK 6th edition,\nPage 453]"}, {"num": 25, "text": "You were just hired by a waste management company to develop a\nsolid waste management program in an underdeveloped country. The\nproject will be on a build-operate-transfer basis and will have a two-\nyear duration. At the close of the project, local authorities will run the\nprogram. The World Bank sponsors the project, and a large consortium\nhas received the award. Your company is subcontracted to do this\nproject along with two more contractor companies. After the project\nscope was finalized, you developed a cost estimate of US$5.5 million.\nThe sponsor reviews your detailed costing sheets and is concerned\nabout the total cost figure. He tells you that the maximum allowable\nbudget he can allocate for this project is US$5 million. What should\nyou do?", "options": {"A": "Ask for a reduction in scope.", "B": "Evaluate ways that can result in cost savings and re-estimate the\nproject.", "C": "Advise the sponsor that the project cannot be completed within\nthe available budget.", "D": "Begin the project with the intent of requesting a budget increase at\na later point in time."}, "correct": ["B"], "explanation": "B - You should evaluate approaches that can result in cost savings and\nre-estimate the project. Requesting a change in budget or scope without\nfully analyzing the options or simply moving ahead with plans to\nrequest additional funds in the future are violations of the PMI Code of\nEthics. This code requires project managers to provide accurate, timely,\nand truthful project information at all times. [PMI Code of Ethics and\nProfessional Conduct] [Prof. Responsibility]"}, {"num": 26, "text": "A certain project was in the Collect Requirements phase. The product’s\neventual users could not define their requirements. In this scenario,\nwhich of the following tools could have helped determine the\nrequirements?", "options": {"A": "Interviews", "B": "Prototypes", "C": "Surveys", "D": "Questionnaires"}, "correct": ["B"], "explanation": "B - Prototypes are working models of the expected product before\nactually building it. The tangible nature of prototypes allows users to\nexperiment with a model of their final product early in the project life\ncycle and to generate clear feedback. Interviews, questionnaires and\nsurveys were unlikely to help in this case since the users were\nstruggling to define their requirements. [PMBOK 6th edition, Page 147]"}, {"num": 27, "text": "All team members have not yet been hired for a project. However, the\nproject manager went ahead with estimating activity durations,\nbudgeting, and other activities. What could likely happen to the activity\ndurations?", "options": {"A": "The activity durations are likely to decrease.", "B": "The activity durations are likely to change.", "C": "The activity durations will remain the same.", "D": "The activity durations are likely to increase."}, "correct": ["B"], "explanation": "B - Project team assignments are an input to the Estimate Activity\nDurations process. Estimating activity durations without this input is\nrisky. When estimating of activity durations is done when all team\nmembers have not been acquired, it is possible that the competency\nlevels of the newer team members will be different from those planned.\nTherefore, it can only be said that the activity durations will likely\nchange. Whether they will remain the same, increase, or decrease, will\ndepend on the competency levels of the new team members. [PMBOK\n6th edition, Page 198] [Project Resource Management]"}, {"num": 28, "text": "The senior analyst on a project came up with Activity Duration\nEstimates as follows: Activity A: 10 days + a lag of two days; Activity\nB: 1 week + a lead of three days. The project manager who reviewed\nthese estimates raised some objections to them. What would they most\nlikely be?", "options": {"A": "The analyst should have included percent variance information\nwhile mentioning the Activity Duration Estimate. This would\nindicate a range of possible results.", "B": "Activity Duration Estimates should not include any lag or lead\ninformation.", "C": "It is advisable not to mix up units such as days and weeks while\ncoming up with Activity Duration Estimates.", "D": "The Activity Duration Estimate should have also mentioned the\npredecessor or successor activity to which the lag or lead is\nattached."}, "correct": ["B"], "explanation": "B - Activity duration estimates are quantitative assessments of the\nlikely work periods to complete an activity. They do not contain any lag\nor lead information. Lead and lags are determined during the Develop\nSchedule process when schedule network analysis is performed.\n[PMBOK 6th edition, Page 209] [Project Schedule Management]"}, {"num": 29, "text": "The sponsor of a project created a document that included the business\nneed and the cost-benefit analysis. What would this document be\ntermed as?", "options": {"A": "The project statement of work", "B": "The business case", "C": "The project management plan", "D": "The contract"}, "correct": ["B"], "explanation": "B - The business case usually provides information from a business\nstandpoint so that any investment in the project can be justified.\nTypically it would contain both the business need as well as the cost-\nbenefit analysis. The business case is an input to the Develop Project\nCharter process. [PMBOK 6th edition, Page 77] [Project Integration\nManagement]"}, {"num": 30, "text": "Mark is managing a telecom network deployment project. The buyer of\nthe telecom network is an external entity. Recently, the customer\nrequested that all future project updates be posted to their information\nsystem automatically. In order to implement this, the project team needs\nto customize their project management information system so it can be\nintegrated with the customer’s information system. This is a new\ncustomer requirement that was not a part of the original project’s scope.\nWhat should the project manager do?", "options": {"A": "Request that the customer terminate the current contract and\naward a new contract.", "B": "Ask the project team to customize the project management\ninformation system.", "C": "Ignore the request; this is outside the project’s scope.", "D": "Initiate the formal change control process."}, "correct": ["D"], "explanation": "D - Change requests do come. They are never ignored; they are\nmanaged through the integrated change control process. This does not\nrequire terminating the contract. Implementing the new requirement\nwithout following the change control process is not advisable.\n[PMBOK 6th edition, Page 113] [Project Stakeholder Management]"}, {"num": 31, "text": "Variance analysis refers to cost performance measurements used to\ndetermine the magnitude of variation in comparison to the original cost\nbaseline. What is the trend on the percentage range of acceptable\nvariances as the project progresses?", "options": {"A": "The percentage range of acceptable variances will tend to decrease\nas the project progresses.", "B": "The percentage range of acceptable variances will tend to increase\nas the project progresses.", "C": "The percentage range of acceptable variances will tend to decrease\nfirst and then increase as the project progresses beyond 50 percent\ncompletion.", "D": "The percentage range of acceptable variances remain the same as\nthe project progresses."}, "correct": ["A"], "explanation": "A - At the start of the project, larger percentage variances are\nacceptable. However, as more work is accomplished, the percentage\nrange of acceptable variances will tend to decrease. [PMBOK 6th\nedition, Page 262] [Project Cost Management]"}, {"num": 32, "text": "Many organizations consider contract administration to be an\nadministrative function separate from the project organization. Who\ncarries out the function of contract administration in such\norganizations?", "options": {"A": "The Project Manager", "B": "The Procurement Advisor", "C": "The Procurement Administrator", "D": "The Contract Advisor"}, "correct": ["C"], "explanation": "C - In many organizations, a procurement administrator is responsible\nfor ensuring that the procurement relationship is properly managed. The\nprocurement administrator may be on the project team but typically\nreports to a supervisor from a different department. [PMBOK 6th\nedition, Page 494] [Project Procurement Management]"}, {"num": 33, "text": "An experienced project manager was assigned a project of small scope.\nWhich of the following could be true of the project?", "options": {"A": "Defining Activities, sequencing activities, estimating activity\ndurations, and developing the schedule could be viewed as a\nsingle process.", "B": "Estimating activity durations may be skipped for the project.", "C": "Developing and Controlling the schedule could be viewed as a\nsingle process.", "D": "Defining Activities, estimating activity durations, developing the\nschedule, and controlling the schedule could be viewed as a single\nprocess."}, "correct": ["A"], "explanation": "A - On projects with small scope, defining activities, sequencing\nactivities, estimating activity durations, and developing the schedule are\ntightly linked and are often viewed as a single process. The other\nchoices are incorrect. [PMBOK 6th edition, Page 175]"}, {"num": 34, "text": "A project was randomly selected for a quality audit, and the external\nauditor found various issues and nonconformance. The project manager\nlodged a complaint with the quality department that this was improper\nprocedure, and he should have received notice since an external auditor\nwas involved. What is your view?", "options": {"A": "The project manager is correct. Quality audits need to be\nscheduled when an external auditor is involved so that the project\nmanager has time to prepare for them.", "B": "The project manager is correct. The project team must perform all\nquality audits.", "C": "The project manager has no case. Quality audits may be random\nand performed by internal or external auditors.", "D": "The project manager has no case. Quality audits are always\ncarried out by external auditors."}, "correct": ["C"], "explanation": "C - The project manager has no case. Quality audits may be scheduled\nor random and may be conducted by internal or external auditors. It is\nthe responsibility of the project manager and the project management to\nensure that the project documentation is kept up to date and available\nfor any quality audit. [PMBOK 6th edition, Page 294] [Project Quality\nManagement]"}, {"num": 35, "text": "You are reviewing the response to an RFP issued by your company for\na project that will last a year and exceed US$5 million. Three vendors\nhave been shortlisted. The first, Nosteltec, Inc., is a relatively new\ncompany in this industry. It has assembled a team of industry experts\nwith vast industry experience and qualifications. The second company,\nXen Contractor, has been in business for 20 years. You and your\ncompany have a long and positive history working with this vendor.\nThe third company is SonoNet LLC. It has been in business for 10\nyears and has a reputation for extensive expertise and superior delivery.\nThey are also well-known for being one of the more expensive\nproviders in the market. You have many relationships with the Xen\nContractor staff, which you established during prior procurement\ncontracts with this company. As a result, a project manager from Xen\nContractor, with whom you are friendly both personally and\nprofessionally, calls you for clarification on a point", "options": {"A": "Clarify via email", "B": "Clarify via phone call", "C": "Advise the vendor that the RFP is self-explanatory", "D": "Send the clarification to all three vendors"}, "correct": ["D"], "explanation": "D - Send the clarification to all three vendors. PMI's Code of Ethics and\nProfessional Conduct mandates that project managers provide fair and\nequal access to information and apply the rules of the organization\nwithout favoritism. [PMI Code of Ethics and Professional Conduct]\n[Prof. Responsibility]"}, {"num": 36, "text": "During the procurement process, a contractual relationship is\nestablished between a buyer and a seller. During the contract lifecycle,\nwhat is the correct sequence in which the following terminology is\napplied to a seller: Vendor, selected source, and bidder?", "options": {"A": "The seller is viewed first as a selected source, then as a bidder and\nthen as a vendor.", "B": "The seller is viewed first as a vendor, then as a bidder and then as\na selected source.", "C": "The seller is viewed first as a bidder, then as a selected source and\nthen as a vendor.", "D": "The seller is viewed first as a bidder, then as a vendor, then as a\nselected source."}, "correct": ["C"], "explanation": "C - During the contract life cycle, the seller can be viewed first as a\nbidder, then as a selected source, and then as the contracted supplier or\nvendor. [PMBOK 6th edition, Page 461] [Project Procurement\nManagement]"}, {"num": 37, "text": "A project manager is analyzing the relationship between the\nconsumption of project funds and the work being accomplished for\nsuch expenditures. In which project management process would this be\ndone?", "options": {"A": "Determine Budget", "B": "Estimate Costs", "C": "Control Costs", "D": "Manage Costs"}, "correct": ["C"], "explanation": "C - Control Costs is the process of monitoring the status of a project to\nupdate the project budget and manage changes to the cost baseline.\nMuch of the effort of cost control involves analyzing the relationship\nbetween the consumption of project funds and the work being\naccomplished for such expenditures. [PMBOK 6th edition, Page 257]"}, {"num": 38, "text": "One of the stakeholders of a project initiated a change request, which\nwas then documented in the change control system. Who would\ntypically be responsible for approving or rejecting the change request?", "options": {"A": "An authority within the project management team or external\norganization", "B": "The sponsor", "C": "The stakeholder who raised the change request", "D": "The project manager"}, "correct": ["A"], "explanation": "A - Typically, some authority within the project management team or\nan external organization would approve or reject the change request.\nHowever, on many projects the project manager is given authority to\napprove certain types of change requests. [PMBOK 6th edition, Page\n115] [Project Integration Management]"}, {"num": 39, "text": "A critical project rollout was delayed because one of the stakeholders\ndid not receive necessary communication on time. On further analysis,\nthe project manager discovered that the communication was sent to the\nwrong teams. This could have happened because:", "options": {"A": "Communication broke down between the project team and the\nstakeholder.", "B": "The project manager failed to manage stakeholder expectations.", "C": "The stakeholder communications requirements were not properly\nanalyzed during the Plan Communications Management process.", "D": "The stakeholder did not proactively ask for updates."}, "correct": ["C"], "explanation": "C - It is likely that stakeholder communications requirements were not\nproperly analyzed during the Plan Communications Management\nprocess and the Project Communications Management Plan was not\naccurate. [PMBOK 6th edition, Page 377] [Project Stakeholder\nManagement]"}, {"num": 40, "text": "While sequencing activities for a project, the project management team\napplied certain discretionary dependencies. This was based on their\nknowledge of best practices within the project application area. What is\nthe potential risk involved in using such dependencies?", "options": {"A": "They can create fixed float values and create external\ndependencies.", "B": "They can create arbitrary float values and limit later scheduling\noptions.", "C": "They can create arbitrary float values and create external\ndependencies.", "D": "They can create arbitrary float values and create mandatory\ndependencies."}, "correct": ["B"], "explanation": "B - Discretionary dependencies are established based on the knowledge\nof best practices within a specific application area. This is done to\nachieve a specific sequence even though there are other options. The\nrisk is that they may cause arbitrary float values and later limit\nscheduling options because of the specific sequencing chosen.\n[PMBOK 6th edition, Page 191] [Project Schedule Management]"}, {"num": 41, "text": "Activity attributes extend the description of the activity by identifying\nvarious components associated with the activity. Typically, how many\nattributes are associated with each activity?", "options": {"A": "They should be between five and ten.", "B": "The number of attributes varies by application area.", "C": "They should be fewer than five.", "D": "The number of attributes depends on the activity duration."}, "correct": ["B"], "explanation": "B - Activity attributes can vary by application area. Components for\neach activity change over time. Initially they may include activity ID,\nWBS ID, and activity name. Later, they may include activity codes,\nactivity description, predecessor activities, successor activities, logical\nrelationships, leads, lags, resource requirements, imposed dates,\nconstraints, and assumptions. [PMBOK 6th edition, Page 186] [Project\nSchedule Management]"}, {"num": 42, "text": "Due to a tight project schedule, a project manager did not document\nlessons learned throughout the project cycle. However, at the end of the\nproject, he finally documented the lessons learned. Your comment on\nthis is:", "options": {"A": "This is not OK. Lessons learned must be documented throughout\nthe project as well as at the end of the project.", "B": "This is OK. Lessons learned should be documented at the end of\nthe project.", "C": "This is not OK. Lessons learned need to be documented\nthroughout the project and must not be done at the project’s end.", "D": "This is correct. Lessons learned are intended to be documented\nonly at the project’s end."}, "correct": ["A"], "explanation": "A - Lessons learned should be documented throughout the project\ncycle. The Manage Project Knowledge process is an executing process\nthat stresses on this requirement. [PMBOK 6th edition, Page 98]\n[Project Integration Management]"}, {"num": 43, "text": "A project manager is preparing the WBS for a software project. The\nWBS includes all the product and project work but excludes the project\nmanagement work. From the following choices, choose a statement that\ncorrectly describes this situation.", "options": {"A": "This is incorrect. Include product work and project management\nas part of the WBS but exclude project work.", "B": "This is incorrect. Project work and project management are part of\nthe WBS, but product work is not.", "C": "This is incorrect. Include product work, project work, and project\nmanagement work.", "D": "This is correct. Include product and project work as part of the\nWBS but exclude project management work."}, "correct": ["C"], "explanation": "C - The WBS is a deliverable-oriented decomposition of all the work to\nbe done by the project team to achieve project objectives. It organizes\nand defines the total scope of the project. Thus, it includes product\nwork, project work and the project management work required to\ncomplete the project. [PMBOK 6th edition, Page 159] [Project Scope\nManagement]"}, {"num": 44, "text": "As part of earned value management (EVM), a project manager is\ncalculating the to-complete performance index (TCPI) based on EAC.\nThe data he has is as follows: The budget at completion for the project\nis $100,000. The earned value for the project is $25,000. The actual\ncosts to date are $40,000, and the estimate at completion is $115,000.\nWhat is the TCPI that he will get?", "options": {"A": "1.1", "B": "0.9", "C": "1", "D": "0"}, "correct": ["C"], "explanation": "C - TCPI based on EAC = (BAC - EV)/(EAC - AC) = (100000 -\n25000)/(115000 - 40000) = 75000/75000 = 1. [PMBOK 6th edition,\nPage 266] [Project Cost Management]"}, {"num": 45, "text": "How can changes be made to a project management plan once the\nproject manager baselines it?", "options": {"A": "By generating a change request and having it approved through\nthe Perform Integrated Change Control process.", "B": "This is typically done by using a version control system. The\nproject manager creates a new version with the changes and\nbaselines it as the new baseline.", "C": "This is done by maintaining a revision history or log. The project\nmanager documents the changes in detail and then baselines it.", "D": "A project management plan cannot be changed once it is\nbaselined. An addendum has to be created to incorporate the\nchanges."}, "correct": ["A"], "explanation": "A - Once the project management plan has been baselined, it may be\nchanged only when a change request is generated and approved through\nthe Perform Integrated Change Control process. To keep track of\nchanges, a version control system or a revision log will also be\nmaintained. However, the changed version can be baselined only after\napproval. [PMBOK 6th edition, Page 113] [Project Integration\nManagement]"}, {"num": 46, "text": "The morale of the team members of a project is very low. The team\nmembers feel they were not given opportunities to participate in the\norganizational team development activities due to over-allocation to\nproject tasks, and so, they missed opportunities to develop. Which of\nthe following is the most likely cause of this situation?", "options": {"A": "Use of zero-sum rewards in the project", "B": "A poorly defined resource calendar", "C": "Too many senior team members", "D": "Poor interpersonal skills in the team"}, "correct": ["B"], "explanation": "B - Resource calendars identify times when the project team members\ncan participate in team development activities. If the team members are\nunable to find time for such activities because they are over allocated, it\nis likely that the calendar has been poorly planned. [PMBOK 6th\nedition, Page 323] [Project Resource Management]"}, {"num": 47, "text": "Given multiple alternatives, the group decision method that allows the\nlargest block in a group to decide (even if more than 50 percent of the\nmembers of the group do not support the decision) is:", "options": {"A": "Dictatorship", "B": "Plurality", "C": "Unanimity", "D": "Majority"}, "correct": ["B"], "explanation": "B - This group decision-making technique is called Plurality. Even if a\nmajority (where more than 50% of the members support the decision) is\nnot achieved, the largest block in the group makes the decision.\n[PMBOK 6th edition, Page 144] [Project Scope Management]"}, {"num": 48, "text": "In a multi-phase project, the procurement team decided to close the\nprocurements applicable to a particular phase of the project. What\nhappens to unresolved claims?", "options": {"A": "Unresolved claims are usually resolved at the end of all phases of\nthe project.", "B": "Unresolved claims are also closed when the procurements for that\nphase are closed.", "C": "Unresolved claims remain open for a period of one year from\nclosure of procurements.", "D": "Unresolved claims may still be subject to litigation after closure."}, "correct": ["D"], "explanation": "D - Even after the procurements for a particular phase are closed,\nunresolved claims are still subject to litigation. [PMBOK 6th edition,\nPage 498] [Project Procurement Management]"}, {"num": 49, "text": "During the Control Scope process, analysis of the scope performance\nresulted in a change request to the scope baseline. This change request\nwill be processed for review and disposition in the:", "options": {"A": "Control Quality", "B": "Perform Integrated Change Control", "C": "Monitor and Control Project Work", "D": "Validate Scope"}, "correct": ["B"], "explanation": "B - Analysis of Scope performance is done as part of the Control Scope\nphase. Determining the cause and degree of variance relative to the\nscope baseline is an important aspect of this activity (called Variance\nAnalysis). Change requests that result from this activity are processed\nin the Perform Integrated Change Control phase. [PMBOK 6th edition,\nPage 113] [Project Integration Management]"}, {"num": 50, "text": "The quality cost of a project rose significantly during the course of the\nproject. A post-mortem analysis of the increased cost revealed that this\nwas due to poorly defined acceptance criteria. During which phase\nshould the acceptance criteria have been properly captured?", "options": {"A": "Develop Project Charter process", "B": "Define Scope process", "C": "Manage Stakeholder Engagement process", "D": "Plan Quality Management process\nPMP Lite Mock Exam 13"}, "correct": ["B"], "explanation": "B - Acceptance criteria are documented in the project scope statement,\ndeveloped during the Define Scope process. Poorly defined acceptance\ncriteria would then propagate to the Plan Quality Management process\nused for planning quality. [PMBOK 6th edition, Page 154]"}];
+
+const storageKey = 'pmp_test_' + TEST_META.seq + '_' + TEST_META.slug;
+let state = { answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null };
+try { const saved = JSON.parse(localStorage.getItem(storageKey)||'null'); if(saved) state = {...state, ...saved, globalRunning:false, lastTick:null}; } catch(e) {}
+function save(){ localStorage.setItem(storageKey, JSON.stringify(state)); const el=document.getElementById('saveIndicator'); el.style.opacity=1; setTimeout(()=>el.style.opacity=0,700); }
+function fmt(s){ s=Math.max(0,Math.floor(s)); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
+function correctSet(q){ return new Set(q.correct||[]); }
+function ansSet(n){ return new Set(state.answers[n]||[]); }
+function isCorrect(q){ const a=ansSet(q.num), c=correctSet(q); if(a.size!==c.size) return false; for(const x of c){ if(!a.has(x)) return false; } return true; }
+function partial(q){ const a=ansSet(q.num), c=correctSet(q); if(a.size===0 || isCorrect(q)) return false; for(const x of a){ if(c.has(x)) return true; } return false; }
+function render(){
+  document.querySelector('.header-title').innerHTML = 'PMP Exam Prep<span>'+escapeHtml(TEST_META.name)+' · '+QUIZ_DATA.length+' Questions · PDF input</span>';
+  document.getElementById('examLimit').textContent = fmt(TEST_META.timeMinutes*60);
+  document.getElementById('sectionStatus').textContent = 'Test '+TEST_META.seq;
+  document.getElementById('allBtn').textContent = 'All ('+QUIZ_DATA.length+')';
+  const list=document.getElementById('questionsList'); list.innerHTML='';
+  let visible=0;
+  for(const q of QUIZ_DATA){
+    const submitted=!!state.submitted[q.num];
+    const c=submitted && isCorrect(q); const p=submitted && partial(q);
+    if(state.filter==='unanswered' && submitted) continue;
+    if(state.filter==='correct' && !c) continue;
+    if(state.filter==='wrong' && (!submitted || c)) continue;
+    if(state.filter==='flagged' && !state.flagged[q.num]) continue;
+    visible++;
+    const multi=(q.correct||[]).length>1;
+    const card=document.createElement('div'); card.className='q-card'; card.id='q'+q.num;
+    let opts='';
+    for(const [letter,text] of Object.entries(q.options)){
+      const selected=(state.answers[q.num]||[]).includes(letter);
+      let cls='opt';
+      if(!submitted && selected) cls+=' selected';
+      if(submitted){
+        if((q.correct||[]).includes(letter)) cls+=' correct-reveal';
+        else if(selected) cls+=' wrong-reveal';
+        else cls+=' neutral-reveal';
+      }
+      opts += `<div class="${cls}" onclick="selectOpt(${q.num},'${letter}')"><div class="opt-letter">${letter}</div><div class="opt-text">${escapeHtml(text)}</div></div>`;
+    }
+    let badge='';
+    if(submitted){ badge = c ? '<span class="result-badge correct">✓ Correct</span>' : (p ? '<span class="result-badge partial">◐ Partial</span>' : '<span class="result-badge wrong">✗ Incorrect</span>'); }
+    card.innerHTML = `<div class="q-header"><div class="q-num">Q${q.num}</div><div class="q-text">${escapeHtml(q.text)}</div></div><div class="q-options">${opts}</div><div class="q-actions"><button class="btn-submit" onclick="submitQ(${q.num})" ${submitted?'disabled':''}>Submit</button><button class="btn-clear" onclick="clearQ(${q.num})" ${submitted?'disabled':''}>Clear</button><button class="btn-flag ${state.flagged[q.num]?'flagged':''}" onclick="flagQ(${q.num})">⚑ ${state.flagged[q.num]?'Flagged':'Flag'}</button>${badge}</div><div class="explanation ${submitted?'show':''}"><strong>Answer Key and Explanation</strong>${escapeHtml(q.explanation||'')}</div>`;
+    list.appendChild(card);
+  }
+  document.getElementById('emptyState').style.display=visible?'none':'block';
+  updateStats();
+}
+function selectOpt(n,l){ const q=QUIZ_DATA.find(x=>x.num===n); if(!q || state.submitted[n]) return; const multi=(q.correct||[]).length>1; let arr=state.answers[n]||[]; if(multi){ arr=arr.includes(l)?arr.filter(x=>x!==l):arr.concat(l); } else { arr=[l]; } state.answers[n]=arr; save(); render(); }
+function submitQ(n){ if(!state.answers[n] || state.answers[n].length===0) return; state.submitted[n]=true; save(); render(); }
+function clearQ(n){ if(state.submitted[n]) return; delete state.answers[n]; save(); render(); }
+function flagQ(n){ state.flagged[n]=!state.flagged[n]; save(); render(); }
+function setFilter(f){ state.filter=f; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); const el=document.getElementById('filter-'+f); if(el)el.classList.add('active'); save(); render(); }
+function jumpToQuestion(){ const n=parseInt(document.getElementById('jumpInput').value,10); const el=document.getElementById('q'+n); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+function jumpToLastAnswered(){ const nums=Object.keys(state.submitted).map(Number).sort((a,b)=>b-a); if(nums.length){ const el=document.getElementById('q'+nums[0]); if(el)el.scrollIntoView({behavior:'smooth',block:'start'}); } }
+function updateStats(){ const submitted=QUIZ_DATA.filter(q=>state.submitted[q.num]); const correct=submitted.filter(isCorrect).length; document.getElementById('scoreVal').textContent=correct; document.getElementById('pctVal').textContent=submitted.length?Math.round(correct/submitted.length*100)+'%':'—'; document.getElementById('fb-unanswered').textContent='Unanswered ('+(QUIZ_DATA.length-submitted.length)+')'; document.getElementById('fb-correct').textContent='✓ Correct ('+correct+')'; document.getElementById('fb-wrong').textContent='✗ Wrong ('+(submitted.length-correct)+')'; document.getElementById('fb-flagged').textContent='⚑ Flagged ('+Object.values(state.flagged).filter(Boolean).length+')'; document.getElementById('progressFill').style.width=(submitted.length/QUIZ_DATA.length*100)+'%'; updateTimerDisplay(); }
+function updateTimerDisplay(){ const el=document.getElementById('globalTimerVal'); el.textContent=fmt(state.globalRemaining); el.classList.toggle('warn',state.globalRemaining<=600 && state.globalRemaining>120); el.classList.toggle('critical',state.globalRemaining<=120); document.getElementById('globalTimerToggle').textContent=state.globalRunning?'Pause':'▶ Start'; const answered=Object.keys(state.submitted).length; const elapsed=TEST_META.timeMinutes*60-state.globalRemaining; const pace=answered?Math.round(elapsed/answered):0; document.getElementById('paceStatus').innerHTML = 'Answered: <strong>'+answered+'/'+QUIZ_DATA.length+'</strong> · Average pace: <strong>'+pace+' sec/question</strong>'; }
+function toggleGlobalTimer(){ state.globalRunning=!state.globalRunning; state.lastTick=Date.now(); save(); updateTimerDisplay(); }
+function resetGlobalTimer(){ state.globalRunning=false; state.globalRemaining=TEST_META.timeMinutes*60; state.lastTick=null; save(); updateTimerDisplay(); }
+setInterval(()=>{ if(state.globalRunning){ const now=Date.now(); const delta=Math.floor((now-(state.lastTick||now))/1000); if(delta>0){ state.globalRemaining=Math.max(0,state.globalRemaining-delta); state.lastTick=now; if(state.globalRemaining<=0) state.globalRunning=false; save(); updateTimerDisplay(); } }},1000);
+function showResetModal(){ document.getElementById('resetModal').classList.add('show'); }
+function hideResetModal(){ document.getElementById('resetModal').classList.remove('show'); }
+function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
+function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+render();
+
+</script>
+</body>
+</html>
