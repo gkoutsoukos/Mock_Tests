@@ -504,6 +504,577 @@
     .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
     .explanation { margin-left: 16px; margin-right: 16px; }
   }
+/* =========================================================
+     Mobile compact interface + dark mode upgrade
+     ========================================================= */
+
+  .theme-toggle-test {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-test:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  body.dark {
+    --navy: #d6b85a;
+    --navy-mid: #050816;
+    --navy-light: #1f2937;
+    --gold: #d6b85a;
+    --gold-light: #f0d879;
+    --cream: #0b1020;
+    --cream-dark: #1f2937;
+    --text: #f8f5ea;
+    --muted: #a7afbf;
+    --correct: #86efac;
+    --correct-bg: rgba(34,197,94,.16);
+    --wrong: #fca5a5;
+    --wrong-bg: rgba(239,68,68,.16);
+    --partial: #fbbf24;
+    --partial-bg: rgba(245,158,11,.16);
+    --border: #374151;
+  }
+
+  body.dark {
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  body.dark .header {
+    background: #050816;
+    box-shadow: 0 2px 24px rgba(0,0,0,.55);
+  }
+
+  body.dark .header-title span,
+  body.dark .pace-strip,
+  body.dark .pace-strip span {
+    color: rgba(248,245,234,.72);
+  }
+
+  body.dark .exam-timer-wrap,
+  body.dark .score-chip,
+  body.dark .pct-chip,
+  body.dark .section-chip {
+    background: #111827;
+    border-color: rgba(214,184,90,.28);
+  }
+
+  body.dark .mode-toggle button {
+    border-color: rgba(248,245,234,.22);
+  }
+
+  body.dark .mode-toggle button.active {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .filter-bar {
+    background: rgba(11,16,32,.96);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn,
+  body.dark .jump-wrap input,
+  body.dark .btn-timer,
+  body.dark .btn-clear,
+  body.dark .btn-flag,
+  body.dark .reset-btn {
+    background: #111827;
+    color: var(--text);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn.active,
+  body.dark .jump-wrap button,
+  body.dark .btn-submit {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .q-card,
+  body.dark .modal {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  body.dark .q-header {
+    border-color: #1f2937;
+  }
+
+  body.dark .q-num,
+  body.dark .opt.selected .opt-letter {
+    background: #050816;
+    color: #d6b85a;
+    border-color: #050816;
+  }
+
+  body.dark .opt {
+    background: #0b1020;
+    border-color: #374151;
+  }
+
+  body.dark .opt:hover {
+    background: #111827;
+    border-color: rgba(214,184,90,.55);
+  }
+
+  body.dark .opt.selected {
+    background: rgba(214,184,90,.12);
+    border-color: #d6b85a;
+  }
+
+  body.dark .q-timer {
+    background: #0b1020;
+    border-color: #1f2937;
+  }
+
+  body.dark .explanation {
+    background: #0b1020;
+    color: #d1d5db;
+    border-left-color: #d6b85a;
+  }
+
+  body.dark .explanation strong,
+  body.dark .modal h3,
+  body.dark .timer-display {
+    color: #f0d879;
+  }
+
+  body.dark .locked-notice {
+    background: #0b1020;
+    border-left-color: #d6b85a;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      font-size: 15px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 120;
+    }
+
+    .header-inner {
+      padding: 9px 12px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-title {
+      font-size: 1.02rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .header-title span {
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .exam-timer-wrap {
+      padding: 6px 8px;
+      gap: 6px;
+      border-radius: 9px;
+      min-width: 0;
+    }
+
+    .exam-timer-main {
+      min-width: 82px;
+    }
+
+    .exam-timer-value {
+      font-size: 1.05rem;
+    }
+
+    .exam-timer-label {
+      font-size: 0.49rem;
+      letter-spacing: .05em;
+    }
+
+    .exam-timer-btn {
+      padding: 5px 7px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle {
+      grid-column: 1 / -1;
+      order: 10;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle button,
+    .section-chip {
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .section-chip {
+      justify-self: stretch;
+      text-align: center;
+      display: none;
+    }
+
+    .score-chip,
+    .pct-chip {
+      padding: 6px 8px;
+      min-width: 62px;
+    }
+
+    .score-chip .val,
+    .pct-chip .val {
+      font-size: 1rem;
+    }
+
+    .score-chip .lbl,
+    .pct-chip .lbl {
+      font-size: 0.5rem;
+      letter-spacing: .05em;
+    }
+
+    #saveIndicator {
+      display: none;
+    }
+
+    .theme-toggle-test {
+      padding: 5px 8px;
+      font-size: 0.68rem;
+    }
+
+    .score-bar > button[onclick="showResetModal()"] {
+      padding: 5px 8px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .pace-strip {
+      display: none;
+    }
+
+    .progress-wrap {
+      height: 3px;
+    }
+
+    .main {
+      padding: 0 10px 56px;
+    }
+
+    #questionsList {
+      padding-top: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 118px;
+      z-index: 100;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar label,
+    .spacer,
+    .jump-wrap {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .q-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .q-header {
+      padding: 12px 12px 10px;
+      gap: 8px;
+    }
+
+    .q-num {
+      font-size: 0.62rem;
+      padding: 3px 8px;
+    }
+
+    .q-text {
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .q-options {
+      padding: 10px 12px 12px;
+      gap: 7px;
+    }
+
+    .opt {
+      padding: 9px 10px;
+      gap: 9px;
+      border-radius: 9px;
+    }
+
+    .opt-letter {
+      width: 23px;
+      height: 23px;
+      min-width: 23px;
+      font-size: 0.68rem;
+    }
+
+    .opt-text {
+      font-size: 0.88rem;
+      line-height: 1.36;
+    }
+
+    .q-actions {
+      padding: 8px 12px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit,
+    .btn-clear,
+    .btn-flag {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+    }
+
+    .explanation {
+      margin: 0 12px 12px;
+      padding: 12px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .q-timer {
+      padding: 7px 12px;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .timer-label {
+      display: none;
+    }
+
+    .timer-display {
+      font-size: 0.78rem;
+      min-width: 48px;
+    }
+
+    .btn-timer,
+    .btn-timer-reset {
+      padding: 4px 9px;
+      font-size: 0.7rem;
+    }
+
+    .reset-btn {
+      margin: 0 12px 12px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+    }
+
+    .modal {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .pct-chip {
+      display: none;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+    }
+
+    .opt-text {
+      font-size: 0.85rem;
+    }
+  }
+
+
+  /* =========================================================
+     Ultra-compact scroll behavior upgrade
+     - hides Study/Simulation controls
+     - keeps only timer/score row sticky while scrolling down
+     - reveals full header when scrolling up
+     ========================================================= */
+
+  .mode-toggle,
+  .section-chip {
+    display: none !important;
+  }
+
+  .header.compact-scroll .header-title,
+  .header.compact-scroll .pace-strip {
+    display: none;
+  }
+
+  .header.compact-scroll .header-inner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .header.compact-scroll .score-bar {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      transition: padding .16s ease;
+    }
+
+    .header-title {
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .score-bar {
+      grid-template-columns: 1fr auto auto auto;
+    }
+
+    .header.compact-scroll .header-inner {
+      padding: 6px 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+
+    .header.compact-scroll .theme-toggle-test,
+    .header.compact-scroll .score-bar > button[onclick="showResetModal()"] {
+      display: none;
+    }
+
+    .header.compact-scroll .exam-timer-wrap {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .score-chip,
+    .header.compact-scroll .pct-chip {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .filter-bar {
+      top: 54px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* =========================================================
+     Debug patch v2
+     Fixes:
+     - filter bar overlaying questions
+     - Light / Reset still visible in compact-scroll mode
+     - sticky header height conflicts
+     ========================================================= */
+
+  /* The filter bar should not be sticky. It was overlapping questions while scrolling. */
+  .filter-bar {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  /* In compact scroll mode, keep the top bar focused on timer + score only. */
+  .header.compact-scroll .theme-toggle-test,
+  .header.compact-scroll .score-bar > button[onclick="showResetModal()"],
+  .header.compact-scroll #saveIndicator {
+    display: none !important;
+  }
+
+  .header.compact-scroll .score-bar {
+    justify-content: space-between;
+  }
+
+  .header.compact-scroll .exam-timer-wrap,
+  .header.compact-scroll .score-chip,
+  .header.compact-scroll .pct-chip {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .filter-bar {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* Stable compact header patch: avoid flashing while scrolling */
+  .header {
+    will-change: transform;
+  }
+
+  .header-inner,
+  .score-bar,
+  .exam-timer-wrap,
+  .score-chip,
+  .pct-chip {
+    transition: padding .12s ease, opacity .12s ease;
+  }
+
+  @media (max-width: 700px) {
+    .header.compact-scroll .header-inner {
+      min-height: 54px;
+    }
+
+    .header.compact-scroll .progress-wrap {
+      display: none;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -516,6 +1087,7 @@
       <div id="saveIndicator">✓ Saved</div>
       <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
       <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button class="theme-toggle-test" id="themeToggle" type="button">🌙 Dark</button>
       <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
     </div>
   </div>
@@ -537,6 +1109,28 @@
 </div>
 <div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
 <script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('pmiStudyHubTheme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('pmiStudyHubTheme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(savedTheme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+      });
+    }
+  });
+})();
+
 const TEST_META = {"seq": 8, "name": "Knowledge Area Test: Project Time Management", "timeMinutes": 15, "slug": "Knowledge_Area_Test_Project_Time_Management"};
 const QUIZ_DATA = [{"num": 1, "text": "While planning the schedule for your project, you frequently refer to\nthe project calendar. The project calendar is:", "options": {"A": "A calendar containing the days on which various meetings are\nscheduled with the project team.", "B": "A calendar of working days or shifts that establishes those dates\non which schedule activities are worked.", "C": "A calendar containing the list of days on which the project team\nmembers will be on leave or take an “off.”", "D": "A calendar that establishes the dates on which project deliverables\ngo to the customer."}, "correct": ["B"], "explanation": "B - A project calendar is a calendar of working days or shifts that\nestablishes those dates on which schedule activities are worked. It also\nestablishes non-working days that determine dates on which schedule\nactivities are idle, such as holidays, weekends and non-shift hours.\n[PMBOK 6th edition, Page 220] [Project Schedule Management]"}, {"num": 2, "text": "As a project manager, you are in the process of preparing the project\nschedule for the project. Which of the following accurately depicts the\nsequence of your activities before you began to prepare the project\nschedule?", "options": {"A": "Sequence Activities, Estimate Activity Durations, Develop\nSchedule", "B": "Sequence Activities, Estimate Activity Durations, Define\nActivities", "C": "Estimate Activity Durations, Sequence Activities, Develop\nSchedule", "D": "Define Activities, Estimate Activity Durations, Sequence\nActivities"}, "correct": ["A"], "explanation": "A - The correct sequence of processes in the Schedule Management\nKnowledge Area is: Plan Schedule Management, Define Activities,\nSequence Activities, Estimate Activity Durations, Develop Schedule,\nand Control Schedule. [PMBOK 6th edition, Page 173] [Project\nSchedule Management]"}, {"num": 3, "text": "After one year of construction, an office building is scheduled for\ncompletion on 30 January. The landscaping work needs to start 15 days\nprior to the building’s completion. Which of the following relationships\nmost likely represents the relationship of the start of landscaping work\nto the completion of the office building?", "options": {"A": "Finish-to-start with a 15-day lead", "B": "Start-to-finish with a 15-day lead", "C": "Finish-to-start with a 15-day lag", "D": "Start-to-finish with a 15-day lag"}, "correct": ["A"], "explanation": "A - The landscaping work needs to start before completion of the office\nbuilding, so it is a finish-to-start relationship. Since it needs to start 15\ndays before completion of the building, it requires a lead of 15 days.\nHence, the answer is finish-to-start with a 15-day lead. [PMBOK 6th\nedition, Page 192] [Project Schedule Management]"}, {"num": 4, "text": "You are the project manager of a project. As part of the planning\nprocess, you use a planning technique to subdivide the project scope\nand deliverables into smaller, more manageable components. What is\nthis technique called?", "options": {"A": "Unit task analysis", "B": "Decomposition", "C": "Rolling wave planning", "D": "Arrow Diagramming Method"}, "correct": ["B"], "explanation": "B - Decomposition is the process of subdividing the project scope and\ndeliverables into smaller, more manageable components. [PMBOK 6th\nedition, Page 158] [Project Schedule Management]"}, {"num": 5, "text": "The accuracy of Activity Duration estimates can be improved by\nconsidering the amount of risk in the original estimate. The three types\nof estimates on which three-point estimates are based are:", "options": {"A": "Budgetary, ballpark, and Order of Magnitude", "B": "Best case scenario, expected scenario, and current scenario", "C": "Most likely, likely, and unlikely", "D": "Most likely, optimistic, and pessimistic"}, "correct": ["D"], "explanation": "D - The accuracy of Activity Duration estimates can be improved by\nconsidering the amount of risk in the original estimate. The three types\nof estimates on which three-point estimates are based are: Most likely,\nOptimistic, and Pessimistic. An Activity Duration can be estimated\nusing values derived from these three estimated durations. [PMBOK\n6th edition, Page 201] [Project Schedule Management]"}, {"num": 6, "text": "You have decided to apply Resource Leveling to a project because of a\ncritically required resource being available only at certain times. Which\nof the following will likely be true?", "options": {"A": "Resource Leveling can often cause the original critical path to\nchange.", "B": "Resource Leveling will over-allocate resources to schedule the\nproject before the deadline.", "C": "Resource Leveling will require additional resources to complete\nthe project.", "D": "Resource Leveling will never alter the original critical path."}, "correct": ["A"], "explanation": "A - Resource levelling can often cause the original critical path to\nchange. [PMBOK 6th edition, Page 211] [Project Schedule\nManagement]"}, {"num": 7, "text": "For projects where a business analyst collaborates with the project\nmanagers in managing the project scope, which of the following task is\nmost likely to be performed by the business analyst?", "options": {"A": "Acquire project resources", "B": "Monitor the change control process", "C": "Elicit, document, and manage stakeholder requirements", "D": "Control project costs"}, "correct": ["C"], "explanation": "C - Eliciting, documenting and managing stakeholder requirements is a\nresponsibility of a business analyst in projects where business analysts\ncollaborate with project managers to manage the project scope.\n[PMBOK 6th edition, Page 132] [Project Schedule Management]"}, {"num": 8, "text": "A technique that iterates the project schedule many times to calculate a\ndistribution of possible project completion dates is:", "options": {"A": "Monte Carlo Analysis", "B": "Montford analysis", "C": "Pareto Cost chart", "D": "Deming Analysis"}, "correct": ["A"], "explanation": "A - Monte Carlo Analysis is a technique that computes or iterates the\nproject cost or the project schedule many times, using input values\nselected at random from probability distributions of possible costs or\ndurations. In this way, one can calculate a distribution of possible total\nproject costs or completion dates. [PMBOK 6th edition, Page 213]\n[Project Schedule Management]"}, {"num": 9, "text": "The critical path method (CPM) calculates the theoretical early start and\nfinish dates and late start and finish dates. The difference between the\nlate and early start of a task is a:", "options": {"A": "Free float", "B": "Feeding buffer", "C": "Danger zone", "D": "Total float"}, "correct": ["D"], "explanation": "D - The difference between the early and late finish of a task is called\nthe total float for that task. Total float is the amount of time that a\nscheduled activity can be delayed from its early start date without\ndelaying the project finish date. [PMBOK 6th edition, Page 210]\n[Project Schedule Management]"}, {"num": 10, "text": "You are managing a project that involves work on a film shoot. The\nediting activity can happen only after the film is shot. The best\ndescription of the logical relationship between the editing and shooting\nof the film is:", "options": {"A": "Finish-to-Finish (FF)", "B": "Start-to-Start (SS)", "C": "Start-to-Finish (SF)", "D": "Finish-to-Start (FS)\nKnowledge Area Quiz\nProject Time Management"}, "correct": ["D"], "explanation": "D - This is a situation where the editing activity can happen only after\nthe film shooting has been completed. Hence, the logical relationship\nbetween the two tasks is Finish-to-Start (FS). [PMBOK 6th edition,\nPage 190] [Project Schedule Management]"}];
 
@@ -603,6 +1197,42 @@ function hideResetModal(){ document.getElementById('resetModal').classList.remov
 function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
 function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 render();
+
+
+(function initCompactScrollHeader() {
+  const header = document.querySelector('.header');
+  let isCompact = false;
+  let ticking = false;
+
+  function updateHeader() {
+    if (!header) return;
+
+    const y = window.scrollY || 0;
+
+    // Stable hysteresis:
+    // - once the user scrolls meaningfully down, keep the compact header
+    // - only restore the full header near the top of the page
+    // This avoids flashing caused by tiny up/down scroll movements.
+    if (!isCompact && y > 120) {
+      isCompact = true;
+      header.classList.add('compact-scroll');
+    } else if (isCompact && y < 35) {
+      isCompact = false;
+      header.classList.remove('compact-scroll');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateHeader();
+})();
 
 </script>
 </body>

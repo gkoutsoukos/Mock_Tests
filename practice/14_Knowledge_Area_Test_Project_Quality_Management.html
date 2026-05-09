@@ -504,6 +504,577 @@
     .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
     .explanation { margin-left: 16px; margin-right: 16px; }
   }
+/* =========================================================
+     Mobile compact interface + dark mode upgrade
+     ========================================================= */
+
+  .theme-toggle-test {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-test:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  body.dark {
+    --navy: #d6b85a;
+    --navy-mid: #050816;
+    --navy-light: #1f2937;
+    --gold: #d6b85a;
+    --gold-light: #f0d879;
+    --cream: #0b1020;
+    --cream-dark: #1f2937;
+    --text: #f8f5ea;
+    --muted: #a7afbf;
+    --correct: #86efac;
+    --correct-bg: rgba(34,197,94,.16);
+    --wrong: #fca5a5;
+    --wrong-bg: rgba(239,68,68,.16);
+    --partial: #fbbf24;
+    --partial-bg: rgba(245,158,11,.16);
+    --border: #374151;
+  }
+
+  body.dark {
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  body.dark .header {
+    background: #050816;
+    box-shadow: 0 2px 24px rgba(0,0,0,.55);
+  }
+
+  body.dark .header-title span,
+  body.dark .pace-strip,
+  body.dark .pace-strip span {
+    color: rgba(248,245,234,.72);
+  }
+
+  body.dark .exam-timer-wrap,
+  body.dark .score-chip,
+  body.dark .pct-chip,
+  body.dark .section-chip {
+    background: #111827;
+    border-color: rgba(214,184,90,.28);
+  }
+
+  body.dark .mode-toggle button {
+    border-color: rgba(248,245,234,.22);
+  }
+
+  body.dark .mode-toggle button.active {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .filter-bar {
+    background: rgba(11,16,32,.96);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn,
+  body.dark .jump-wrap input,
+  body.dark .btn-timer,
+  body.dark .btn-clear,
+  body.dark .btn-flag,
+  body.dark .reset-btn {
+    background: #111827;
+    color: var(--text);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn.active,
+  body.dark .jump-wrap button,
+  body.dark .btn-submit {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .q-card,
+  body.dark .modal {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  body.dark .q-header {
+    border-color: #1f2937;
+  }
+
+  body.dark .q-num,
+  body.dark .opt.selected .opt-letter {
+    background: #050816;
+    color: #d6b85a;
+    border-color: #050816;
+  }
+
+  body.dark .opt {
+    background: #0b1020;
+    border-color: #374151;
+  }
+
+  body.dark .opt:hover {
+    background: #111827;
+    border-color: rgba(214,184,90,.55);
+  }
+
+  body.dark .opt.selected {
+    background: rgba(214,184,90,.12);
+    border-color: #d6b85a;
+  }
+
+  body.dark .q-timer {
+    background: #0b1020;
+    border-color: #1f2937;
+  }
+
+  body.dark .explanation {
+    background: #0b1020;
+    color: #d1d5db;
+    border-left-color: #d6b85a;
+  }
+
+  body.dark .explanation strong,
+  body.dark .modal h3,
+  body.dark .timer-display {
+    color: #f0d879;
+  }
+
+  body.dark .locked-notice {
+    background: #0b1020;
+    border-left-color: #d6b85a;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      font-size: 15px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 120;
+    }
+
+    .header-inner {
+      padding: 9px 12px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-title {
+      font-size: 1.02rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .header-title span {
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .exam-timer-wrap {
+      padding: 6px 8px;
+      gap: 6px;
+      border-radius: 9px;
+      min-width: 0;
+    }
+
+    .exam-timer-main {
+      min-width: 82px;
+    }
+
+    .exam-timer-value {
+      font-size: 1.05rem;
+    }
+
+    .exam-timer-label {
+      font-size: 0.49rem;
+      letter-spacing: .05em;
+    }
+
+    .exam-timer-btn {
+      padding: 5px 7px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle {
+      grid-column: 1 / -1;
+      order: 10;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle button,
+    .section-chip {
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .section-chip {
+      justify-self: stretch;
+      text-align: center;
+      display: none;
+    }
+
+    .score-chip,
+    .pct-chip {
+      padding: 6px 8px;
+      min-width: 62px;
+    }
+
+    .score-chip .val,
+    .pct-chip .val {
+      font-size: 1rem;
+    }
+
+    .score-chip .lbl,
+    .pct-chip .lbl {
+      font-size: 0.5rem;
+      letter-spacing: .05em;
+    }
+
+    #saveIndicator {
+      display: none;
+    }
+
+    .theme-toggle-test {
+      padding: 5px 8px;
+      font-size: 0.68rem;
+    }
+
+    .score-bar > button[onclick="showResetModal()"] {
+      padding: 5px 8px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .pace-strip {
+      display: none;
+    }
+
+    .progress-wrap {
+      height: 3px;
+    }
+
+    .main {
+      padding: 0 10px 56px;
+    }
+
+    #questionsList {
+      padding-top: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 118px;
+      z-index: 100;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar label,
+    .spacer,
+    .jump-wrap {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .q-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .q-header {
+      padding: 12px 12px 10px;
+      gap: 8px;
+    }
+
+    .q-num {
+      font-size: 0.62rem;
+      padding: 3px 8px;
+    }
+
+    .q-text {
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .q-options {
+      padding: 10px 12px 12px;
+      gap: 7px;
+    }
+
+    .opt {
+      padding: 9px 10px;
+      gap: 9px;
+      border-radius: 9px;
+    }
+
+    .opt-letter {
+      width: 23px;
+      height: 23px;
+      min-width: 23px;
+      font-size: 0.68rem;
+    }
+
+    .opt-text {
+      font-size: 0.88rem;
+      line-height: 1.36;
+    }
+
+    .q-actions {
+      padding: 8px 12px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit,
+    .btn-clear,
+    .btn-flag {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+    }
+
+    .explanation {
+      margin: 0 12px 12px;
+      padding: 12px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .q-timer {
+      padding: 7px 12px;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .timer-label {
+      display: none;
+    }
+
+    .timer-display {
+      font-size: 0.78rem;
+      min-width: 48px;
+    }
+
+    .btn-timer,
+    .btn-timer-reset {
+      padding: 4px 9px;
+      font-size: 0.7rem;
+    }
+
+    .reset-btn {
+      margin: 0 12px 12px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+    }
+
+    .modal {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .pct-chip {
+      display: none;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+    }
+
+    .opt-text {
+      font-size: 0.85rem;
+    }
+  }
+
+
+  /* =========================================================
+     Ultra-compact scroll behavior upgrade
+     - hides Study/Simulation controls
+     - keeps only timer/score row sticky while scrolling down
+     - reveals full header when scrolling up
+     ========================================================= */
+
+  .mode-toggle,
+  .section-chip {
+    display: none !important;
+  }
+
+  .header.compact-scroll .header-title,
+  .header.compact-scroll .pace-strip {
+    display: none;
+  }
+
+  .header.compact-scroll .header-inner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .header.compact-scroll .score-bar {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      transition: padding .16s ease;
+    }
+
+    .header-title {
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .score-bar {
+      grid-template-columns: 1fr auto auto auto;
+    }
+
+    .header.compact-scroll .header-inner {
+      padding: 6px 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+
+    .header.compact-scroll .theme-toggle-test,
+    .header.compact-scroll .score-bar > button[onclick="showResetModal()"] {
+      display: none;
+    }
+
+    .header.compact-scroll .exam-timer-wrap {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .score-chip,
+    .header.compact-scroll .pct-chip {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .filter-bar {
+      top: 54px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* =========================================================
+     Debug patch v2
+     Fixes:
+     - filter bar overlaying questions
+     - Light / Reset still visible in compact-scroll mode
+     - sticky header height conflicts
+     ========================================================= */
+
+  /* The filter bar should not be sticky. It was overlapping questions while scrolling. */
+  .filter-bar {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  /* In compact scroll mode, keep the top bar focused on timer + score only. */
+  .header.compact-scroll .theme-toggle-test,
+  .header.compact-scroll .score-bar > button[onclick="showResetModal()"],
+  .header.compact-scroll #saveIndicator {
+    display: none !important;
+  }
+
+  .header.compact-scroll .score-bar {
+    justify-content: space-between;
+  }
+
+  .header.compact-scroll .exam-timer-wrap,
+  .header.compact-scroll .score-chip,
+  .header.compact-scroll .pct-chip {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .filter-bar {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* Stable compact header patch: avoid flashing while scrolling */
+  .header {
+    will-change: transform;
+  }
+
+  .header-inner,
+  .score-bar,
+  .exam-timer-wrap,
+  .score-chip,
+  .pct-chip {
+    transition: padding .12s ease, opacity .12s ease;
+  }
+
+  @media (max-width: 700px) {
+    .header.compact-scroll .header-inner {
+      min-height: 54px;
+    }
+
+    .header.compact-scroll .progress-wrap {
+      display: none;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -516,6 +1087,7 @@
       <div id="saveIndicator">✓ Saved</div>
       <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
       <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button class="theme-toggle-test" id="themeToggle" type="button">🌙 Dark</button>
       <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
     </div>
   </div>
@@ -537,6 +1109,28 @@
 </div>
 <div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
 <script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('pmiStudyHubTheme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('pmiStudyHubTheme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(savedTheme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+      });
+    }
+  });
+})();
+
 const TEST_META = {"seq": 14, "name": "Knowledge Area Test: Project Quality Management", "timeMinutes": 15, "slug": "Knowledge_Area_Test_Project_Quality_Management"};
 const QUIZ_DATA = [{"num": 1, "text": "A software team tracing the root cause of an application failure can use\nthis to help determine the cause(s) of the failure:", "options": {"A": "Ishikawa diagram", "B": "Rummler-Brache swim lane diagram", "C": "Threading analysis", "D": "Deming chart"}, "correct": ["A"], "explanation": "A - Cause-and-effect diagrams, also called Ishikawa diagrams, illustrate\nhow various factors might be linked to potential problems or effects.\n[PMBOK 6th edition, Page 293] [Project Quality Management]"}, {"num": 2, "text": "What is a control chart?", "options": {"A": "A type of RACI chart", "B": "A chart that shows the root cause of a problem", "C": "A type of fishbone diagram", "D": "A chart that shows the stability of a process"}, "correct": ["D"], "explanation": "D - A control chart shows the stability of a process over time. [PMBOK\n6th edition, Page 304] [Project Quality Management]"}, {"num": 3, "text": "Which of the following tools can enhance the visibility of traditional\nwritten project plans and other documents to provide a real-time\noverview of the project status?", "options": {"A": "Visual management tools", "B": "Expert judgement", "C": "Product backlog", "D": "Change control system"}, "correct": ["A"], "explanation": "A - Some project teams use visual management tools, rather than\nwritten plans and other documents, to capture and oversee critical\nproject elements. Making key project elements visible to the entire team\nprovides a real-time overview of the project status. [PMBOK 6th\nedition, Page 73] [Project Quality Management]"}, {"num": 4, "text": "The technique of comparing actual or planned project practices to those\nof other projects to generate ideas for improvement and to provide a\nbasis by which to measure performance is known as:", "options": {"A": "Workbench", "B": "Benchmarking", "C": "Quality control", "D": "Dependency"}, "correct": ["B"], "explanation": "B - Benchmarking is the technique of comparing actual or planned\nproject practices to those of other projects to generate ideas for\nimprovement and to provide a basis by which to measure performance.\n[PMBOK 6th edition, Page 281] [Project Quality Management]"}, {"num": 5, "text": "There is a serious defect in the finished product of a project that was\ncompleted a few months ago, resulting in a recall campaign to recall the\ndefective products. What would be the best classification for these types\nof costs?", "options": {"A": "To complete performance index (TCP)", "B": "Cost variance", "C": "Cost of conformance", "D": "Cost of nonconformance"}, "correct": ["D"], "explanation": "D - The correct response is Cost of Non-Conformance. This includes all\ncosts incurred due to internal and external failures. [PMBOK 6th\nedition, Page 282] [Project Quality Management]"}, {"num": 6, "text": "Projects with adaptive life cycles use product backlogs to define a\nproject’s scope. The product backlog is a set of:", "options": {"A": "Voice of the customer", "B": "User stories", "C": "Client lullabies", "D": "Non-functional requirements"}, "correct": ["B"], "explanation": "B - In projects with adaptive life cycles, the overall scope of the project\nwill be decomposed into a set of requirements and work to be\nperformed, referred to as product backlog. Backlogs include product\nrequirements and user stories. [PMBOK 6th edition, Page 131] [Project\nQuality Management]"}, {"num": 7, "text": "What is the process of random selection and inspection of a work\nproduct?", "options": {"A": "Control Charting", "B": "Flow Charting", "C": "Statistical Sampling", "D": "Benchmarking"}, "correct": ["C"], "explanation": "C - Statistical sampling is the process of random selection and\ninspection of a work product. [PMBOK 6th edition, Page 303] [Project\nQuality Management]"}, {"num": 8, "text": "Which of the following processes are usually not performed\ncontinuously, but rather, performed periodically as needed:", "options": {"A": "Acquire Resources", "B": "Monitor Risks", "C": "Monitor Communications", "D": "Monitor Stakeholder Engagement"}, "correct": ["A"], "explanation": "A - The Acquire Resources is performed as project resources are\nneeded. This is an example of a process that is performed periodically\nas needed. The other choices are example of processes that are\ncontinuously performed. [PMBOK 6th edition, Page 22] [Project\nQuality Management]"}, {"num": 9, "text": "You have a contract to build a manufacturing plant in Kuala Lumpur.\nHowever, you are not familiar with the building codes in Kuala Lumpur\nor Malaysia, so you are reviewing all their building codes prior to\n“turning a shovelful of earth.” This is an example of:", "options": {"A": "Project initiation", "B": "Quality assurance", "C": "Quality planning", "D": "Quality control"}, "correct": ["C"], "explanation": "C - All types of quality plans, such as building codes, OSHA\nguidelines, ISO 9000, or company quality plans are examples of\nEnterprise Environmental Factors and Organizational Process Assets\nwhich are inputs to the Plan Quality Management process. [PMBOK\n6th Edition, Pages 280, 281] [Project Quality Management]"}, {"num": 10, "text": "An automotive designer uses a certain technique to determine which\ncombination of suspension and tires will produce the most desirable\nride characteristics at a reasonable cost. To do this, the designer\nemploys a statistical framework and systematically changes all the\nimportant parameters instead of changing the factors one at a time. This\nmethod is known as:", "options": {"A": "Design of Experiments", "B": "Nominal Group Technique", "C": "Statistical Sampling", "D": "Force Field Analysis\nKnowledge Area Quiz\nProject Quality Management"}, "correct": ["A"], "explanation": "A - The correct response is Design of Experiments; this method plays a\nkey role in optimization of products or processes. [PMBOK 6th edition,\nPage 290] [Project Quality Management]"}];
 
@@ -603,6 +1197,42 @@ function hideResetModal(){ document.getElementById('resetModal').classList.remov
 function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
 function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 render();
+
+
+(function initCompactScrollHeader() {
+  const header = document.querySelector('.header');
+  let isCompact = false;
+  let ticking = false;
+
+  function updateHeader() {
+    if (!header) return;
+
+    const y = window.scrollY || 0;
+
+    // Stable hysteresis:
+    // - once the user scrolls meaningfully down, keep the compact header
+    // - only restore the full header near the top of the page
+    // This avoids flashing caused by tiny up/down scroll movements.
+    if (!isCompact && y > 120) {
+      isCompact = true;
+      header.classList.add('compact-scroll');
+    } else if (isCompact && y < 35) {
+      isCompact = false;
+      header.classList.remove('compact-scroll');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateHeader();
+})();
 
 </script>
 </body>

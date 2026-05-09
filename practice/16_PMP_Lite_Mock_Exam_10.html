@@ -504,6 +504,577 @@
     .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
     .explanation { margin-left: 16px; margin-right: 16px; }
   }
+/* =========================================================
+     Mobile compact interface + dark mode upgrade
+     ========================================================= */
+
+  .theme-toggle-test {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-test:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  body.dark {
+    --navy: #d6b85a;
+    --navy-mid: #050816;
+    --navy-light: #1f2937;
+    --gold: #d6b85a;
+    --gold-light: #f0d879;
+    --cream: #0b1020;
+    --cream-dark: #1f2937;
+    --text: #f8f5ea;
+    --muted: #a7afbf;
+    --correct: #86efac;
+    --correct-bg: rgba(34,197,94,.16);
+    --wrong: #fca5a5;
+    --wrong-bg: rgba(239,68,68,.16);
+    --partial: #fbbf24;
+    --partial-bg: rgba(245,158,11,.16);
+    --border: #374151;
+  }
+
+  body.dark {
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  body.dark .header {
+    background: #050816;
+    box-shadow: 0 2px 24px rgba(0,0,0,.55);
+  }
+
+  body.dark .header-title span,
+  body.dark .pace-strip,
+  body.dark .pace-strip span {
+    color: rgba(248,245,234,.72);
+  }
+
+  body.dark .exam-timer-wrap,
+  body.dark .score-chip,
+  body.dark .pct-chip,
+  body.dark .section-chip {
+    background: #111827;
+    border-color: rgba(214,184,90,.28);
+  }
+
+  body.dark .mode-toggle button {
+    border-color: rgba(248,245,234,.22);
+  }
+
+  body.dark .mode-toggle button.active {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .filter-bar {
+    background: rgba(11,16,32,.96);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn,
+  body.dark .jump-wrap input,
+  body.dark .btn-timer,
+  body.dark .btn-clear,
+  body.dark .btn-flag,
+  body.dark .reset-btn {
+    background: #111827;
+    color: var(--text);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn.active,
+  body.dark .jump-wrap button,
+  body.dark .btn-submit {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .q-card,
+  body.dark .modal {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  body.dark .q-header {
+    border-color: #1f2937;
+  }
+
+  body.dark .q-num,
+  body.dark .opt.selected .opt-letter {
+    background: #050816;
+    color: #d6b85a;
+    border-color: #050816;
+  }
+
+  body.dark .opt {
+    background: #0b1020;
+    border-color: #374151;
+  }
+
+  body.dark .opt:hover {
+    background: #111827;
+    border-color: rgba(214,184,90,.55);
+  }
+
+  body.dark .opt.selected {
+    background: rgba(214,184,90,.12);
+    border-color: #d6b85a;
+  }
+
+  body.dark .q-timer {
+    background: #0b1020;
+    border-color: #1f2937;
+  }
+
+  body.dark .explanation {
+    background: #0b1020;
+    color: #d1d5db;
+    border-left-color: #d6b85a;
+  }
+
+  body.dark .explanation strong,
+  body.dark .modal h3,
+  body.dark .timer-display {
+    color: #f0d879;
+  }
+
+  body.dark .locked-notice {
+    background: #0b1020;
+    border-left-color: #d6b85a;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      font-size: 15px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 120;
+    }
+
+    .header-inner {
+      padding: 9px 12px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-title {
+      font-size: 1.02rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .header-title span {
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .exam-timer-wrap {
+      padding: 6px 8px;
+      gap: 6px;
+      border-radius: 9px;
+      min-width: 0;
+    }
+
+    .exam-timer-main {
+      min-width: 82px;
+    }
+
+    .exam-timer-value {
+      font-size: 1.05rem;
+    }
+
+    .exam-timer-label {
+      font-size: 0.49rem;
+      letter-spacing: .05em;
+    }
+
+    .exam-timer-btn {
+      padding: 5px 7px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle {
+      grid-column: 1 / -1;
+      order: 10;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle button,
+    .section-chip {
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .section-chip {
+      justify-self: stretch;
+      text-align: center;
+      display: none;
+    }
+
+    .score-chip,
+    .pct-chip {
+      padding: 6px 8px;
+      min-width: 62px;
+    }
+
+    .score-chip .val,
+    .pct-chip .val {
+      font-size: 1rem;
+    }
+
+    .score-chip .lbl,
+    .pct-chip .lbl {
+      font-size: 0.5rem;
+      letter-spacing: .05em;
+    }
+
+    #saveIndicator {
+      display: none;
+    }
+
+    .theme-toggle-test {
+      padding: 5px 8px;
+      font-size: 0.68rem;
+    }
+
+    .score-bar > button[onclick="showResetModal()"] {
+      padding: 5px 8px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .pace-strip {
+      display: none;
+    }
+
+    .progress-wrap {
+      height: 3px;
+    }
+
+    .main {
+      padding: 0 10px 56px;
+    }
+
+    #questionsList {
+      padding-top: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 118px;
+      z-index: 100;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar label,
+    .spacer,
+    .jump-wrap {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .q-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .q-header {
+      padding: 12px 12px 10px;
+      gap: 8px;
+    }
+
+    .q-num {
+      font-size: 0.62rem;
+      padding: 3px 8px;
+    }
+
+    .q-text {
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .q-options {
+      padding: 10px 12px 12px;
+      gap: 7px;
+    }
+
+    .opt {
+      padding: 9px 10px;
+      gap: 9px;
+      border-radius: 9px;
+    }
+
+    .opt-letter {
+      width: 23px;
+      height: 23px;
+      min-width: 23px;
+      font-size: 0.68rem;
+    }
+
+    .opt-text {
+      font-size: 0.88rem;
+      line-height: 1.36;
+    }
+
+    .q-actions {
+      padding: 8px 12px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit,
+    .btn-clear,
+    .btn-flag {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+    }
+
+    .explanation {
+      margin: 0 12px 12px;
+      padding: 12px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .q-timer {
+      padding: 7px 12px;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .timer-label {
+      display: none;
+    }
+
+    .timer-display {
+      font-size: 0.78rem;
+      min-width: 48px;
+    }
+
+    .btn-timer,
+    .btn-timer-reset {
+      padding: 4px 9px;
+      font-size: 0.7rem;
+    }
+
+    .reset-btn {
+      margin: 0 12px 12px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+    }
+
+    .modal {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .pct-chip {
+      display: none;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+    }
+
+    .opt-text {
+      font-size: 0.85rem;
+    }
+  }
+
+
+  /* =========================================================
+     Ultra-compact scroll behavior upgrade
+     - hides Study/Simulation controls
+     - keeps only timer/score row sticky while scrolling down
+     - reveals full header when scrolling up
+     ========================================================= */
+
+  .mode-toggle,
+  .section-chip {
+    display: none !important;
+  }
+
+  .header.compact-scroll .header-title,
+  .header.compact-scroll .pace-strip {
+    display: none;
+  }
+
+  .header.compact-scroll .header-inner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .header.compact-scroll .score-bar {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      transition: padding .16s ease;
+    }
+
+    .header-title {
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .score-bar {
+      grid-template-columns: 1fr auto auto auto;
+    }
+
+    .header.compact-scroll .header-inner {
+      padding: 6px 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+
+    .header.compact-scroll .theme-toggle-test,
+    .header.compact-scroll .score-bar > button[onclick="showResetModal()"] {
+      display: none;
+    }
+
+    .header.compact-scroll .exam-timer-wrap {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .score-chip,
+    .header.compact-scroll .pct-chip {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .filter-bar {
+      top: 54px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* =========================================================
+     Debug patch v2
+     Fixes:
+     - filter bar overlaying questions
+     - Light / Reset still visible in compact-scroll mode
+     - sticky header height conflicts
+     ========================================================= */
+
+  /* The filter bar should not be sticky. It was overlapping questions while scrolling. */
+  .filter-bar {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  /* In compact scroll mode, keep the top bar focused on timer + score only. */
+  .header.compact-scroll .theme-toggle-test,
+  .header.compact-scroll .score-bar > button[onclick="showResetModal()"],
+  .header.compact-scroll #saveIndicator {
+    display: none !important;
+  }
+
+  .header.compact-scroll .score-bar {
+    justify-content: space-between;
+  }
+
+  .header.compact-scroll .exam-timer-wrap,
+  .header.compact-scroll .score-chip,
+  .header.compact-scroll .pct-chip {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .filter-bar {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* Stable compact header patch: avoid flashing while scrolling */
+  .header {
+    will-change: transform;
+  }
+
+  .header-inner,
+  .score-bar,
+  .exam-timer-wrap,
+  .score-chip,
+  .pct-chip {
+    transition: padding .12s ease, opacity .12s ease;
+  }
+
+  @media (max-width: 700px) {
+    .header.compact-scroll .header-inner {
+      min-height: 54px;
+    }
+
+    .header.compact-scroll .progress-wrap {
+      display: none;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -516,6 +1087,7 @@
       <div id="saveIndicator">✓ Saved</div>
       <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
       <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button class="theme-toggle-test" id="themeToggle" type="button">🌙 Dark</button>
       <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
     </div>
   </div>
@@ -537,6 +1109,28 @@
 </div>
 <div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
 <script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('pmiStudyHubTheme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('pmiStudyHubTheme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(savedTheme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+      });
+    }
+  });
+})();
+
 const TEST_META = {"seq": 16, "name": "PMP Lite Mock Exam 11", "timeMinutes": 60, "slug": "PMP_Lite_Mock_Exam_11"};
 const QUIZ_DATA = [{"num": 1, "text": "At a division project status meeting, all attendees receive a dashboard\nof cost metrics for each project, and each project manager is presenting\nthe status of his or her project. The metrics for one project show a BAC\nof $1100, an EV of $998, and an EAC of $1099. However, the project\nmanager is reporting an ETC of $354. What do you do?", "options": {"A": "Notify the appropriate management there is a calculation error", "B": "Do nothing", "C": "Advise the project manager to take the additional funds from her\nproject contingency budget", "D": "Congratulate the project manager for being under budget"}, "correct": ["A"], "explanation": "A - If ETC is being reported, then EAC should be AC + ETC. You\nmust notify the appropriate management that there is a calculation error.\nProject managers are required by the PMI Code to accept ownership of\ntheir own errors and to report to the appropriate management any errors\nthey have observed being made by others. [PMBOK 6th edition, Page\n267] [Prof. Responsibility]"}, {"num": 2, "text": "Which of the following tools and techniques are not applicable while\ncommunicating project information?", "options": {"A": "Communication requirements analysis", "B": "Communication technology", "C": "Communication methods", "D": "Information management systems"}, "correct": ["A"], "explanation": "A - The question is asking for a tool and technique that is not part of the\nManage Communications process. Communication requirements\nanalysis is a tool and technique of the Plan Communications\nManagement process and not the Manage Communications process.\n[PMBOK 6th edition, Page 379] [Project Communications\nManagement]"}, {"num": 3, "text": "Which of the following methods of forecasting EAC and ETC is the\nmost accurate?", "options": {"A": "ETC based on CPI", "B": "ETC based on BAC", "C": "ETC based on CPI and SPI", "D": "ETC based on new estimate"}, "correct": ["D"], "explanation": "D - The bottom-up ETC gives the most accurate results. [PMBOK 6th\nedition, Page 264] [Project Cost Management]"}, {"num": 4, "text": "Your team has built an exotic sports car for a wealthy client. The\nproject team verified every deliverable against the quality requirements,\nand the client accepted. Now the project manager is arranging for the\ncar delivery. This is part of which process group?", "options": {"A": "Closing", "B": "Monitoring and Controlling", "C": "Planning", "D": "Execution"}, "correct": ["A"], "explanation": "A - It must be noted that the car has been built, and the Control Quality\nand Validate Scope processes have been performed for every\ndeliverable. The question is asking about PRODUCT delivery, which\noccurs during the closing process. [PMBOK 6th edition, Page 123]\n[Project Integration Management]"}, {"num": 5, "text": "The project sponsor has asked you to prepare a summary level\ndescription of each phase of the project, and also include a summary of\nthe validation information for the final project deliverables. Which\ndocument is the sponsor asking you to prepare?", "options": {"A": "Project charter", "B": "Project management plan", "C": "Project final report", "D": "Project scope statement"}, "correct": ["C"], "explanation": "C - Most probably the project sponsor is asking you to prepare the\nproject’s final report as all of the mentioned sections are part of a final\nreport. The rest of the choices are project documents that do not have\nthese sections, especially the validation information for the final project\ndeliverables. This also implies that the project is in the closing phase.\n[PMBOK 6th edition, Page 127] [Project Stakeholder Management]"}, {"num": 6, "text": "Skills such as empathy, influence, creativity, and group encouragement\nare valuable assets when managing the project team. These skills are\noften referred to as ______________.", "options": {"A": "Effort-based management", "B": "Feedback-based skills", "C": "Ad hoc skills", "D": "Soft skills"}, "correct": ["D"], "explanation": "D - Interpersonal skills, sometimes known as \"soft skills,\" are\nparticularly important to team development. By understanding the\nsentiments of project team members, anticipating their actions,\nacknowledging their concerns, and following up on their issues, the\nproject management team can significantly reduce problems and\nincrease cooperation. [PMBOK 6th edition, Page 357] [Project\nResource Management]"}, {"num": 7, "text": "The cost of running a project management office is an example of what\ntype of cost?", "options": {"A": "Reimbursable", "B": "Fixed", "C": "Direct", "D": "Indirect"}, "correct": ["D"], "explanation": "D - Indirect costs are those costs that cannot be directly traced to a\nspecific project. These costs are accumulated and allocated equitably\nover multiple projects by an approved and documented accounting\nprocedure. [PMBOK 6th edition, Page 246] [Project Cost Management]"}, {"num": 8, "text": "Andrew was working as a senior project manager at a company when\nhe resigned from his position. This company recently hired Jack to\nreplace Andrew. Jack had worked with Andrew in the past, and he\nknows him personally. Jack is now in charge of a project that Andrew\nleft in the middle. If Jack calls Andrew for an opinion on this project,\nthis constitutes:", "options": {"A": "Jack‘s incompetence since he is dependent on Andrew‘s opinion", "B": "An example of obtaining expert judgment from a senior", "C": "Unethical behavior by Jack since Andrew has already resigned\nfrom the company", "D": "A conflict of interest situation as Jack knows Andrew"}, "correct": ["B"], "explanation": "B - Asking a senior for an opinion is an example of obtaining expert\njudgment. Andrew knows the project better than Jack since he had\nmanaged it in the past. If Jack seeks an expert opinion from Andrew,\nthis is neither unethical nor a conflict of interest situation; neither does\nit suggest that Jack is an incompetent project manager. Rather, Jack is\nemploying expert judgment, a good project management practice.\n[PMBOK 6th edition, Page 79]"}, {"num": 9, "text": "Robert has recently joined an automobile manufacturer. He now has a\nproject that was already in the execution phase. Recently, one of the\nkey stakeholders has raised serious concerns over the project’s scope.\nRobert now wants to review the previous project communications to\nunderstand how the current project scope was agreed to by all key\nstakeholders in the past. Where can he find this information?", "options": {"A": "Organizational process assets", "B": "Project management plan", "C": "Stakeholder register", "D": "Enterprise environmental factors"}, "correct": ["A"], "explanation": "A - Neither the project management plan nor the stakeholder register\ndocuments the stakeholder communication records. These records are\nincorporated in the project records folder, which is an organizational\nprocess asset during the Manage Communications process. [PMBOK\n6th edition, Page 388]"}, {"num": 10, "text": "Which of these is an input to the Collect Requirements process?", "options": {"A": "Observations", "B": "Risk register", "C": "Scope statement", "D": "Project charter"}, "correct": ["D"], "explanation": "D - The project charter is an input to the Collect Requirements process.\nThe other choices are not valid. [PMBOK 6th Edition, Page 138]"}, {"num": 11, "text": "Tim is the project manager of a project that has a timeline of 18 months.\nTim plans to send daily status reports to all stakeholders. After\nreceiving two such reports, Sue, the project sponsor, informs Tim she\nwould like to have reports every two weeks only. Tim did an analysis of\ncommunications requirements and considered various attributes for the\ncommunications management plan. What aspect has he missed, which\nresulted in a daily status report being sent instead of two-week status\nreports?", "options": {"A": "He has not considered the frequency of information distribution.", "B": "He has not considered the purpose for distribution of information.", "C": "He has not considered the project’s timeline.", "D": "He has not considered the content of the information."}, "correct": ["A"], "explanation": "A - Tim has most likely not considered the frequency of distribution of\nthe information. He should have analyzed the stakeholder requirements\nand planned for distribution of the status reports accordingly. It is\nunlikely that on an 18-month project, the project sponsor would want to\nreceive daily status reports. (Perhaps only near the end of the project,\nwith just a few days or weeks to go, the project sponsor might request\ndaily reports to monitor the project closely or to deal with certain\nissues.) Hence, Tim should have considered stakeholder requirements\nand planned the frequency of the status reports accordingly. The\nremaining choices are incorrect. The choice that Tim has not considered\nthe timeline of the project may be one of the factors that influence the\nfrequency of information distribution, but is not a complete response by\nitself. [PMBOK 6th edition, Page 377] [Project Communications\nManagement]"}, {"num": 12, "text": "A software development project team has determined that the best way\nto mitigate the risk of not having the computational resources to\ncomplete all bug testing on schedule is to add three more servers to the\ntest bed. However, the network may not have enough capacity to handle\nthe extra load of those three servers and could fail. This type of risk is a\n_______________ risk.", "options": {"A": "Secondary", "B": "Simulation", "C": "Bottleneck", "D": "Hidden"}, "correct": ["A"], "explanation": "A - A secondary risk arises as a direct result of implementing a risk\nresponse. [PMBOK 6th edition, Page 439] [Project Risk Management]"}, {"num": 13, "text": "Which of the following enterprise environmental factors is not\napplicable to the Plan Resource Management process?", "options": {"A": "Organizational culture and structure", "B": "Existing resources, capabilities and competencies", "C": "Marketplace conditions", "D": "Lessons learned"}, "correct": ["D"], "explanation": "D - Lessons learned from historical projects are valuable inputs to the\nPlan Resource Management process. However, these are classified as\norganizational process assets. [PMBOK 6th edition, Page 315] [Project\nResource Management]"}, {"num": 14, "text": "As part of the quality control in your project, you are exploring a\ntechnique that shows the history and pattern of variation. This is a line\ngraph that shows data points plotted in the order in which they\noccurred. You are most likely looking at a:", "options": {"A": "Control chart", "B": "Pareto diagram", "C": "Histogram", "D": "Cause-and-effect diagram"}, "correct": ["A"], "explanation": "A - This is most likely to be a control chart. A control chart shows the\ntrends in a process over a period of time. The remaining choices are not\nline graphs. [PMBOK 6th edition, Page 304] [Project Quality\nManagement]"}, {"num": 15, "text": "Which of the following actions decreases the risk of the project failing\nto meet its goals and objectives?", "options": {"A": "Discouraging changes to the initial project scope", "B": "Acquiring more than required resources", "C": "Active management of stakeholders", "D": "Fast-tacking the project schedule to finish the project before\ndeadline"}, "correct": ["C"], "explanation": "C - Changes are inevitable. Acquiring more than required resources\nwith put a strain on the budget and hence might compromise the\nproject’s financial goals. Fast-tracking always induces risk to the\nproject. However, active management of stakeholders almost\nguarantees a decrease in project risk. [PMBOK 6th edition, Pages 504-\n506] [Project Stakeholder Management]"}, {"num": 16, "text": "You are assisting Benjamin, another project manager, to interview\ncandidates for a resource position on his project. While reviewing your\ninterview notes together, you notice that he sorts the candidate‘s\nresumes into two piles: One pile for further interviews, the other for\ncandidates that did not meet the requirements for the position. You also\nnotice that he has placed several of the highly qualified candidates in\nthe second pile, stating that those interviewees \"did not fit the corporate\nprofile.\" Upon further review, you discover that all these candidates are\nof the same ethnic group. What do you do?", "options": {"A": "Excuse yourself from the interviewing process", "B": "Report this to the appropriate management", "C": "File a complaint with PMI", "D": "Do nothing"}, "correct": ["B"], "explanation": "B - Report this to the appropriate management immediately.\nDiscrimination based on nationality is prohibited by the PMI Code of\nEthics and may also be illegal, depending on local laws. PMI requires\nproject managers to report discriminatory behavior to the appropriate\nmanagement; not doing so is a violation of the Code of Ethics. [PMI\nCode of Ethics and Professional Conduct] [Prof. Responsibility]"}, {"num": 17, "text": "As a project manager, you are analyzing a process and looking for\nopportunities for improvements by identifying and analyzing non-\nvalue-added activities. This relates to which of the following tools and\ntechniques of the Manage Quality process?", "options": {"A": "Quality Audits", "B": "Affinity diagrams", "C": "Interrelationship digraphs", "D": "Process Analysis"}, "correct": ["D"], "explanation": "D - Process analysis helps identify opportunities for improvements by\nidentifying and analyzing non-value-added activities. [PMBOK 6th\nedition, Page 292]"}, {"num": 18, "text": "Which of the following processes gives the project management team\ninsights into the health of the project?", "options": {"A": "Develop Project Management Plan", "B": "Perform Integrated Change Control", "C": "Monitor and Control Project Work", "D": "Determine Budget"}, "correct": ["C"], "explanation": "C - It must be a process from the Monitoring and Controlling process\ngroup. The correct response is Monitor and Control Project Work. This\nis the process for collecting, measuring, and disseminating performance\ninformation and for assessing measurements and trends to effect\nprocess improvements. Monitoring includes status reporting, progress\nmeasurement, and forecasting. [PMBOK 6th edition, Page 105] [Project\nIntegration Management]"}, {"num": 19, "text": "Which of the following interpersonal skills is of prime importance\nduring the collection and analysis of stakeholders’ needs and\nexpectations?", "options": {"A": "Trust building", "B": "Conflict resolution", "C": "Overcoming resistance", "D": "Active listening"}, "correct": ["D"], "explanation": "D - Active listening is a communication technique that requires the\nlisteners to feedback what they hear to the speaker, by way of re-stating\nor paraphrasing what they have heard in their own words, to confirm\nwhat they have heard and moreover, to confirm the understanding of\nboth parties. Active listening is of prime importance during the\ncollection and analysis of stakeholders’ needs and expectations.\n[PMBOK 6th edition, Page 386] [Project Stakeholder Management]"}, {"num": 20, "text": "After receiving some news about a delay on one of your project tasks,\nyou review the schedule to determine how it will affect the project.\nWhile there is a substantial delay on this task, it is not a critical path\nitem and will not affect delivery of any of your milestones. Another\nproject manager advises you to just present the milestone chart during\nyour meeting with the project stakeholders and tell them the project is\nprogressing as planned. What do you do?", "options": {"A": "Present the project as a milestone chart and advise that the\nprogress is tracking according to plan.", "B": "Present the schedule in a milestone chart and disclose full details\nof the delay.", "C": "Present the schedule in a network diagram and advise that the\nproject is tracking according to plan.", "D": "Present the schedule as a bar chart and advise that the project is\ntracking according to plan."}, "correct": ["B"], "explanation": "B - Present the schedule in a milestone chart and disclose the details of\nthe delay. Concealing delays is a violation of the PMI Code of Ethics\nand Professional Conduct. Project managers must provide accurate and\ntimely information. Providing half-truths about a project's schedule is\nunacceptable. [PMI Code of Ethics and Professional Conduct] [Prof.\nResponsibility]"}, {"num": 21, "text": "The project manager in charge of a new credit card software project has\nasked the product manager to create a checklist to assist with\nidentifying risks. A project manager can create a risk checklist from\nwhich of the following sources?", "options": {"A": "Agreement templates", "B": "Earned value measurements", "C": "Project Management Information System", "D": "The lowest level of the Risk Breakdown Structure"}, "correct": ["D"], "explanation": "D - The lowest level of the RBS can be used as a risk checklist.\n[PMBOK 6th edition, Page 416] [Project Risk Management]"}, {"num": 22, "text": "A planning technique used to provide products, services, and results\nthat truly reflect customer requirements, by translating those customer\nrequirements into the appropriate technical requirements for each phase\nof project product development, is:", "options": {"A": "Six Sigma", "B": "PDCA", "C": "Voice of the Customer", "D": "ISO"}, "correct": ["C"], "explanation": "C - The correct response is Voice of the Customer. This is one of the\nnon-proprietary approaches to quality management. In this planning\ntechnique, the customer's requirements are exactly met in the finished\nproduct during each phase of the project. [PMBOK 6th edition, Pages\n145, 726] [Project Quality Management]"}, {"num": 23, "text": "Administrative closure involves all the activities in a step-by-step\nmanner to satisfy various completion and exit criteria for the project.\nThis is part of which Project Management Knowledge Area?", "options": {"A": "Project Communications Management", "B": "Project Scope Management", "C": "Project Integration Management", "D": "Project Procurement Management"}, "correct": ["C"], "explanation": "C - The Administrative Closure activities are part of the Close Project\nor Phase process under the Project Integration Management knowledge\narea. [PMBOK 6th Edition, Page 123]"}, {"num": 24, "text": "You are a project manager who is in charge of an important project for\nyour company. The project includes producing widgets for your\ncustomer. The collected data helps identify the greatest causes of\ndefects in the overall process. Which technique should you use to\ndetermine the correlation between two variables being analyzed?", "options": {"A": "Statistical sampling", "B": "Pareto chart", "C": "Scatter diagram", "D": "Control chart"}, "correct": ["C"], "explanation": "C - Scatter diagrams are used to determine if a correlation exists\nbetween two variables. [PMBOK 6th edition, Page 293] [Project\nQuality Management]"}, {"num": 25, "text": "During the planning phase of your project, your team decided to\nprocure a certain brand of hardware because it had the lowest price and\ncame with free shipping and installation. This approach saved $6,000\nover the other brands. Since that purchase, however, you discovered the\nannual maintenance costs for this hardware are $2,500 per year, and\n$12,500 over the life of the hardware. These costs were not budgeted in\nthe project, nor were they included in the Total Cost of Ownership\n(TCO) analysis that was part of the project business case. What should\nyou do?", "options": {"A": "Request a new budget", "B": "Notify the stakeholders immediately", "C": "Revise the business case", "D": "Do nothing. This will not affect the project budget"}, "correct": ["B"], "explanation": "B - Notify the project stakeholders of this situation immediately. Once\nthey have been notified of the lifecycle costing, a path forward can be\ndeveloped. Project managers are responsible for providing accurate and\ntimely information. Even though this cost will not impact the project\nbudget directly, it is still a critical component of the ongoing operation\nof the project's product. Failing to communicate this information is a\nviolation of the PMI Code of Ethics and Professional Conduct. [PMI\nCode of Ethics and Professional Conduct] [Prof. Responsibility]"}, {"num": 26, "text": "In a sender-receiver model for communication, information is sent and\nreceived between two parties, defined as the sender and the receiver. In\nsuch a model, anything that interferes with the transmission and\nunderstanding of the message is called:", "options": {"A": "Noise", "B": "Constraint", "C": "Medium", "D": "Decode"}, "correct": ["A"], "explanation": "A - In a sender-receiver model, the key components include: Encoding\nof thoughts or ideas, a message as the output of encoding, a medium to\nconvey the message, and decoding of the message back into meaningful\nthoughts or ideas. Anything that interferes with the transmission and\nunderstanding of the message is termed noise (such as distance, for\nexample). [PMBOK 6th edition, Page 372] [Project Communications\nManagement]"}, {"num": 27, "text": "Which of the following is not an appropriate method for dealing with a\nnegative risk?", "options": {"A": "Avoid", "B": "Exploit", "C": "Transfer", "D": "Mitigate"}, "correct": ["B"], "explanation": "B - Exploitative strategies are selected for risks with positive impacts\nwhere the organization wishes to ensure the opportunity is realized.\nThis strategy seeks to eliminate the uncertainty associated with a\nparticular upside risk by making the opportunity happen. [PMBOK 6th\nedition, Pages 443, 444] [Project Risk Management]"}, {"num": 28, "text": "Statistical sampling involves choosing part of a population for\ninspection. Appropriate sampling can often ___________the cost of\nquality control.", "options": {"A": "Neutralize", "B": "Reduce", "C": "Increase", "D": "Mitigate"}, "correct": ["B"], "explanation": "B - Appropriate sampling can often reduce the cost of quality control as\nit selects a part of the population for inspection. In some application\nareas, it may be necessary for the project management team to be\nfamiliar with a variety of sampling techniques. [PMBOK 6th edition,\nPage 303] [Project Quality Management]"}, {"num": 29, "text": "A risk with a positive outcome is an ___________.", "options": {"A": "Unlikely risk", "B": "Objective risk", "C": "Opportunity", "D": "Obsolete risk"}, "correct": ["C"], "explanation": "C - Risks can pose a threat or an opportunity to a project. Positive risks\nare called opportunities. [PMBOK 6th edition, Page 444] [Project Risk\nManagement]"}, {"num": 30, "text": "Which of the following is not a basic input required to develop an\neffective project stakeholder engagement plan?", "options": {"A": "Stakeholder register", "B": "Enterprise environmental factors", "C": "Organizational process assets", "D": "Stakeholder engagement assessment matrix"}, "correct": ["D"], "explanation": "D - The stakeholder engagement plan is developed during the Plan\nStakeholder Engagement process. The stakeholder register, enterprise\nenvironmental factors and the organizational process assets are all basic\ninputs to this process. The stakeholder engagement assessment matrix is\ndeveloped during this process and is not an input to this process.\n[PMBOK 6th edition, Page 516] [Project Stakeholder Management]"}, {"num": 31, "text": "Anne is a project manager. She has evaluated certain responses from\nprospective sellers and wants to select a contract model that will\ntransfer risk to the seller. Which of the following should she select in\norder to achieve this?", "options": {"A": "Time and Material contract", "B": "Cost-Plus-Fixed-Fee contract", "C": "Cost-Plus-Incentive-Fee contract", "D": "Fixed-price contract"}, "correct": ["D"], "explanation": "D - A fixed-price contract enables the buyer to transfer risk to the seller\nby setting a fixed total price for a defined service, or result to be\nprovided. [PMBOK 6th Edition, Page 471]"}, {"num": 32, "text": "Predicting future performance based on historical events is called\n___________.", "options": {"A": "Historical analysis", "B": "Trend analysis", "C": "Parametric analysis", "D": "Pareto analysis"}, "correct": ["B"], "explanation": "B - Trend analysis is an analytical technique that uses mathematical\nmodels to forecast future outcomes based on historical results. It is a\nmethod of determining the variance from a baseline of a parameter. It\nuses prior progress reporting periods' data to project how much that\nparameter's variance from baseline might be at some future point in the\nproject if no changes are made in executing the project. [PMBOK 6th\nedition, Page 111] [Project Schedule Management]"}, {"num": 33, "text": "Which of the following estimating techniques will cost less but is also\ntypically less accurate?", "options": {"A": "Parametric Estimating", "B": "Analogous Estimating", "C": "Resource Cost-based Estimating", "D": "Bottom-up Estimating"}, "correct": ["B"], "explanation": "B - Analogous cost estimating is typically less costly but also less\naccurate than other cost estimating techniques. It uses the actual cost of\nprevious, similar projects as the basis for estimating the cost of the\ncurrent project. It is more reliable when the previous projects are\nsimilar in fact and not just in appearance, and the persons estimating\nhave the needed expertise. [PMBOK 6th edition, Page 200] [Project\nCost Management]"}, {"num": 34, "text": "A project manager is using a Risk Diagramming technique that is a\ngraphical representation of situations showing causal influences, time\nordering of events, and other relationships among variables and\noutcomes. This would be:", "options": {"A": "A system flow chart", "B": "An Influence Diagram", "C": "A Pareto chart", "D": "Histogram"}, "correct": ["B"], "explanation": "B - A Risk Diagramming technique that is a graphical representation of\nsituations showing causal influences, time-ordering of events and other\nrelationships among variables and outcomes is known as an Influence\nDiagram. The Cause-and-Effect diagram also identifies the causes of\nrisk but does not have the time-ordering of events. [PMBOK 6th\nedition, Page 436] [Project Risk Management]"}, {"num": 35, "text": "You are authorized to approve expenditures above $15,000. For the last\nseveral weeks, you have been negotiating the terms and pricing of a\ncontract with a vendor, and you want to keep costs as low as possible.\nThis has been an exceedingly difficult negotiation process. A colleague\nsuggests you tell the vendor you can only approve expenses below\n$10,000 as a way to keep the price low. What do you do?", "options": {"A": "Ask for binding arbitration", "B": "Tell the vendor you are only authorized to approve expenses\nunder $10,000", "C": "Do not follow the colleague‘s advice", "D": "Put a deadline on the negotiation completion"}, "correct": ["C"], "explanation": "C - Do not follow your colleague's advice. Providing false or\nmisleading information for any reason is a violation of the PMI Code of\nEthics. [PMI Code of Ethics and Professional Conduct] [Prof.\nResponsibility]"}, {"num": 36, "text": "A project was estimated to cost $100,000 with a timeline of five\nmonths. Due to some unusual causes, the schedule was delayed. At the\nend of the third month, the project manager reviews the project and\nfinds that the project is 40 percent complete and Actual Costs are\n$60,000. Assuming that the cost variations observed to date would not\ncontinue going forward, the Estimate to Complete (ETC) for the project\nare:", "options": {"A": "40000", "B": "120000", "C": "90000", "D": "60000"}, "correct": ["D"], "explanation": "D - The budget at completion (BAC) = $100,000 (given). The Actual\nCost (AC) = $60,000 (given). The Earned value (EV) =\n(40/100)*100,000 since 40% of the project is complete. Hence, Earned\nValue (EV) = $40,000. This is an instance of an atypical cause of\nvariance in the project. The formula for estimate to complete (ETC) is:\nETC = BAC - EV = 100,000 - 40,000 = 60,000. [PMBOK 6th Edition,\nPage 267]"}, {"num": 37, "text": "You are a project manager for Enormous Co. and are currently engaged\nin a highly visible project. The company is about to implement an\nindependent review to ensure that the project work is continuing to\ncomply with the project‘s policies, processes, and procedures. During\nwhich process would this review occur?", "options": {"A": "Close Project or Phase", "B": "Control Quality", "C": "Monitor Risks", "D": "Manage Quality"}, "correct": ["D"], "explanation": "D - Quality audits are performed during the Manage Quality process.\n[PMBOK 6th edition, Page 294] [Project Quality Management]"}, {"num": 38, "text": "A project employs a virtual team with team members located in\ndifferent offices in the same city as well as across different cities. The\nproject manager wishes to build trust and good working relationships.\nOne of the best ways to do this is:", "options": {"A": "To use team-building strategies", "B": "Write a memo to the team detailing the need for good working\nrelationships", "C": "Plan for job-rotation on a weekly basis", "D": "To encourage the use of telephonic conversations as much as\npossible"}, "correct": ["A"], "explanation": "A - Use of team-building activities helps in building trust and\nestablishing good working relationships. As for the other choices:\nEncouraging the use of telephone calls can also help in building\nrelationships, especially in distributed teams. However, this cannot be\nan alternative to email communication. Job-rotation within the team\nmay also help team morale; however, doing it on a weekly basis may be\ncounterproductive and inefficient. [PMBOK 6th edition, Page 341]\n[Project Resource Management]"}, {"num": 39, "text": "Which process group corresponds to the \"act\" component of the plan-\ndo-check-act cycle?", "options": {"A": "Monitoring & Controlling", "B": "Executing", "C": "Planning", "D": "Initiating"}, "correct": ["B"], "explanation": "B - The \"act\" component of the plan-do-check-act cycle relates to the\nExecuting process group. The plan-do-check-act cycle was created by\nShewhart and modified by Deming to illustrate how different results\nfrom one cycle become an input to another cycle. [PMBOK 6th edition,\nPage 275] [Project Quality Management]"}, {"num": 40, "text": "Which option is not representative of the inputs, tools and techniques,\nand outputs of the Direct and Manage Project Work process?", "options": {"A": "PMIS, Project Management Plan, and Deliverables", "B": "Deliverables, Approved Change Requests, and Project\nManagement Information System", "C": "Approved Change Requests, Validated Changes, and PMIS", "D": "Approved Change Requests, Project Management Plan, and Work\nPerformance Data"}, "correct": ["C"], "explanation": "C - Validated Changes are not inputs, tools and techniques, or outputs\nof the Direct and Manage Project Work process. [PMBOK 6th edition,\nPage 90] [Project Integration Management]"}, {"num": 41, "text": "As part of the Risk Response planning for your project, you are trying\nto come up with a strategy to deal with negative risks or threats. In\norder to eliminate the impact of a particular risk, you relax the objective\nthat is in jeopardy by extending the project schedule. This is an example\nof:", "options": {"A": "Transference", "B": "Mitigation", "C": "Avoidance", "D": "Postponement"}, "correct": ["C"], "explanation": "C - This is an example of avoidance. It involves changing the project\nmanagement plan to \"eliminate\" the threat posed by an adverse risk,\nisolating the project objectives from the risk's impacts, or relaxing the\nobjective that is in jeopardy, such as by extending the schedule or\nreducing scope. Transference involves shifting the negative impact of a\nthreat along with the ownership of the response. Mitigation implies a\nreduction in the probability and impact of an adverse risk.\nPostponement is not a valid strategy since it does not address the risk.\n[PMBOK 6th edition, Page 443] [Project Risk Management]"}, {"num": 42, "text": "You are the Project Manager for the production of an exotic car. You\nhave completed the Define Scope process for your project. Which of\nthe following may be generated through this process?", "options": {"A": "Project scope statement, project charter", "B": "Project scope statement, updates to requirements traceability\nmatrix", "C": "WBS, updates to requirements traceability matrix", "D": "Project scope statement, WBS"}, "correct": ["B"], "explanation": "B - The Define Scope process will result in development of the Project\nScope statement and updates to project documents such as stakeholder\nregister, requirements documentation and the requirements traceability\nmatrix. [PMBOK 6th edition, Page 150] [Project Scope Management]"}, {"num": 43, "text": "Perform Qualitative Risk Analysis is a quick way to prioritize how a\nproject team will respond to risks. It is based on risk\n_________________ and _________________.", "options": {"A": "Probability, exposure", "B": "Probability, impact", "C": "Probability, focus", "D": "Exposure, cost"}, "correct": ["B"], "explanation": "B - Perform Qualitative Risk Analysis is usually a rapid and cost-\neffective means of establishing priorities for the Plan Risk Responses\nprocess. [PMBOK 6th edition, Page 419] [Project Risk Management]"}, {"num": 44, "text": "A project manager was assigned to a project when the project charter\nwas in development. Which of the following is an input that the project\nmanager will use to develop the project charter?", "options": {"A": "Make-or-Buy analysis", "B": "Organizational Process Assets", "C": "Project Acceptance Criteria", "D": "Project Scope Statement"}, "correct": ["B"], "explanation": "B - When developing the project charter, the project manager can draw\non the assets that are part of the organizational process assets. There\nmay be formal or informal policies, procedures, plans, and guidelines\nwhose effects must be considered. Organizational process assets also\nrepresent the organization's learning from previous projects such as\ncompleted schedules, risk data, and earned value data. These are\ninvaluable in developing the project charter. [PMBOK 6th edition, Page\n75] [Project Integration Management]"}, {"num": 45, "text": "The Work Breakdown Structure (WBS) is a deliverable-oriented\nhierarchical decomposition of the work the project team will execute to\naccomplish the project objectives and create required deliverables. The\nCreate WBS process falls under which knowledge area?", "options": {"A": "Project Schedule Management", "B": "Project Integration Management", "C": "Project Scope Management", "D": "Project Cost Management"}, "correct": ["C"], "explanation": "C - The Work Breakdown Structure (WBS) is a deliverable-oriented\nhierarchical decomposition of the work to be executed by the project\nteam to accomplish the project objectives and create required\ndeliverables. The Create WBS process falls under the Project Scope\nManagement knowledge area. The WBS subdivides the project into\nsmaller, more manageable pieces of work, with each descending level\nof the WBS representing an increasingly detailed definition of the\nproject work. [PMBOK 6th edition, Page 25] [Project Scope\nManagement]"}, {"num": 46, "text": "Gene is the project manager of a large highway expansion project. He\nhas a number of stakeholders with competing priorities and agendas,\nand he often has to resolve conflicts among stakeholders. Which\nknowledge area manages communications with the project\nstakeholders?", "options": {"A": "Project Quality Management", "B": "Project Stakeholder Management", "C": "Project Communications Management", "D": "Project Resource Management"}, "correct": ["C"], "explanation": "C - Manage Communications is the process of producing and\ndistributing project information to the project stakeholders. This process\nis a part of the Project Communications Management knowledge area.\n[PMBOK 6th edition, Page 25] [Project Communications Management]"}, {"num": 47, "text": "Which of the following statements regarding team-building is correct?", "options": {"A": "Team-building is essential during the middle of a project, and\nfrom there it is an ongoing process.", "B": "Team-building is essential during the end of a project, and it is a\none-time process.", "C": "Team-building is essential during the end of a project, but it is an\nongoing process.", "D": "Team-building is essential during the front end of a project, but it\nis an ongoing process."}, "correct": ["D"], "explanation": "D - Team building is essential during the front end of a project, but it is\nan ongoing process. [PMBOK 6th edition, Page 341]"}, {"num": 48, "text": "Which of the following is NOT considered a method in the Manage\nCommunications process?", "options": {"A": "Change control systems", "B": "Communication technology", "C": "Project reporting", "D": "Project Management Information System"}, "correct": ["A"], "explanation": "A - The change control system is not a tool and technique of the\nManage Communications process. The other choices are valid tools and\ntechniques of this process. [PMBOK 6th edition, Page 379] [Project\nCommunications Management]"}, {"num": 49, "text": "Robert’s project is a high-priority project for his organization. Project\nstakeholder engagement is crucial for the project’s success. Robert\nneeds to discuss the project stakeholder engagement levels with his\nproject team on a regular basis. Which of the following is the best\nplatform where Robert can review this with his team?", "options": {"A": "Phase gates", "B": "Project status review meetings", "C": "Kill points", "D": "Information management system"}, "correct": ["B"], "explanation": "B - The phase gates and the kill points are the project reviews that are\ndone at the closure of each phase of the project. Managing stakeholder\nengagement levels should be a continuous process that does not wait for\na project phase to complete. Information management systems can be\nused for the exchange of project information, but project status review\nmeetings are interactive communication sessions among the project\nteam members. A project status review meeting provides the best\nplatform to discuss the current engagement levels of the project\nstakeholders. [PMBOK 6th edition, Page 535]"}, {"num": 50, "text": "Reporting performance about scope to stakeholders is a part of which\nknowledge area?", "options": {"A": "Project Communications Management", "B": "Project Scope Management", "C": "Project Quality Management", "D": "Project Integration Management\nPMP Lite Mock Exam 10"}, "correct": ["A"], "explanation": "A - Project Reporting is a tool and technique of the Manage\nCommunications Process. [PMBOK 6th edition, Page 379] [Project\nCommunications Management]"}];
 
@@ -603,6 +1197,42 @@ function hideResetModal(){ document.getElementById('resetModal').classList.remov
 function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
 function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 render();
+
+
+(function initCompactScrollHeader() {
+  const header = document.querySelector('.header');
+  let isCompact = false;
+  let ticking = false;
+
+  function updateHeader() {
+    if (!header) return;
+
+    const y = window.scrollY || 0;
+
+    // Stable hysteresis:
+    // - once the user scrolls meaningfully down, keep the compact header
+    // - only restore the full header near the top of the page
+    // This avoids flashing caused by tiny up/down scroll movements.
+    if (!isCompact && y > 120) {
+      isCompact = true;
+      header.classList.add('compact-scroll');
+    } else if (isCompact && y < 35) {
+      isCompact = false;
+      header.classList.remove('compact-scroll');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateHeader();
+})();
 
 </script>
 </body>

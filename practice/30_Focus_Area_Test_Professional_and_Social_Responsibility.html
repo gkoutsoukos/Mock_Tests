@@ -504,6 +504,577 @@
     .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
     .explanation { margin-left: 16px; margin-right: 16px; }
   }
+/* =========================================================
+     Mobile compact interface + dark mode upgrade
+     ========================================================= */
+
+  .theme-toggle-test {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-test:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  body.dark {
+    --navy: #d6b85a;
+    --navy-mid: #050816;
+    --navy-light: #1f2937;
+    --gold: #d6b85a;
+    --gold-light: #f0d879;
+    --cream: #0b1020;
+    --cream-dark: #1f2937;
+    --text: #f8f5ea;
+    --muted: #a7afbf;
+    --correct: #86efac;
+    --correct-bg: rgba(34,197,94,.16);
+    --wrong: #fca5a5;
+    --wrong-bg: rgba(239,68,68,.16);
+    --partial: #fbbf24;
+    --partial-bg: rgba(245,158,11,.16);
+    --border: #374151;
+  }
+
+  body.dark {
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  body.dark .header {
+    background: #050816;
+    box-shadow: 0 2px 24px rgba(0,0,0,.55);
+  }
+
+  body.dark .header-title span,
+  body.dark .pace-strip,
+  body.dark .pace-strip span {
+    color: rgba(248,245,234,.72);
+  }
+
+  body.dark .exam-timer-wrap,
+  body.dark .score-chip,
+  body.dark .pct-chip,
+  body.dark .section-chip {
+    background: #111827;
+    border-color: rgba(214,184,90,.28);
+  }
+
+  body.dark .mode-toggle button {
+    border-color: rgba(248,245,234,.22);
+  }
+
+  body.dark .mode-toggle button.active {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .filter-bar {
+    background: rgba(11,16,32,.96);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn,
+  body.dark .jump-wrap input,
+  body.dark .btn-timer,
+  body.dark .btn-clear,
+  body.dark .btn-flag,
+  body.dark .reset-btn {
+    background: #111827;
+    color: var(--text);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn.active,
+  body.dark .jump-wrap button,
+  body.dark .btn-submit {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .q-card,
+  body.dark .modal {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  body.dark .q-header {
+    border-color: #1f2937;
+  }
+
+  body.dark .q-num,
+  body.dark .opt.selected .opt-letter {
+    background: #050816;
+    color: #d6b85a;
+    border-color: #050816;
+  }
+
+  body.dark .opt {
+    background: #0b1020;
+    border-color: #374151;
+  }
+
+  body.dark .opt:hover {
+    background: #111827;
+    border-color: rgba(214,184,90,.55);
+  }
+
+  body.dark .opt.selected {
+    background: rgba(214,184,90,.12);
+    border-color: #d6b85a;
+  }
+
+  body.dark .q-timer {
+    background: #0b1020;
+    border-color: #1f2937;
+  }
+
+  body.dark .explanation {
+    background: #0b1020;
+    color: #d1d5db;
+    border-left-color: #d6b85a;
+  }
+
+  body.dark .explanation strong,
+  body.dark .modal h3,
+  body.dark .timer-display {
+    color: #f0d879;
+  }
+
+  body.dark .locked-notice {
+    background: #0b1020;
+    border-left-color: #d6b85a;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      font-size: 15px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 120;
+    }
+
+    .header-inner {
+      padding: 9px 12px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-title {
+      font-size: 1.02rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .header-title span {
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .exam-timer-wrap {
+      padding: 6px 8px;
+      gap: 6px;
+      border-radius: 9px;
+      min-width: 0;
+    }
+
+    .exam-timer-main {
+      min-width: 82px;
+    }
+
+    .exam-timer-value {
+      font-size: 1.05rem;
+    }
+
+    .exam-timer-label {
+      font-size: 0.49rem;
+      letter-spacing: .05em;
+    }
+
+    .exam-timer-btn {
+      padding: 5px 7px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle {
+      grid-column: 1 / -1;
+      order: 10;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle button,
+    .section-chip {
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .section-chip {
+      justify-self: stretch;
+      text-align: center;
+      display: none;
+    }
+
+    .score-chip,
+    .pct-chip {
+      padding: 6px 8px;
+      min-width: 62px;
+    }
+
+    .score-chip .val,
+    .pct-chip .val {
+      font-size: 1rem;
+    }
+
+    .score-chip .lbl,
+    .pct-chip .lbl {
+      font-size: 0.5rem;
+      letter-spacing: .05em;
+    }
+
+    #saveIndicator {
+      display: none;
+    }
+
+    .theme-toggle-test {
+      padding: 5px 8px;
+      font-size: 0.68rem;
+    }
+
+    .score-bar > button[onclick="showResetModal()"] {
+      padding: 5px 8px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .pace-strip {
+      display: none;
+    }
+
+    .progress-wrap {
+      height: 3px;
+    }
+
+    .main {
+      padding: 0 10px 56px;
+    }
+
+    #questionsList {
+      padding-top: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 118px;
+      z-index: 100;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar label,
+    .spacer,
+    .jump-wrap {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .q-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .q-header {
+      padding: 12px 12px 10px;
+      gap: 8px;
+    }
+
+    .q-num {
+      font-size: 0.62rem;
+      padding: 3px 8px;
+    }
+
+    .q-text {
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .q-options {
+      padding: 10px 12px 12px;
+      gap: 7px;
+    }
+
+    .opt {
+      padding: 9px 10px;
+      gap: 9px;
+      border-radius: 9px;
+    }
+
+    .opt-letter {
+      width: 23px;
+      height: 23px;
+      min-width: 23px;
+      font-size: 0.68rem;
+    }
+
+    .opt-text {
+      font-size: 0.88rem;
+      line-height: 1.36;
+    }
+
+    .q-actions {
+      padding: 8px 12px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit,
+    .btn-clear,
+    .btn-flag {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+    }
+
+    .explanation {
+      margin: 0 12px 12px;
+      padding: 12px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .q-timer {
+      padding: 7px 12px;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .timer-label {
+      display: none;
+    }
+
+    .timer-display {
+      font-size: 0.78rem;
+      min-width: 48px;
+    }
+
+    .btn-timer,
+    .btn-timer-reset {
+      padding: 4px 9px;
+      font-size: 0.7rem;
+    }
+
+    .reset-btn {
+      margin: 0 12px 12px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+    }
+
+    .modal {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .pct-chip {
+      display: none;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+    }
+
+    .opt-text {
+      font-size: 0.85rem;
+    }
+  }
+
+
+  /* =========================================================
+     Ultra-compact scroll behavior upgrade
+     - hides Study/Simulation controls
+     - keeps only timer/score row sticky while scrolling down
+     - reveals full header when scrolling up
+     ========================================================= */
+
+  .mode-toggle,
+  .section-chip {
+    display: none !important;
+  }
+
+  .header.compact-scroll .header-title,
+  .header.compact-scroll .pace-strip {
+    display: none;
+  }
+
+  .header.compact-scroll .header-inner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .header.compact-scroll .score-bar {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      transition: padding .16s ease;
+    }
+
+    .header-title {
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .score-bar {
+      grid-template-columns: 1fr auto auto auto;
+    }
+
+    .header.compact-scroll .header-inner {
+      padding: 6px 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+
+    .header.compact-scroll .theme-toggle-test,
+    .header.compact-scroll .score-bar > button[onclick="showResetModal()"] {
+      display: none;
+    }
+
+    .header.compact-scroll .exam-timer-wrap {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .score-chip,
+    .header.compact-scroll .pct-chip {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .filter-bar {
+      top: 54px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* =========================================================
+     Debug patch v2
+     Fixes:
+     - filter bar overlaying questions
+     - Light / Reset still visible in compact-scroll mode
+     - sticky header height conflicts
+     ========================================================= */
+
+  /* The filter bar should not be sticky. It was overlapping questions while scrolling. */
+  .filter-bar {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  /* In compact scroll mode, keep the top bar focused on timer + score only. */
+  .header.compact-scroll .theme-toggle-test,
+  .header.compact-scroll .score-bar > button[onclick="showResetModal()"],
+  .header.compact-scroll #saveIndicator {
+    display: none !important;
+  }
+
+  .header.compact-scroll .score-bar {
+    justify-content: space-between;
+  }
+
+  .header.compact-scroll .exam-timer-wrap,
+  .header.compact-scroll .score-chip,
+  .header.compact-scroll .pct-chip {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .filter-bar {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* Stable compact header patch: avoid flashing while scrolling */
+  .header {
+    will-change: transform;
+  }
+
+  .header-inner,
+  .score-bar,
+  .exam-timer-wrap,
+  .score-chip,
+  .pct-chip {
+    transition: padding .12s ease, opacity .12s ease;
+  }
+
+  @media (max-width: 700px) {
+    .header.compact-scroll .header-inner {
+      min-height: 54px;
+    }
+
+    .header.compact-scroll .progress-wrap {
+      display: none;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -516,6 +1087,7 @@
       <div id="saveIndicator">✓ Saved</div>
       <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
       <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button class="theme-toggle-test" id="themeToggle" type="button">🌙 Dark</button>
       <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
     </div>
   </div>
@@ -537,6 +1109,28 @@
 </div>
 <div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
 <script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('pmiStudyHubTheme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('pmiStudyHubTheme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(savedTheme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+      });
+    }
+  });
+})();
+
 const TEST_META = {"seq": 30, "name": "Focus Area Test - Professional and Social Responsibility", "timeMinutes": 30, "slug": "Focus_Area_Test_Professional_and_Social_Responsibility"};
 const QUIZ_DATA = [{"num": 1, "text": "You just initiated a project to establish windmills in a developing\ncountry. To celebrate the initiation of the project, the customers\narranged a party in which a key customer offered valuables to you and\nall your project team members with a request to complete the project\nsooner than the actual finish date. What should you do?", "options": {"A": "Accept the offer and agree to finish the project early", "B": "Reject the offer because it violates the code of ethics and\nprofessional conduct", "C": "Accept the offer but refuse to complete the project early", "D": "Reject the offer and do not communicate with that customer"}, "correct": ["B"], "explanation": "B - Since the stakeholder made a request by offering gifts, you should\nrefuse the offer. The PMI's Code of Ethics and Professional Conduct\nsuggests that a project manager should never engage in unfairness.\nFavoring one or more customers by taking gifts is not allowed. Thus,\nyou should reject the offer because it violates the Code of Ethics and\nProfessional Conduct. Not communicating with one customer could\nimpair relationships with other customers. If it is customary in that\ncountry to offer gifts, you might accept them without agreeing to the\ncustomer's request. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 2, "text": "You overlooked a high-level risk in an insurance project and failed to\ndocument it in the project charter. If the risk shows up during the\nplanning phase, what should be your response as a project manager?", "options": {"A": "Take the responsibility and evaluate the impact", "B": "Call a customer meeting to inform them that risk has occurred", "C": "Refer to the sponsor for advice", "D": "Develop the risk response plan and communicate to the team"}, "correct": ["A"], "explanation": "A - According to the PMI Code of Ethics and Professional Conduct,\nproject managers must take ownership of the decisions they make or\nfail to make. Thus, you should take responsibility and evaluate the\nimpact first. A risk response plan should be developed only after\nevaluating the impact. Calling a customer meeting cannot deal with the\nrisk. You should escalate it to the sponsor only if the risk is beyond\nyour control. [PMI Code of Ethics and Professional Responsibility]\n[Prof. Responsibility]"}, {"num": 3, "text": "You have recently started working as a project manager for a public\nschool construction project. Your analysis shows that the cost estimate\nfor the project seems to be unreasonable, and it could take at least 25\npercent more funding to complete the project. What should you do if\nyour sponsor wants to undertake the project with another project\nmanager in case you refuse to accept it?", "options": {"A": "Conduct a customer focus meeting to explain the facts", "B": "Resign from the project and let the sponsor assign a new project\nmanager", "C": "Submit detailed facts to the supervisor supporting your argument", "D": "Continue with the project and document the limited budget as a\nconstraint"}, "correct": ["C"], "explanation": "C - Project managers have the responsibility to present truthful and\naccurate information regarding costs, schedules, and resources. Submit\nthe facts that substantiate your argument. If your argument is valid, then\nthe sponsor might agree with you. Talking to customers is not\nappropriate. Continuing the project might cause it to fail. It is\ninappropriate to resign from the project without presenting the facts.\n[PMI Code of Ethics and Professional Responsibility] [Prof.\nResponsibility]"}, {"num": 4, "text": "You have recently started working as a project manager for a health\ninsurance portal development project. The project sponsor tells you that\ndue to the critical nature of the project, the work must start immediately\nand complete in two weeks. Based on the instructions, you have started\ndocumenting significant constraints and assumptions to perform the\nproject feasibility study. What should you do if you can prepare only\nthe high-level feasibility study in the given time frame?", "options": {"A": "Conduct the stakeholder meeting to evaluate other options", "B": "Refer this issue to the sponsor and explain the need for more\ndetailed study", "C": "Submit the high level study and start making plans to prepare the\ncharter", "D": "Submit the high level study and schedule a detailed study in the\nplanning phase"}, "correct": ["B"], "explanation": "B - Developing a detailed feasibility study is essential to initiate a\nproject. If efforts are not made initially to determine whether the project\nis worth the required investment, it could result in project failure. It is\nalso the responsibility of the project manager to provide accurate and\ncomplete information about the feasibility of any project. Thus, you\nmust escalate the issue to the sponsor and explain the need for a more\ndetailed study. Since the project initiation depends on the feasibility of\nthe project, the report cannot be prepared in the project planning phase.\nConducting stakeholder meeting is an invalid choice because the\nstakeholders have not yet been selected to conduct a meeting. [PMI\nCode of Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 5, "text": "Danny is working as a project manager for a company that provides\noutsourcing services to banks. Recently, he sent a proposal to a local\nbank in response to a bid for a data warehouse project for which his\ncompany lacks expertise. Although his company lacks expertise, it has\nhad a good working relationship with the bank in all its other projects.\nWhich of the following statements is correct considering the proposal\nDanny submitted?", "options": {"A": "Danny has not violated the PMI Code of Ethics and Professional\nConduct.", "B": "Danny has violated the company policy but not the PMI code", "C": "Danny has violated the procurement code but not the PMI code", "D": "Danny has violated the PMI Code of Ethics and Professional\nConduct."}, "correct": ["D"], "explanation": "D - One of the mandatory standards for a project manager is to behave\nresponsibly and bid on only those projects for which the project\nmanager’s employer has expertise and skills. Since Danny bid on a\nproject for which his company lacks expertise, he violated the PMI\nCode of Ethics and Professional Conduct. There is no procurement code\nin project management. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 6, "text": "In a software development project, Debby, the project manager,\ncompleted development of a charter and identification of stakeholders.\nDebby has collected proprietary information from vendors during the\nplanning process. What should Debby do when a functional manager\nfrom the same organization wants to see this information?", "options": {"A": "Deny the request as the manager is not part of the project", "B": "Accept the request as the manager belongs to the same\norganization", "C": "Deny the request to protect the confidentiality of the information", "D": "Accept the request but caution the manager to maintain\nconfidentiality"}, "correct": ["C"], "explanation": "C - It is the responsibility of the project manager to maintain\nconfidentiality of protected or proprietary information. A project\nmanager should provide such confidential information only to the\nsponsor and to the vendor evaluation committee or whoever is involved\nin the evaluation. He or she must not provide this information to any\nother employees within the organization or within the project. [PMI\nCode of Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 7, "text": "You are responsible for developing high-level risks, assumptions, and\nconstraints for your project. You meet with experts in your organization\nand document various risks in the project. However, in reviewing\nhistorical data from a previous project, you notice a significant\nadditional risk to your project, one that no one else is aware of. What\nshould you do to continue the project?", "options": {"A": "Do not document the risk since it is based on past data", "B": "Document it but make it a low-level risk", "C": "Document it and make it a high-level risk", "D": "Do not document the risk since nobody knows about it"}, "correct": ["C"], "explanation": "C - As a project manager, you have a responsibility to disclose accurate\ninformation to all project stakeholders honestly. Project managers must\nnot disseminate false or misleading information. Thus, you must\ndocument it as a high-level risk. Even though the risk is based on past\ndata, it must be documented because the risks could also be identified\nfrom the past data. Documenting it as a low-level risk would be a\nmisleading act, and a project manager must not do that. [PMI Code of\nEthics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 8, "text": "You are using the one-on-one interview technique to gather high-level\nrisks, assumptions, and constraints in an infrastructure development\nproject to set up a bank. During the interview process, a key stakeholder\ntells you that the project might fail due to lack of support from local\npeople. What should you do in this situation?", "options": {"A": "Escalate the stakeholder's comments to the sponsor for his advice", "B": "Investigate the reasons behind the stakeholder's comments", "C": "Document the stakeholder's comments and continue with the\nproject", "D": "Ignore the stakeholder's comments and continue with the project"}, "correct": ["B"], "explanation": "B - You must document the comments from the stakeholder. However,\nyou should not continue the project until you also understand his or her\nrationale. The sponsor might ask you to look into it, so escalating the\nstakeholder's comments to the sponsor may not yield anything. Ignoring\nthe stakeholder's comments is not advisable. Thus, the correct step is to\ninvestigate the reasons behind the stakeholder's comments. [PMI Code\nof Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 9, "text": "You have started a project to establish a railroad between two\nneighboring cities. The state agency that sponsors this project is heavily\ncommitted to completing this project on time and within budget. In\nsupport of the agency's commitment, you have completed the charter\nand started identifying stakeholders who would support the project.\nYou would like to gather as many stakeholders as possible and move on\nto the planning phase. What should a project manager do while\nidentifying stakeholders in a project?", "options": {"A": "Notify the negative stakeholders to talk to the sponsor", "B": "Identify positive stakeholders and eliminate negative stakeholders\nto gather maximum support for the project", "C": "Identify positive stakeholders and ask negative stakeholders to\nleave the project", "D": "Identify both the positive and negative stakeholders and address\ntheir concerns"}, "correct": ["D"], "explanation": "D - Project stakeholders are people, organizations, or groups whose\ninterests are positively or negatively impacted by the project. A project\nmanager must identify both the positive and negative stakeholders for\nsuccessful completion of the project. Eliminating the negative\nstakeholders or keeping them away from the project will jeopardize the\nobjectives of the project and may cause the project to fail. One of the\nmandatory standards for a project manager is to show fairness and\ndisclose potential conflicts of interest to stakeholders. He or she should\nescalate issues to the sponsor only when he or she fails in influencing\nnegative stakeholders. Thus, the correct answer is to identify both the\npositive and negative stakeholders and address their concerns. [PMI\nCode of Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 10, "text": "During a three-year construction project, due to a shortage of resources,\na project manager has decided to develop a partial work breakdown\nstructure (WBS) in the beginning of the planning phase. The WBS will\nbe expanded as more information becomes known in the near term.\nWhat should the project manager do if a key resource criticizes his or\nher decision to develop the partial WBS?", "options": {"A": "Ignore the resource's comments", "B": "Remove the resource from the project", "C": "Redevelop the complete work breakdown structure for all three\nyears", "D": "Explain to the resource about the Rolling Wave planning"}, "correct": ["D"], "explanation": "D - One of the mandatory standards for a project manager is to show\nrespect to others by holding them in high regard. A project manager\nmust respect others’ viewpoints. A project manager need not develop a\ncomplete WBS during the initial stages of planning. In long projects,\nthe WBS can be developed partially and can be extended as more\ndetails become known later; this approach is known as rolling wave\nplanning. The project manager should explain rolling wave planning to\nthe resource. Ignoring the resource’s comments or removing the\nresource are not appropriate responses. [PMBOK 6th Edition, Page 185\nand PMI Code of Ethics and Professional Responsibility] [Prof.\nResponsibility]"}, {"num": 11, "text": "You are using parametric estimating techniques to estimate costs for\neach activity and the total budget in your project. However, a project\nmanager colleague tells you to bump up each estimate by 20 percent to\naccount for any unknown risks, and then submit that as a total budget to\nthe customers. What should you do?", "options": {"A": "Do not inflate the estimate", "B": "Inform the customer and then inflate the estimate", "C": "Inflate the estimate first and inform the customer", "D": "Inflate the estimate but do not inform the customer"}, "correct": ["A"], "explanation": "A - Honesty is a mandatory standard for project managers. Project\nmanagers are required to provide accurate information to customers\nregarding budget, resources, and risks. Unknown risks can be dealt with\nby using reserves. Deliberately inflating budget or schedule values or\nmaking misleading or false statements is against the PMI Code of\nEthics and Professional Conduct. Hence, the best course of action here\nis to not inflate the estimate. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 12, "text": "Two of your team members are constantly arguing with each other\nabout work assignments. Due to their attitude, the project is delayed,\nand pressure is building on other team members. What should you do?", "options": {"A": "Issue a memo", "B": "Meet with them to understand their concerns", "C": "Inform the concerned functional manager", "D": "Replace the team members"}, "correct": ["B"], "explanation": "B - One of the mandatory standards in the PMI Code of Ethics and\nProfessional Conduct is respect. A project manager must listen to\nothers’ points of view and understand them. Hence, you must meet with\nthe team members first to understand their concerns. If the problem\ncontinues, you may issue a memo or even replace the team members if\nnecessary. Talking to the functional manager may not resolve the\nproblem as the team members are managed by you in your project.\n[PMBOK 6th Edition, Page 348 and PMI Code of Ethics and\nProfessional Responsibility] [Project Resource Management]"}, {"num": 13, "text": "In an IT project, after several brainstorming sessions with customers,\nKurt established various project deliverables. Two weeks later, while\nreviewing the plan, Kurt identifies two similar deliverables and decides\nto merge them into a single deliverable. What should Kurt do next?", "options": {"A": "Merge the deliverables and inform the customer", "B": "Submit the need to merge to the customer", "C": "Merge the deliverables but do not inform the customer", "D": "Merge the deliverables but do not update the project management\nplan"}, "correct": ["B"], "explanation": "B - The customer must be notified about any changes made to\ndeliverables because acceptance of deliverables is key to a successful\nproject. It is the responsibility of the project manager to notify\nappropriate stakeholders before making changes. Kurt must submit the\nproposed merge to the customer. Once the customer accepts the change,\nKurt can merge the deliverables and notify the customer that this has\nbeen done. [PMI Code of Ethics and Professional Responsibility] [Prof.\nResponsibility]"}, {"num": 14, "text": "The management of a retail business unit has just assigned Mario to\ncompare multiple projects and select the best project that will produce\nthe most value for the unit. Although Mario has worked as a project\nmanager for a long time, he has only a limited understanding of project\nselection methods. What should be the first course of action from Mario\nin this scenario?", "options": {"A": "Select the best project with whatever knowledge he possesses", "B": "Refuse to take the assignment", "C": "Obtain an expert's judgment to help select the project", "D": "Inform the management about lack of knowledge on project\nselection methods"}, "correct": ["D"], "explanation": "D - The management has just assigned Mario to select the best project.\nOne of the mandatory standards for practitioners of project management\nis honesty. Therefore, Mario should tell the management about his lack\nof knowledge of project selection methods. Attempting to select the\nproject without expert knowledge could create problems later. Refusing\nthe assignment is not an appropriate action. Management may suggest\nsoliciting expert judgment for selecting the project, but informing the\nmanagement is the first step to take, and it is up to management to\ndecide what to do next. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 15, "text": "A company hires you to work as a project manager in a foreign country.\nYou discover that you must pay kickbacks to the officials there to get\nlicenses for your project. What should you do?", "options": {"A": "Offer kickbacks but inform your management", "B": "Resign from the project", "C": "Offer kickbacks but document them in the project cost\nmanagement plan", "D": "Refuse to pay kickbacks"}, "correct": ["D"], "explanation": "D - Offering kickbacks is against the PMI Code of Ethics and\nProfessional Conduct. Resigning from the project is not an appropriate\naction. Thus, you must refuse to pay kickbacks. [PMI Code of Ethics\nand Professional Responsibility] [Prof. Responsibility]"}, {"num": 16, "text": "Jack is currently identifying stakeholders in his automobile project.\nWhile talking to his senior manager, Jack learns that one of the key\nstakeholders, whom he identified in his project, is so influential that he\nor she cancelled an IT project before it moved into the planning phase.\nWhat should Jack do with such influential stakeholders?", "options": {"A": "Get an approval from sponsor to eliminate him or her from the\nproject", "B": "Involve this person from the beginning of the project and manage\nthem closely", "C": "Provide limited access to project information compared to other\nstakeholders", "D": "Provide more access to project information compared to other\nstakeholders"}, "correct": ["B"], "explanation": "B - All stakeholders must be identified as early as possible in the\nproject. The stakeholders can be positive or negative. They must be\nclassified based on their influence, interest, expectations, and\nimportance. A project manager must not hide information. He or she\nmust provide equal access to all stakeholders who are authorized to\nhave that information. Thus, Jack must involve the influential\nstakeholders from the beginning of the project and manage them\nclosely. [PMI Code of Ethics and Professional Responsibility] [Project\nStakeholder Management]"}, {"num": 17, "text": "While conducting interviews for a project manager position, you notice\nthat your classmate is one of the prospective candidates. What should\nyou do immediately?", "options": {"A": "Encourage your classmate by offering some tips", "B": "Resign from the interview panel", "C": "Remove your classmate from the list", "D": "Inform the interview panel of the relationship"}, "correct": ["D"], "explanation": "D - As a project manager, you have a responsibility to disclose to the\ninterview panel that interviewing your classmate could represent a\npotential conflict of interest. It is up to the panel to decide on the best\ncourse of action, which might include excusing you from the interview\nprocess. Therefore, your first step is to inform the interview panel of the\nrelationship. Offering tips to your classmate would violate the fairness\nstandard of the PMI code of ethics and professional conduct. Removing\nyour classmate is not appropriate. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 18, "text": "One of your team leaders informs you that a team member criticizes\nhim constantly about the allocation of tasks. The team leader also\nasserts that this team member is also responsible for the delay of many\ntasks, leading to delays in the project schedule. What action should you\ntake as a project manager?", "options": {"A": "Conduct a meeting with the sponsor, team leader, and the team\nmember", "B": "Approach the team member and understand his point of view", "C": "Replace the team member", "D": "Direct your team leader to issue a memo"}, "correct": ["B"], "explanation": "B - A project manager should manage such a conflict by directly\napproaching the team member who caused the conflict. According to\nthe PMI Code of Ethics and Professional Conduct, a project manager\nmust be responsible and show respect. He or she must listen to others’\nviewpoints, seeking to understand them before making a decision.\nNeither replacing the team member nor issuing a memo is an\nappropriate action. Involving the sponsor in team issues is not an\nappropriate action either, unless the issues are beyond the project\nmanager’s control. [PMBOK 6th Edition, Page 348 and PMI Code of\nEthics and Professional Responsibility] [Project Resource\nManagement]"}, {"num": 19, "text": "What should you do as a senior project manager if the PMP\ncertification claimed by a recently recruited project manager does not\nappear in the PMI website?", "options": {"A": "Advise your new recruit to complete his certification", "B": "Report to the PMI", "C": "Report to the sponsor", "D": "Request more information from the new recruit"}, "correct": ["D"], "explanation": "D - A project manager must bring alleged unethical activities or\nviolations of the code of conduct to PMI's attention. False certification\nclaims must be reported to PMI. In this case, it is not yet confirmed that\nthe recruit has made a false claim; try to get clarification from him. If\nyou confirm that he has made a false claim, you can report this to both\nthe PMI and the sponsor. Thus, the best answer in this situation is to\nrequest more information. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 20, "text": "You have recently taken over a project from a PMP-certified project\nmanager who was removed from the project due to incompetence and\nlack of skills. When you happen to meet him outside your building, he\nstarts rebuking you for taking his project. He even goes so far as to\nsuggest that your religion played a part in your selection by the\nmanagement. What should you do first?", "options": {"A": "Report to the customer", "B": "Do nothing", "C": "Report to the police", "D": "Report to Project Management Institute (PMI)"}, "correct": ["D"], "explanation": "D - All project managers who are PMP-certified must uphold the PMI\nCode of Ethics and Professional Conduct. They must behave well in\ntheir profession. All alleged violations should be brought to the PMI's\nattention. PMI takes disciplinary actions against individuals who\nknowingly make false allegations against other project managers. Thus,\nyou must report this situation to PMI first. If your life is threatened,\nthen you must report that to the police and the management. [PMI Code\nof Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 21, "text": "In a manufacturing project, you have requested bids to procure\nstainless-steel products. However, your sponsor insists that you conduct\nbidder conferences before selecting sellers. What mandatory standard in\nthe PMI Code of Ethics and Professional Conduct is met by conducting\nbidder conferences?", "options": {"A": "Honesty", "B": "Respect", "C": "Responsibility", "D": "Fairness"}, "correct": ["D"], "explanation": "D - Bidder conferences or vendor conferences are used to provide a\nclear understanding of the procurement process to all prospective\nsellers. This process ensures that the mandatory standard of fairness is\nfollowed in the bidding process. Fairness in this case means making\nopportunities equally available to all qualified candidates. [PMBOK 6th\nEdition, Page 487 and PMI Code of Ethics and Professional\nResponsibility] [Project Procurement Management]"}, {"num": 22, "text": "In a software development project, you are having joint application\ndevelopment (JAD) sessions to collect product requirements from\nstakeholders. Which of the following mandatory standards in the PMI\nCode of Ethics and Professional Conduct is met by having JAD\nsessions while gathering requirements?", "options": {"A": "Honesty", "B": "Fairness", "C": "Responsibility", "D": "Respect"}, "correct": ["B"], "explanation": "B - Fairness is one of the mandatory standards in the PMI Code of\nEthics and Professional Conduct. Fairness means not showing\nfavoritism or prejudice. The JAD sessions build trust among the\ncustomers and reconcile stakeholder differences since they give equal\nopportunity to all stakeholders. [PMBOK 6th Edition, Page 145 and\nPMI Code of Ethics and Professional Responsibility] [Project Scope\nManagement]"}, {"num": 23, "text": "A functional manager in your organization has recently filed a\ncomplaint against a junior project manager regarding his project\nmanagement certification. The functional manager claims that the PMP\ncertification claimed by the junior project manager is invalid and needs\nto be checked. What should be your response as a senior project\nmanager?", "options": {"A": "Report to PMI", "B": "Suspend the junior project manager", "C": "Ask your project manager to provide evidence for his/her PMP\ncertification", "D": "Ask your functional manager to provide evidence for his argument"}, "correct": ["D"], "explanation": "D - One of the mandatory standards in the PMI Code of Ethics and\nProfessional Conduct is respect. A project manager must listen to\nothers’ points of view and understand them. However, before asking the\njunior project manager for evidence of his or her PMP certification, you\nmust ask your functional manager to provide evidence to support his or\nher allegations. You can suspend the junior project manager or report\nhim or her to PMI if there is sufficient evidence of his or her guilt. [PMI\nCode of Ethics and Professional Responsibility] [Prof. Responsibility]"}, {"num": 24, "text": "While conducting a brainstorming session to identify stakeholders, a\nprocess manager disagrees with you on a decision you made regarding\nthe influence and impact of each stakeholder on the project. He even\nmakes some comments against you in front of other stakeholders. As a\nsenior project manager, what should be your immediate response?", "options": {"A": "Do nothing in the meeting but later escalate this issue to the\nsponsor", "B": "Take the help of other stakeholders and present your argument", "C": "Propose an immediate meeting between the two of you to resolve\nthe differences", "D": "Remove the process manager from the project"}, "correct": ["C"], "explanation": "C - The PMI Code of Ethics and Professional Conduct requires you to\nconduct yourself in a professional manner even when it is not\nreciprocated. Therefore, you must not start arguing with the process\nmanager. Removing the process manager will only worsen the situation.\nYou must directly approach those persons with whom you have a\nconflict or disagreement—the process manager in this case. Propose an\nimmediate meeting with him or her to resolve your differences.\nEscalating this issue will not resolve your differences. [PMBOK 6th\nEdition, Page 348 and PMI Code of Ethics and Professional\nResponsibility] [Project Resource Management]"}, {"num": 25, "text": "You have found you do not yet have an accurate estimate of the number\nand skill levels of resources needed for the scheduled activity Build\nRacks for Data Center. You need this estimate for presentation to your\nHuman Resources department later in the week. You have decided to\ndecompose the Build Racks for Data Center activity into smaller\ncomponents such as take equipment out of box, review equipment for\ncompleteness, build frame, and install rails. Then you plan to estimate\nthe resources for each smaller component and combine those estimates\ninto an aggregate. This is an example of:", "options": {"A": "Aggregate Estimating", "B": "Alternative Analysis", "C": "Bottom-up Estimating", "D": "Rolling Wave Estimating"}, "correct": ["C"], "explanation": "C - Breaking down the scheduled activity into smaller components and\nthen combining the estimates for each smaller activity is an example of\nbottom-up estimating. [PMBOK 6th Edition, Page 324]"}, {"num": 26, "text": "You are a senior project management practitioner. You have been given\na chemical manufacturing project that could potentially contaminate the\ngroundwater in the neighboring residential community. After detailed\nanalysis, you learn that the impact could be severe in the long run. If the\nsponsor of the project wants to complete this project as soon as\npossible, you must:", "options": {"A": "Undertake the project but not inform the residents", "B": "Refuse to take up the project", "C": "Support the sponsor", "D": "Undertake the project but inform the residents"}, "correct": ["B"], "explanation": "B - All project management practitioners must follow the PMI Code of\nEthics and Professional Conduct. One of the aspirational standards that\na project manager must follow is responsibility. Project managers must\nmake decisions based on the best interests of society, public safety, and\nthe environment. They must not undertake projects that are harmful to\nthe public interest. Therefore, the best option in this situation is to\nrefuse to take on the project, now that you know of its potentially\nharmful environmental effects. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]"}, {"num": 27, "text": "You are working on a software development project in which\nspecialized resources are required to perform some tasks. You estimate\nthese resources are necessary during the project’s executing phase.\nHowever, your estimation fails to account for these resources are\navailable for only limited hours in the executing phase. What should\nyou do to make schedule changes to deal with the limited availability?", "options": {"A": "Communicate to customers and update the baseline", "B": "Update the project schedule", "C": "Update the schedule baseline", "D": "Perform an impact analysis"}, "correct": ["D"], "explanation": "D - A project manager must be responsible and must communicate\ntruthful information to customers. However, a project manager must\nperform an impact analysis before getting approval from the customer\nand making changes. Thus, the correct choice here is to perform an\nimpact analysis. The schedule and schedule baseline should be updated\nafter analyzing the impact and getting customer approval. [PMI Code of\nEthics and Professional Responsibility] [Project Schedule Management]"}, {"num": 28, "text": "A project manager has completed identification of stakeholders and has\nstarted planning for a flow instruments installation project in a hospital.\nWhile developing the project management plan, a team member states\nthat a stakeholder in the X-ray department is missing from the\nstakeholder list. Which of the following would be the best response\nfrom the project manager?", "options": {"A": "Authenticate the information from the team member", "B": "Include and involve the stakeholder immediately", "C": "It is too late to involve a stakeholder in the planning, so ignore the\nstakeholder", "D": "Wait until the execution phase to involve the new stakeholder"}, "correct": ["A"], "explanation": "A - One aspect of responsibility for a project manager is to take\nownership of decisions made. A project manager is responsible for\nidentifying all stakeholders as early as possible in the project. A\nmissing stakeholder could jeopardize the objectives of the project.\nHowever, the project manager must first authenticate the information\nfrom the team member before involving the stakeholder. Thus, this is\nthe best choice of action for the project manager in this situation.\n[PMBOK 6th Edition, Pages 504-506 and PMI Code of Ethics and\nProfessional Responsibility] [Project Stakeholder Management]"}, {"num": 29, "text": "While using facilitated sessions to gather high-level business\nrequirements for a software development project, one of your customers\nproposes a requirement that may not be technologically possible to\nmeet. If the customer insists on the requirement, what should you do\nfirst?", "options": {"A": "You should not document the requirement", "B": "You should document the requirement and include it as a risk", "C": "You should listen to the customer and understand his viewpoint", "D": "You should document the requirement to meet customer\nexpectations"}, "correct": ["C"], "explanation": "C - A project manager must communicate honestly and openly with the\ncustomer. When a customer insists on specific requirements, a project\nmanager should listen to him or her and understand his or her point of\nview. Then, the project manager must gather facts and explain\nconvincingly to the customer why he or she is right or wrong. Project\nmanagers should neither accept nor deny critical requests from the\ncustomer until they have sufficient factual information. Thus, in this\nsituation, you should first listen to the customer and understand his\nviewpoint. [PMI Code of Ethics and Professional Responsibility] [Prof.\nResponsibility]"}, {"num": 30, "text": "You have just started leading a World Bank healthcare development\nproject in a developing country in which it is customary to offer lunch\nwhen a project is initiated. Although your team members are willing to\naccept the offer, you decide to refuse the offer since you know the\nPMI’s Code of Ethics and Professional Conduct does not allow you to\naccept gifts. Which of the following statements about your decision is\ncorrect?", "options": {"A": "Your decision is wrong because you should obey the norms and\ncustoms of others as long as you do not favor them.", "B": "Your decision is correct because you are engaging yourself in\nunethical behavior by accepting the lunch.", "C": "Your decision is correct because you are following the PMI’s\nCode of Ethics and Professional Conduct.", "D": "Your decision is wrong because conduct rules only apply to local\nprojects, not international projects.\nPMP Focus Area Test: Professional and Social\nResponsibility"}, "correct": ["A"], "explanation": "A - Although the PMI Code of Ethics and Professional Conduct does\nnot allow gift-taking, project managers should respect the norms and\ncustoms of others as long as they do not show favoritism based on those\nnorms. Therefore, in this situation, your decision is incorrect because\nyou should respect the norms and customs of others as long as you do\nnot favor them. The PMI code of conduct applies to both local and\ninternational projects. [PMI Code of Ethics and Professional\nResponsibility] [Prof. Responsibility]\nPMP FORMULA CHEAT SHEET\nADDITIONAL RESOURCES\nExam Taking Tips\nPMP Exam Facts\n• There are 200 total multiple choice questions which make up the PMP\nexam\n• 25 randomly placed \"pretest questions\" are included, and do not count\ntowards the pass/fail determination\n• Students have 4 hours to complete the exam\n• Only correct answers count, and a passing score is determined by “sound\npsychometric analysis”. This scoring method indicates that scores reflect\nthe difficulty of the questions answered.\n• Students may bring blank “scratch” paper with which to draft responses,\nsuch as for formula-based exam questions.\nBefore the Exam\n• Visit the exam location before your exam date so that you are familiar\nwith the address and commute time, especially if you are a nervous test\ntaker.\n• Be prepared to fully utilize your blank “scratch” paper in the exam. This\nmeans that you have committed important formulas, concepts, and key\nfacts to memory; and you are able to apply them to a blank sheet of paper\nin less than five minutes.\n• Alleviate exam stress and anxiety by taking practice exams that attune\nyou to the pace, subject matter, and difficulty of the real exam.\n• On the night before the exam, reduce your study time to one hour or less\nand get extra sleep. The reduced study time and extra rest will allow your\nbrain to better process the information it has absorbed during earlier,\nmore intense, study sessions.\nTaking the Exam\n• IMPORTANT: Bring your PMI authorization letter, as well as two forms\nof ID, to the exam center.\n• At the beginning of the PMP exam, use your scratch paper to\n“download” all of the formulas, concepts, and key facts you have\ncommitted to memory. To save time, perform this activity immediately\nafter the initial computer tutorial which allots 15 minutes.\n• Approach each question from PMI’s perspective, not your own\nexperience, even if the most correct response seems contrary to your “on-\nthe-job” knowledge.\n• Plan your breaks during the exam. A recommended break pattern during\nthe PMP exam is to stand up and stretch after every 50 questions.\n• Smile as you take the exam. It has been proven that smiling alleviates\nstress and boosts confidence during exceptionally difficult tasks. Use\ndeep breathing techniques to further relax.\n• If you have exam time remaining, review the questions you “marked for\nreview”. Use all the exam time you have until each question has been\nreviewed twice.\nThe PMP exam is a multiple choice test that asks one to recognize correct\nanswers among a set of four options. The extra options that are not the correct\nanswer are called the “distracters”; and their purpose, unsurprisingly, is to\ndistract the test taker from the actual correct answer among the bunch.\nStudents usually consider multiple choice exams as much easier than other\ntypes of exams; this is not necessarily true with the PMP exam. Among these\nreasons are:\n• Most multiple choice exams ask for simple, factual information;\nunlike the PMP exam which often requires the student to apply\nknowledge and make a best judgment.\n• The majority of multiple choice exams involve a large quantity of\ndifferent questions – so even if you get a few incorrect, it’s still\nokay. The PMP exam covers a broad set of material, often times in\ngreater depth than other certification exams.\nRegardless of whether or not multiple choice testing is more forgiving; in\nreality, one must study immensely because of the sheer volume of\ninformation that is covered.\nAlthough four hours may seem like more than enough time for a multiple\nchoice exam, when faced with 200 questions, time management is one of the\nmost crucial factors in succeeding and doing well. You should always try and\nanswer all of the questions you are confident about first, and then go back\nabout to those items you are not sure about afterwards. Always read carefully\nthrough the entire test as well, and do your best to not leave any question\nblank upon submission– even if you do not readily know the answer.\nMany people do very well with reading through each question and not\nlooking at the options before trying to answer. This way, they can steer clear\n(usually) of being fooled by one of the “distracter” options or get into a tug-\nof-war between two choices that both have a good chance of being the actual\nanswer.\nNever assume that “all of the above” or “none of the above” answers are the\nactual choice. Many times they are, but in recent years they have been used\nmuch more frequently as distracter options on standardized tests. Typically\nthis is done in an effort to get people to stop believing the myth that they are\nalways the correct answer.\nYou should be careful of negative answers as well. These answers contain\nwords such as “none”, “not”, “neither”, and the like. Despite often times\nbeing very confusing, if you read these types of questions and answers\ncarefully, then you should be able to piece together which is the correct\nanswer. Just take your time!\nNever try to overanalyze a question, or try and think about how the test givers\nare trying to lead astray potential test takers. Keep it simple and stay with\nwhat you know.\nIf you ever narrow down a question to two possible answers, then try and\nslow down your thinking and think about how the two different\noptions/answers differ. Look at the question again and try to apply how this\ndifference between the two potential answers relates to the question. If you\nare convinced there is literally no difference between the two potential\nanswers (you’ll more than likely be wrong in assuming this), then take\nanother look at the answers that you’ve already eliminated. Perhaps one of\nthem is actually the correct one and you’d made a previously unforeseen\nmistake.\nOn occasion, over-generalizations are used within response options to\nmislead test takers. To help guard against this, always be wary of\nresponses/answers that use absolute words like “always”, or “never”. These\nare less likely to actually be the answer than phrases like “probably” or\n“usually” are. Funny or witty responses are also, most of the time, incorrect –\nso steer clear of those as much as possible.\nAlthough you should always take each question individually, “none of the\nabove” answers are usually less likely to be the correct selection than “all of\nthe above” is. Keep this in mind with the understanding that it is not an\nabsolute rule, and should be analyzed on a case-by-case (or “question-by-\nquestion”) basis.\nLooking for grammatical errors can also be a huge clue. If the stem ends with\nan indefinite article such as “an” then you’ll probably do well to look for an\nanswer that begins with a vowel instead of a consonant. Also, the longest\nresponse is also oftentimes the correct one, since whoever wrote the question\nitem may have tended to load the answer with qualifying adjectives or\nphrases in an effort to make it correct.\nAgain though, always deal with these on a question-by-question basis,\nbecause you could very easily be getting a question where this does not\napply.\nVerbal associations are oftentimes critical because a response may repeat a\nkey word that was in the question. Always be on the alert for this. Playing the\nold Sesame Street game “Which of these things is not like the other” is also a\nvery solid strategy, if a bit preschool. Sometimes many of a question’s\ndistracters will be very similar to try to trick you into thinking that one choice\nis related to the other. The answer very well could be completely unrelated\nhowever, so stay alert.\nJust because you have finished a practice test, be aware that you are not done\nworking. After you have graded your test with all of the necessary\ncorrections, review it and try to recognize what happened in the answers that\nyou got wrong. Did you simply not know the qualifying correct information?\nPerhaps you were led astray by a solid distracter answer? Going back through\nyour corrected test will give you a leg up on your next one by revealing your\ntendencies as to what you may be vulnerable with, in terms of multiple\nchoice tests.\nIt may be a lot of extra work, but in the long run, going through your\ncorrected multiple choice tests will work wonders for you in preparation for\nthe real exam. See if you perhaps misread the question or even missed it\nbecause you were unprepared. Think of it like instant replays in professional\nsports. You are going back and looking at what you did on the big stage in\nthe past so you can help fix and remedy any errors that could pose problems\nfor you on the real exam."}];
 
@@ -603,6 +1197,42 @@ function hideResetModal(){ document.getElementById('resetModal').classList.remov
 function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
 function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 render();
+
+
+(function initCompactScrollHeader() {
+  const header = document.querySelector('.header');
+  let isCompact = false;
+  let ticking = false;
+
+  function updateHeader() {
+    if (!header) return;
+
+    const y = window.scrollY || 0;
+
+    // Stable hysteresis:
+    // - once the user scrolls meaningfully down, keep the compact header
+    // - only restore the full header near the top of the page
+    // This avoids flashing caused by tiny up/down scroll movements.
+    if (!isCompact && y > 120) {
+      isCompact = true;
+      header.classList.add('compact-scroll');
+    } else if (isCompact && y < 35) {
+      isCompact = false;
+      header.classList.remove('compact-scroll');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateHeader();
+})();
 
 </script>
 </body>

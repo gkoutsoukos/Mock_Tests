@@ -504,6 +504,577 @@
     .q-header, .q-options, .q-actions { padding-left: 16px; padding-right: 16px; }
     .explanation { margin-left: 16px; margin-right: 16px; }
   }
+/* =========================================================
+     Mobile compact interface + dark mode upgrade
+     ========================================================= */
+
+  .theme-toggle-test {
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-test:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  body.dark {
+    --navy: #d6b85a;
+    --navy-mid: #050816;
+    --navy-light: #1f2937;
+    --gold: #d6b85a;
+    --gold-light: #f0d879;
+    --cream: #0b1020;
+    --cream-dark: #1f2937;
+    --text: #f8f5ea;
+    --muted: #a7afbf;
+    --correct: #86efac;
+    --correct-bg: rgba(34,197,94,.16);
+    --wrong: #fca5a5;
+    --wrong-bg: rgba(239,68,68,.16);
+    --partial: #fbbf24;
+    --partial-bg: rgba(245,158,11,.16);
+    --border: #374151;
+  }
+
+  body.dark {
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  body.dark .header {
+    background: #050816;
+    box-shadow: 0 2px 24px rgba(0,0,0,.55);
+  }
+
+  body.dark .header-title span,
+  body.dark .pace-strip,
+  body.dark .pace-strip span {
+    color: rgba(248,245,234,.72);
+  }
+
+  body.dark .exam-timer-wrap,
+  body.dark .score-chip,
+  body.dark .pct-chip,
+  body.dark .section-chip {
+    background: #111827;
+    border-color: rgba(214,184,90,.28);
+  }
+
+  body.dark .mode-toggle button {
+    border-color: rgba(248,245,234,.22);
+  }
+
+  body.dark .mode-toggle button.active {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .filter-bar {
+    background: rgba(11,16,32,.96);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn,
+  body.dark .jump-wrap input,
+  body.dark .btn-timer,
+  body.dark .btn-clear,
+  body.dark .btn-flag,
+  body.dark .reset-btn {
+    background: #111827;
+    color: var(--text);
+    border-color: #374151;
+  }
+
+  body.dark .filter-btn.active,
+  body.dark .jump-wrap button,
+  body.dark .btn-submit {
+    background: #d6b85a;
+    border-color: #d6b85a;
+    color: #07111f;
+  }
+
+  body.dark .q-card,
+  body.dark .modal {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  body.dark .q-header {
+    border-color: #1f2937;
+  }
+
+  body.dark .q-num,
+  body.dark .opt.selected .opt-letter {
+    background: #050816;
+    color: #d6b85a;
+    border-color: #050816;
+  }
+
+  body.dark .opt {
+    background: #0b1020;
+    border-color: #374151;
+  }
+
+  body.dark .opt:hover {
+    background: #111827;
+    border-color: rgba(214,184,90,.55);
+  }
+
+  body.dark .opt.selected {
+    background: rgba(214,184,90,.12);
+    border-color: #d6b85a;
+  }
+
+  body.dark .q-timer {
+    background: #0b1020;
+    border-color: #1f2937;
+  }
+
+  body.dark .explanation {
+    background: #0b1020;
+    color: #d1d5db;
+    border-left-color: #d6b85a;
+  }
+
+  body.dark .explanation strong,
+  body.dark .modal h3,
+  body.dark .timer-display {
+    color: #f0d879;
+  }
+
+  body.dark .locked-notice {
+    background: #0b1020;
+    border-left-color: #d6b85a;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      font-size: 15px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 120;
+    }
+
+    .header-inner {
+      padding: 9px 12px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-title {
+      font-size: 1.02rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
+
+    .header-title span {
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .exam-timer-wrap {
+      padding: 6px 8px;
+      gap: 6px;
+      border-radius: 9px;
+      min-width: 0;
+    }
+
+    .exam-timer-main {
+      min-width: 82px;
+    }
+
+    .exam-timer-value {
+      font-size: 1.05rem;
+    }
+
+    .exam-timer-label {
+      font-size: 0.49rem;
+      letter-spacing: .05em;
+    }
+
+    .exam-timer-btn {
+      padding: 5px 7px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle {
+      grid-column: 1 / -1;
+      order: 10;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+      font-size: 0.68rem;
+    }
+
+    .mode-toggle button,
+    .section-chip {
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      flex: 0 0 auto;
+    }
+
+    .section-chip {
+      justify-self: stretch;
+      text-align: center;
+      display: none;
+    }
+
+    .score-chip,
+    .pct-chip {
+      padding: 6px 8px;
+      min-width: 62px;
+    }
+
+    .score-chip .val,
+    .pct-chip .val {
+      font-size: 1rem;
+    }
+
+    .score-chip .lbl,
+    .pct-chip .lbl {
+      font-size: 0.5rem;
+      letter-spacing: .05em;
+    }
+
+    #saveIndicator {
+      display: none;
+    }
+
+    .theme-toggle-test {
+      padding: 5px 8px;
+      font-size: 0.68rem;
+    }
+
+    .score-bar > button[onclick="showResetModal()"] {
+      padding: 5px 8px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .pace-strip {
+      display: none;
+    }
+
+    .progress-wrap {
+      height: 3px;
+    }
+
+    .main {
+      padding: 0 10px 56px;
+    }
+
+    #questionsList {
+      padding-top: 10px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 118px;
+      z-index: 100;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar label,
+    .spacer,
+    .jump-wrap {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .q-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .q-header {
+      padding: 12px 12px 10px;
+      gap: 8px;
+    }
+
+    .q-num {
+      font-size: 0.62rem;
+      padding: 3px 8px;
+    }
+
+    .q-text {
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .q-options {
+      padding: 10px 12px 12px;
+      gap: 7px;
+    }
+
+    .opt {
+      padding: 9px 10px;
+      gap: 9px;
+      border-radius: 9px;
+    }
+
+    .opt-letter {
+      width: 23px;
+      height: 23px;
+      min-width: 23px;
+      font-size: 0.68rem;
+    }
+
+    .opt-text {
+      font-size: 0.88rem;
+      line-height: 1.36;
+    }
+
+    .q-actions {
+      padding: 8px 12px 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit,
+    .btn-clear,
+    .btn-flag {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+    }
+
+    .explanation {
+      margin: 0 12px 12px;
+      padding: 12px 13px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .q-timer {
+      padding: 7px 12px;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .timer-label {
+      display: none;
+    }
+
+    .timer-display {
+      font-size: 0.78rem;
+      min-width: 48px;
+    }
+
+    .btn-timer,
+    .btn-timer-reset {
+      padding: 4px 9px;
+      font-size: 0.7rem;
+    }
+
+    .reset-btn {
+      margin: 0 12px 12px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+    }
+
+    .modal {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .pct-chip {
+      display: none;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+    }
+
+    .opt-text {
+      font-size: 0.85rem;
+    }
+  }
+
+
+  /* =========================================================
+     Ultra-compact scroll behavior upgrade
+     - hides Study/Simulation controls
+     - keeps only timer/score row sticky while scrolling down
+     - reveals full header when scrolling up
+     ========================================================= */
+
+  .mode-toggle,
+  .section-chip {
+    display: none !important;
+  }
+
+  .header.compact-scroll .header-title,
+  .header.compact-scroll .pace-strip {
+    display: none;
+  }
+
+  .header.compact-scroll .header-inner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .header.compact-scroll .score-bar {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      transition: padding .16s ease;
+    }
+
+    .header-title {
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .score-bar {
+      grid-template-columns: 1fr auto auto auto;
+    }
+
+    .header.compact-scroll .header-inner {
+      padding: 6px 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+
+    .header.compact-scroll .theme-toggle-test,
+    .header.compact-scroll .score-bar > button[onclick="showResetModal()"] {
+      display: none;
+    }
+
+    .header.compact-scroll .exam-timer-wrap {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .score-chip,
+    .header.compact-scroll .pct-chip {
+      padding: 5px 7px;
+    }
+
+    .header.compact-scroll .filter-bar {
+      top: 54px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* =========================================================
+     Debug patch v2
+     Fixes:
+     - filter bar overlaying questions
+     - Light / Reset still visible in compact-scroll mode
+     - sticky header height conflicts
+     ========================================================= */
+
+  /* The filter bar should not be sticky. It was overlapping questions while scrolling. */
+  .filter-bar {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  /* In compact scroll mode, keep the top bar focused on timer + score only. */
+  .header.compact-scroll .theme-toggle-test,
+  .header.compact-scroll .score-bar > button[onclick="showResetModal()"],
+  .header.compact-scroll #saveIndicator {
+    display: none !important;
+  }
+
+  .header.compact-scroll .score-bar {
+    justify-content: space-between;
+  }
+
+  .header.compact-scroll .exam-timer-wrap,
+  .header.compact-scroll .score-chip,
+  .header.compact-scroll .pct-chip {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .filter-bar {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 10px;
+    }
+
+    .header.compact-scroll .score-bar {
+      grid-template-columns: 1fr auto auto;
+    }
+  }
+
+
+  /* Stable compact header patch: avoid flashing while scrolling */
+  .header {
+    will-change: transform;
+  }
+
+  .header-inner,
+  .score-bar,
+  .exam-timer-wrap,
+  .score-chip,
+  .pct-chip {
+    transition: padding .12s ease, opacity .12s ease;
+  }
+
+  @media (max-width: 700px) {
+    .header.compact-scroll .header-inner {
+      min-height: 54px;
+    }
+
+    .header.compact-scroll .progress-wrap {
+      display: none;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -516,6 +1087,7 @@
       <div id="saveIndicator">✓ Saved</div>
       <div class="score-chip"><div class="val" id="scoreVal">0</div><div class="lbl">Correct</div></div>
       <div class="pct-chip"><div class="val" id="pctVal">—</div><div class="lbl">Score</div></div>
+      <button class="theme-toggle-test" id="themeToggle" type="button">🌙 Dark</button>
       <button onclick="showResetModal()" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reset</button>
     </div>
   </div>
@@ -537,6 +1109,28 @@
 </div>
 <div class="modal-overlay" id="resetModal"><div class="modal"><h3>Reset this test?</h3><p>This will clear answers, flags, and timer progress for this test in this browser.</p><div class="modal-actions"><button class="btn-danger" onclick="resetAll()">Reset</button><button class="btn-cancel" onclick="hideResetModal()">Cancel</button></div></div></div>
 <script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('pmiStudyHubTheme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('pmiStudyHubTheme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(savedTheme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        applyTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+      });
+    }
+  });
+})();
+
 const TEST_META = {"seq": 15, "name": "PMP Lite Mock Exam 10", "timeMinutes": 60, "slug": "PMP_Lite_Mock_Exam_10"};
 const QUIZ_DATA = [{"num": 1, "text": "You are a non-technical project manager. Two highly skilled and\nknowledgeable resources on your project are in conflict over the best\ntechnical solution to meet a project requirement. However, this is not\naffecting the project schedule. Who is initially responsible for the\nconflict resolution?", "options": {"A": "The project sponsor is initially responsible for the conflict\nresolution.", "B": "The project manager is initially responsible for the conflict\nresolution.\nBoth team members are initially responsible for the conflict", "C": "\nresolution.", "D": "Either of the team members is responsible for the conflict\nresolution."}, "correct": ["C"], "explanation": "C - Initially, both team members are responsible for the conflict\nresolution. If the conflict escalates, the project manager should help\nfacilitate a satisfactory resolution. [PMBOK 6th edition, Page 348]\n[Project Resource Management]"}, {"num": 2, "text": "Which of the following are the tools and techniques used in both the\nPlan Communications Management and Manage Communications\nprocesses?", "options": {"A": "Expert judgment", "B": "Project reporting", "C": "Communication requirements analysis", "D": "Communication methods"}, "correct": ["D"], "explanation": "D - Communication methods are the common tools and techniques for\nPlan Communications Management and Manage Communications\nprocesses. [PMBOK 6th edition, Page 360] [Project Communications\nManagement]"}, {"num": 3, "text": "A project manager presented earned value analysis data in a tabular\nformat in a performance report. Another way the project manager could\nhave presented the earned value analysis data is with:", "options": {"A": "A linear graph", "B": "An S-curve", "C": "A logarithmic curve", "D": "An Epsilon graph"}, "correct": ["B"], "explanation": "B - The correct response is S-curve. Both S-curves and tabular formats\ncan be used to represent earned value analysis data. [PMBOK 6th\nedition, Pages 263, 264] [Project Cost Management]"}, {"num": 4, "text": "David was required to investigate a business problem and describe the\nhigher-level needs of the business as a whole. David’s final reports\ndescribes in detail the features, functions and characteristics of the\nproduct that will meet the business and stakeholder requirements. What\nis wrong with David’s report?", "options": {"A": "David was asked to analyze the solution requirements, but he\nfocused on the business requirements.", "B": "David was asked to analyze the business requirements, but he\nfocused on the solution requirements.", "C": "David was asked to analyze the functional requirements, but he\nfocused on the non-functional requirements.", "D": "David was asked to analyze the non-functional requirements, but\nhe focused on the functional requirements."}, "correct": ["B"], "explanation": "B - David was asked to analyze the business requirements but he\nfocused on the solution requirements. Business requirements describe\nthe higher-level needs of the organization as a whole, such as the\nbusiness issues or opportunities. While the solution requirements\ndescribes in detail the features, functions and characteristics of the\nproduct that will meet the business and stakeholder requirements.\n[PMBOK 6th edition, Page 148] [Project Framework]"}, {"num": 5, "text": "The project management processes communicate with each other\nthrough their inputs and outputs. Which of the following outputs of the\nDirect and Manage Project Work process is a prime input of the\nMonitor Stakeholder Engagement process?", "options": {"A": "Change requests", "B": "Work performance information", "C": "Work performance data", "D": "Expert judgment"}, "correct": ["C"], "explanation": "C - Work performance data is provided to the Monitor Stakeholder\nEngagement process as an output from Direct and Manage Project\nWork process. [PMBOK 6th edition, Page 531] [Project Stakeholder\nManagement]"}, {"num": 6, "text": "Which of the following is the correct sequence of the PMBOK\nprocesses that collects work performance data, converts it to work\nperformance information, formats it into work performance reports, and\ndistributes these reports?", "options": {"A": "Direct & Manage Project Work -> Monitor & Control Project\nWork -> Monitor Communications -> Manage Communications", "B": "Monitor Communications -> Direct & Manage Project Work ->\nMonitor & Control Project Work -> Manage Communications", "C": "Direct & Manage Project Work -> Monitor Communications ->\nMonitor & Control Project Work -> Manage Communications", "D": "Direct & Manage Project Work -> Monitor & Control Project\nWork -> Manage Communications -> Monitor Communications"}, "correct": ["C"], "explanation": "C - Direct & Manage Project Work -> Monitor Communications ->\nMonitor & Control Project Work -> Manage Communications is the\ncorrect response. The Direct & Manage Project Work process produces\nthe work performance data. This work performance data is converted to\nwork performance information by the Monitor Communications\nprocess. The Monitor & Control Project Work process uses this\ninformation and produces work performance reports which are then\ndistributed to the stakeholders by the Manage Communications process.\n[PMBOK 6th edition, Pages 90, 105, 379, 388] [Project\nCommunications Management]"}, {"num": 7, "text": "As the project manager of a large project, you have just completed the\nEstimate Costs process. As you begin the Determine Budget process,\nwhich of the following would you require as inputs to the process from\nthe Estimate Costs process?", "options": {"A": "Activity cost estimates, basis of estimates", "B": "Activity cost estimates, activity resource estimates", "C": "Resource breakdown structure, agreements", "D": "Activity cost estimates, staff management plan"}, "correct": ["A"], "explanation": "A - Activity cost estimates are quantitative assessments of the probable\ncosts required to complete project work. The basis of estimates consists\nof additional details supporting the cost estimate. These include\ndocumentation of the basis for the estimate, documentation of all\nassumptions, documentation of any known constraints and indication of\nthe range of possible estimates. These are produced during the Estimate\nCosts process and form inputs to the Develop Budget process.\n[PMBOK 6th edition, Page 240, 248] [Project Cost Management]"}, {"num": 8, "text": "The Direct and Manage Project Work process has three tools and\ntechniques. Two of them are Expert Judgment and Meetings. What is\nthe third one?", "options": {"A": "Scheduling System", "B": "Configuration Management System", "C": "Project Management Information System", "D": "Change Control System"}, "correct": ["C"], "explanation": "C - The three tools and techniques of the Direct and Manage Project\nWork process are: Expert Judgment, Project Management Information\nSystem, and Meetings. [PMBOK 6th edition, Page 90] [Project\nIntegration Management]"}, {"num": 9, "text": "A project manager is trying to plan for a contingency reserve as part of\nthe cost estimates for the project. Which of these would be an incorrect\nway to plan for contingency reserves?", "options": {"A": "Start the project with a zero value for contingency reserve.", "B": "Plan for contingency reserve as a fixed number.", "C": "Plan for contingency reserve as a percentage of the estimated cost.", "D": "Use quantitative analysis methods to arrive at the contingency\nreserve."}, "correct": ["A"], "explanation": "A - It would be incorrect to start the project with a zero value for\ncontingency reserves. One of the three other methods listed could be\nused to arrive at a contingency reserve number. As more precise\ninformation about the project becomes available, the contingency\nreserve may be used, reduced, or eliminated. [PMBOK 6th edition,\nPage 245] [Project Cost Management]"}, {"num": 10, "text": "The stakeholder engagement plan is a subsidiary plan of the project\nmanagement plan. It includes the strategies required to effectively\nengage project stakeholders. An ineffective stakeholder engagement\nstrategy can lead to project failure. The stakeholder engagement plan:", "options": {"A": "Must be formal and highly detailed", "B": "Must be formal but broadly framed", "C": "Can be formal or informal but must be highly detailed", "D": "Can be formal or informal, highly detailed or broadly framed"}, "correct": ["D"], "explanation": "D - According to the PMBOK guide, the stakeholder engagement plan\ncan be formal or informal, highly detailed or broadly framed. [PMBOK\n6th edition, Page 522] [Project Stakeholder Management]"}, {"num": 11, "text": "A collection of formally documented procedures that define how\nproject deliverables and documentation are controlled, changed, and\napproved is:", "options": {"A": "An authorization system", "B": "Project documentation", "C": "A change control board", "D": "A change control system"}, "correct": ["D"], "explanation": "D - A collection of formally documented procedures that define how\nproject deliverables and documentation are controlled, changed and\napproved is called a change control system. This is a subsystem of the\nconfiguration management system. [PMBOK 6th edition, Page 700]\n[Project Integration Management]"}, {"num": 12, "text": "Ideally the relationship between a project manager and a business\nanalyst should be:", "options": {"A": "Business analyst should directly report to the project manager", "B": "A collaborative partnership", "C": "Project manager should directly report to the business analyst", "D": "Business analyst must audit the project manager"}, "correct": ["B"], "explanation": "B - Ideally the project managers and the business analysts should\ncollaborate to achieve the project objectives. [PMBOK 6th edition,\nPage 132] [Project Quality Management]"}, {"num": 13, "text": "The costs on a project are typically classified as direct and indirect\ncosts. The cost of electric utilities for the office is:", "options": {"A": "An indirect cost", "B": "Appraisal cost", "C": "A specific cost", "D": "A direct cost"}, "correct": ["A"], "explanation": "A - The cost of electric utilities for the office would be considered as an\nindirect cost. Indirect costs are also known as overhead, general, or\nadministrative costs. They are the costs allocated by the project team as\na cost of doing business. Examples include salaries of management\nindirectly involved in the project and the cost of electric utilities.\n[PMBOK 6th edition, Page 246] [Project Procurement Management]"}, {"num": 14, "text": "Which of the following is not an activity related to the Direct and\nManage Project Work process?", "options": {"A": "Inspecting the project deliverables for completeness", "B": "Implementing approved changes", "C": "Creating project deliverables to meet the planned project work", "D": "Performing activities to accomplish project objectives"}, "correct": ["A"], "explanation": "A - Inspections of deliverables are part of the Validate Scope process.\nThe other choices are activities relating to the Direct and Manage\nProject Work process. [PMBOK 6th edition, Pages 90-92] [Project\nIntegration Management]"}, {"num": 15, "text": "The stakeholder engagement plan is developed early during project\nplanning phase. However, as the project moves into its execution phase,\nproject stakeholders’ needs, interests and/or influence might change. If\na significant change happens, what should the project manager do?", "options": {"A": "Refer the issue to the project sponsor", "B": "Hold all project communications until the issue has a resolution", "C": "Seek expert judgment from the project sponsor", "D": "Revisit the Plan Stakeholder Engagement process"}, "correct": ["D"], "explanation": "D - The Plan Stakeholder Engagement is an iterative process.\nStakeholders’ needs, interests or influence might change during the\nproject lifecycle and whenever a significant change happens, the project\nmanager must revisit the Plan Stakeholder Engagement process and\nupdate the stakeholder engagement plan accordingly. [PMBOK 6th\nedition, Page 518] [Project Stakeholder Management]"}, {"num": 16, "text": "Which of the following is an output from the Direct and Manage\nProject Work process?", "options": {"A": "Budgeted costs", "B": "Project charter", "C": "Work performance data", "D": "Execution plan"}, "correct": ["C"], "explanation": "C - The Direct and Manage Project Work process involves the\nmanagement of the direction of the planned project activities. Work\nPerformance Data is routinely collected as part of this process.\n[PMBOK 6th edition, Page 90] [Project Integration Management]"}, {"num": 17, "text": "Long hours to meet a looming deadline and immense pressure for\nsuccess from management are causing a decline in team morale. There\nare occasional conflicts between team members over priorities and\nresources. How should these non-disruptive conflicts be handled?", "options": {"A": "Use of disciplinary actions", "B": "Using a private, direct, and collaborative approach first", "C": "Escalation to senior management", "D": "Arbitration"}, "correct": ["B"], "explanation": "B - Conflicts should be addressed early. A private, direct and\ncollaborative approach should be employed first. [PMBOK 6th edition,\nPage 348] [Project Resource Management]"}, {"num": 18, "text": "One of the senior team members, who is the best performer in your\nproject, plays favorites. A few of the other team members who work\nclosely with this team member have gotten exceptionally good appraisal\nreports in the past, even though they may not have deserved them. As\nthe project manager, what do you need to actively do?", "options": {"A": "Ask all the members of your team who are appraisers of other\nteam members to be liberal in their appraisals. This will help\ncompensate for the appraisals the senior team member does.", "B": "Speak to the senior team member and ask him or her to do\nappraisals fairly, in accordance with the appraisal guidelines.", "C": "Ignore the matter since you would otherwise lose a senior team\nmember who is key to your project.", "D": "Ensure that the senior team member does not get to appraise\nanybody."}, "correct": ["B"], "explanation": "B - As project manager, you need to speak to the senior team member\nand ask for all appraisals to be done in an objective manner. The other\noptions are incorrect. Ignoring the matter will not help solve it. The\nother two options are likewise impractical. [PMI Code of Ethics and\nProfessional Conduct] [Prof. Responsibility]"}, {"num": 19, "text": "Which type of risk analysis ranks risks for future action or analysis by\nevaluating their probability of occurrence and impact?", "options": {"A": "RBS", "B": "Assumptions analysis", "C": "Qualitative analysis", "D": "Quantitative analysis"}, "correct": ["C"], "explanation": "C - Qualitative analysis examines risks from the risk register and\nanalyzes each risk’s probability of occurrence and the effect it would\nhave on the project deliverables if it did occur. It ranks risks for future\naction or analysis by evaluating their probability of occurrence and\nimpact. [PMBOK 6th edition, Page 419] [Project Risk Management]"}, {"num": 20, "text": "Your manager is presenting a status report of all projects being run in\nhis division. He reports that all projects are showing a positive CV.\nHowever, you know that your status reports for the last several weeks\nhave been reporting a negative CV. What do you do?", "options": {"A": "Do nothing.", "B": "Offer to review all your manager's combined status reports before\nhe presents them.", "C": "Notify the appropriate management immediately.", "D": "Ask your manager if that information was simply a typographical\nerror."}, "correct": ["C"], "explanation": "C - You should notify the appropriate management immediately that\nincorrect information has been presented about your project. The PMI\nCode of Ethics requires that managers report errors of others and\nprovide accurate and truthful information to project stakeholders at all\ntimes. [Reference: PMI Code of Ethics and Professional Conduct]\n[Prof. Responsibility]"}, {"num": 21, "text": "A project manager from a buyer organization is invited to lunch by the\nmanager of a seller organization. The project manager's organization\ndoes not permit receipt of gifts from vendors. The project manager\nshould:", "options": {"A": "Go out for lunch and refrain from informing his/her managers\nabout the lunch", "B": "Avoid going out to lunch with anyone from the seller organization", "C": "Insist on paying for his/her own lunch", "D": "Permit the manager from the seller organization to pay for his/her\nlunch since it has a very small value"}, "correct": ["C"], "explanation": "C - The correct action is for the project manager to insist on paying for\nhis or her own lunch. Avoiding going out to lunch with anyone from the\nseller organization is drastic, as such a lunch may be an opportunity to\nbuild relationships and to understand the seller's position on a project\nbetter. Going out to lunch and not informing his or her managers about\nthe lunch is unethical. Allowing the seller organization to pay for an\ninexpensive lunch may be acceptable in certain organizations. For\nexample, some organizations have placed a limit on the value of gifts\nthat may be received by their employees, and permit gifts that do not\nexceed a certain value (e.g., $50). In such a case, a lunch may be within\nacceptable limits. However, in the current situation, the buyer\norganization does not permit its employees to receive any gifts from\nvendors. Therefore, this option is not acceptable. [PMI Code of Ethics\nand Professional Conduct] [Prof. Responsibility]"}, {"num": 22, "text": "The accuracy of estimates of the cost of a project will _________ over\nthe life of a project.", "options": {"A": "Be mitigated", "B": "Remain neutral", "C": "Decrease", "D": "Improve"}, "correct": ["D"], "explanation": "D - The accuracy of a project estimate will improve as the project\nprogresses through the project lifecycle. In the initiation phase, a\nproject could have a rough order of magnitude estimate in the range of\n-25% to +75%. Later, as more information becomes known, estimates\ncould narrow to a range of -5% to +10%. [PMBOK 6th edition, Page\n241] [Project Cost Management]"}, {"num": 23, "text": "Which of the following can prove to be effective in addressing\nvariability risks?", "options": {"A": "Monte Carlo analysis", "B": "Root cause analysis", "C": "Mitigating opportunities", "D": "Accepting the risk"}, "correct": ["A"], "explanation": "A - Variability risks relate to uncertainty existing about some key\ncharacteristic of a planned event or activity or decision. Examples of\nvariability risks include: productivity may be above or below target, the\nnumber of errors found during testing may be higher or lower than\nexpected, or unseasonal weather conditions may occur during the\nconstruction phase. Variability risks can be addressed using Monte\nCarlo analysis, with the range of variation reflected in probability\ndistributions, followed by actions to reduce the spread of possible\noutcomes. [PMBOK 6th edition, Page 399] [Project Scope\nManagement]"}, {"num": 24, "text": "What do the buyer and seller have in common with regard to Control\nProcurements?", "options": {"A": "Both parties ensure that they meet their contractual obligations\nand that their own legal rights are protected.", "B": "Both parties have specific resources that can be idle.", "C": "Both parties have a contract change management plan.", "D": "Each party has its own project plan and legal team."}, "correct": ["A"], "explanation": "A - Both the buyer and the seller administer the contract for similar\npurposes. Each party ensures that both it and the other party meet their\ncontractual obligations and that their own legal rights are protected.\n[PMBOK 6th edition, Page 494] [Project Procurement Management]"}, {"num": 25, "text": "Project managers need to be aware of Student Syndrome, also known as\nprocrastination, which means that people start to apply themselves only\nat the last possible moment before the deadline. This concept is similar\nto Parkinson’s Law which states that:", "options": {"A": "Work only gets completed during the second half of the allocated\ntime.", "B": "Work never gets completed on time even if sufficient time has\nbeen allocated.", "C": "Work expands to fill the time available for its completion.", "D": "Effort expands to fill the time available for the completion of a\nwork package."}, "correct": ["C"], "explanation": "C - According to the Parkinson’s law, work expands to fill the time\navailable for its completion. [PMBOK 6th edition, Page 197] [Project\nQuality Management]"}, {"num": 26, "text": "Melissa is managing a hardware deployment project and is creating a\nrisk management plan. Which of the following would not be included in\nthis plan?", "options": {"A": "Templates", "B": "Roles and responsibilities", "C": "Budgeting", "D": "Methodology"}, "correct": ["A"], "explanation": "A - Templates is not a valid response. The other choices are typical\ncomponents of a Risk Management Plan. [PMBOK 6th edition, Page\n405] [Project Risk Management]"}, {"num": 27, "text": "Linda has been assigned to establish a PMO in her organization. Linda\nbelieves this project cannot succeed unless all the key project\nstakeholders support the project. She also believes she needs to pay\nspecial attention to stakeholder management to ensure success of this\nproject. First, she needs to develop her stakeholder register. To produce\nthe project stakeholder register, which of the following processes must\nLinda start?", "options": {"A": "Plan Stakeholder Engagement", "B": "Monitor Stakeholder Engagement", "C": "Manage Stakeholder Engagement", "D": "Identify Stakeholders"}, "correct": ["D"], "explanation": "D - The stakeholder register is developed during the Identify\nStakeholders process. [PMBOK 6th edition, Page 507] [Project\nStakeholder Management]"}, {"num": 28, "text": "A fellow project manager is retiring and moving to the mountains; you\nwill take over his project. Before he leaves, he tells you the project is on\nschedule but only because he “put the hammer down” on his project\nteam and pushed them relentlessly. Pushing the team to perform\nactivities to accomplish project objectives is a part of:", "options": {"A": "Direct and Manage Project Work", "B": "Monitor and Control Project Work", "C": "Control Quality", "D": "Control Scope"}, "correct": ["A"], "explanation": "A - Performing activities to accomplish project activities is one of the\ngoals of the Direct and Manage Project Work process. [PMBOK 6th\nedition, Page 92] [Project Integration Management]"}, {"num": 29, "text": "A technique that enhances brainstorming with a voting process used to\nrank the most useful ideas so they can be taken up for further\nbrainstorming is:", "options": {"A": "Six thinking hats", "B": "Nominal group technique", "C": "Affinity diagram", "D": "Mind mapping"}, "correct": ["B"], "explanation": "B - The nominal group technique enhances brainstorming with a voting\nprocess. This then allows the most useful ideas to be prioritized and\ntaken up for further brainstorming. [PMBOK 6th edition, Page 144]\n[Project Scope Management]"}, {"num": 30, "text": "Which of the following is a type of leadership style in which leaders are\nhands-off and allow group members to make the decisions:", "options": {"A": "Transactional", "B": "Servant leader", "C": "Transformational", "D": "Laissez-faire"}, "correct": ["D"], "explanation": "D - Laissez-faire leadership, also known as delegated leadership, is a\ntype of leadership style in which leaders are hands-off and allow group\nmembers to make the decisions. Researchers have found that this is\ngenerally the leadership style that leads to the lowest productivity\namong group members. [PMBOK 6th edition, Page 65] [Project\nStakeholder Management]"}, {"num": 31, "text": "Your project team is having a dispute with a vendor about whether a\nspecific task is within the project’s scope. The scope statement does not\nprovide implementation-level details that could resolve this dispute.\nThere is no WBS, however, because the project sponsor insisted that the\nproject be started right away without pausing to create standard project\nplanning documentation. Who is at fault?", "options": {"A": "The project manager", "B": "The project sponsor", "C": "The project stakeholders", "D": "The project vendor"}, "correct": ["A"], "explanation": "A - The project manager is at fault. The project manager must follow all\nproject processes required for the success of the project, regardless of\ninsistence by others that those processes are unnecessary and time\nconsuming. Failing to do so is a violation of PMI's Code of Conduct\nand can lead to increased project cost and schedule slips. [PMI Code of\nEthics and Professional Conduct] [Prof. Responsibility]"}, {"num": 32, "text": "For a project following a predictive life cycle, which of the following\nstatements is most accurate?", "options": {"A": "Collect Requirements, Define Scope and Create WBS processes\nare performed toward the beginning of the project and updated as\nnecessary, using the integrated change control process.", "B": "Collect Requirements, Define Scope and Create WBS processes\nare performed toward the beginning of the project and updated as\nnecessary, using the executing process.", "C": "Collect Requirements, Define Scope and Create WBS processes\nare performed toward the beginning of the project and rarely\nupdated.", "D": "Collect Requirements, Define Scope and Create WBS processes\nare performed for each project iteration."}, "correct": ["A"], "explanation": "A - In a predictive project, the Collect Requirements, Define Scope and\nCreate WBS processes are performed toward the beginning of the\nproject and updated as necessary, using the integrated change control\nprocess. [PMBOK 6th edition, Page 131] [Project Stakeholder\nManagement]"}, {"num": 33, "text": "Which of the following is one of the most prominent features of a\nproject following agile approach for product development?", "options": {"A": "Produce defect-free deliverables", "B": "Zero tolerance for rework", "C": "Deliver incremental value to the customer", "D": "Delivery of the product in a single sprint"}, "correct": ["C"], "explanation": "C - In adaptive life cycles, the requirements are documented in user\nstories that are then prioritized and refined. The product features are\ndeveloped using time-boxed periods of work. This approach is often\nused to deliver incremental value to the customer. [PMBOK 6th edition,\nPage 177] [Project Resource Management]"}, {"num": 34, "text": "You are the project manager for a Fortune 100 IT company, and you are\ncurrently engaged in an important project. You want to choose the best\ncontractor for a specialized task. What should you do to evaluate\npotential contractors?", "options": {"A": "Create a lessons-learned document", "B": "Conduct a performance review", "C": "Evaluate proposals", "D": "Perform a Make-or-Buy analysis"}, "correct": ["C"], "explanation": "C - An input to the Conduct Procurements process, seller proposals are\nprepared by sellers in response to a procurement document package.\nThese are then evaluated by the buyer to perform source selection.\n[PMBOK 6th edition, Page 487] [Project Procurement Management]"}, {"num": 35, "text": "You have recently finished an advanced project management training\ncourse your project budget paid for. Because the budget for your project\nis not large enough to train any other resources on the project, your\nmanager has asked you to make copies of the course materials and\ndistribute them to the rest of the staff. What do you do?", "options": {"A": "Make the copies", "B": "Provide a single copy of the materials", "C": "Scan the materials and place them on the corporate intranet for\neasy access", "D": "Refuse the request"}, "correct": ["D"], "explanation": "D - Refuse the request. If training the staff is a requirement, it should be\nadequately budgeted and scheduled. Making unauthorized copies of the\nintellectual property of others is unethical and may also be illegal.\nPMI's Code of Conduct and Processional Responsibility demands that\nproject managers protect the intellectual property rights of others. [PMI\nCode of Ethics and Professional Conduct] [Prof. Responsibility]"}, {"num": 36, "text": "A project manager is performing Reserve Analysis as a technique in\none of the project management processes he is currently working on.\nWhich of the following is likely to be that process?", "options": {"A": "Estimate Reserves", "B": "Report Costs", "C": "Estimate Costs", "D": "Plan Costs"}, "correct": ["C"], "explanation": "C - Many cost estimators include reserves (also called contingency\nallowances) as costs in their schedule activity cost estimates.\nContingency reserves are estimated costs to be used at the discretion of\nthe project manager to deal with anticipated but not certain events.\nThese events are \"known unknowns\" and are part of the project scope\nand cost baselines. [PMBOK 6th edition, Page 245] [Project Cost\nManagement]"}, {"num": 37, "text": "You are forming a virtual project team that includes members from four\ndifferent countries around the world. What is NOT an obstacle you\nmust overcome to build an effective team?", "options": {"A": "Different time zones", "B": "Communication issues", "C": "Cultural differences", "D": "Members wanting to work from home"}, "correct": ["D"], "explanation": "D - Virtual teams share a common project goal but share little time in a\ntraditional, face-to-face business environment. The virtual team concept\nis made possible with electronic communication; one of the benefits of\nsuch teams is the ability of members to work from home. The other\nchoices are potential issues that can occur as a result of forming a\nvirtual team. [PMBOK 6th edition, Page 311] [Project Resource\nManagement]"}, {"num": 38, "text": "Joe is attempting to calculate the probable financial impact of some\nfuture uncertain scenarios. What method could he use?", "options": {"A": "Pareto analysis", "B": "Earned value analysis", "C": "Variance analysis", "D": "Expected monetary value analysis"}, "correct": ["D"], "explanation": "D - Expected monetary value (EMV) analysis is a statistical concept\nthat calculates the average outcome when the future includes scenarios\nthat may or may not happen. The EMV of opportunities will usually be\npositive values while risks will result in negative values. [PMBOK 6th\nedition, Page 435] [Project Risk Management]"}, {"num": 39, "text": "A RAM diagram shows the relationship between ______________ and\n_____________ in a tabular format.", "options": {"A": "Cause and effect", "B": "Risks and mitigation plans", "C": "Deliverables and costs", "D": "Work packages and project team members"}, "correct": ["D"], "explanation": "D - A responsibility assignment matrix (RAM) chart is used to illustrate\nthe connections between work packages and project team members.\n[PMBOK 6th edition, Page 317] [Project Resource Management]"}, {"num": 40, "text": "You took over a project from an individual who was fired. You are\nreading the project documentation and find that five managers signed\nthe project charter. What should be your primary concern at this time?", "options": {"A": "Determining reporting structure", "B": "Communicating in a matrix organization", "C": "Getting a single sponsor", "D": "Identifying who can represent the project for change control"}, "correct": ["C"], "explanation": "C - A charter should be issued, signed and updated by the project\nsponsor. Your immediate concern should be to find a single sponsor for\nthe project. Note, though, that the sponsor can be either a person or a\ngroup. [PMBOK 6th edition, Page 77] [Project Integration\nManagement]"}, {"num": 41, "text": "As part of Define Activities, you are looking at dependencies used to\ndefine the sequence among the activities. Which of these is not a valid\ntype of dependency?", "options": {"A": "Linked dependency", "B": "External dependency", "C": "Discretionary dependency", "D": "Mandatory dependency"}, "correct": ["A"], "explanation": "A - Linked dependency is not a valid type of dependency. The other\nthree choices are valid types of dependencies. [PMBOK 6th edition,\nPages 191, 192] [Project Schedule Management]"}, {"num": 42, "text": "A company is looking for an experienced project manager to manage a\nlarge construction project. You meet all the requirements for the\nposition except for one: The organization is looking for a certified PMP\nwith five years of experience, but you have just four years of experience\nmanaging similar projects. What is the best way to fill out your\napplication?", "options": {"A": "Show how you meet the requirements but include your actual\nyears of experience", "B": "Do not fill out that particular section.", "C": "Explain why years of experience should not matter.", "D": "Since you have plenty of experience, embellish your actual years\nof experience."}, "correct": ["A"], "explanation": "A - For project management professionals, honesty is the best policy.\nYou should never mislead others about your experience in the field or\nyour knowledge of the project management processes. [PMI Code of\nEthics and Professional Conduct] [Prof. Responsibility]"}, {"num": 43, "text": "Which of the following techniques used in adaptive lifecycles helps in\nminimizing scope creep?", "options": {"A": "User stories", "B": "User epics", "C": "Iterations", "D": "Time-boxing"}, "correct": ["D"], "explanation": "D - Time-boxed periods are durations during which the team works\nsteadily toward completion of a goal. Time-boxing helps to minimize\nscope creep as it forces the teams to process essential features first, then\nother features when time permits. [PMBOK 6th edition, Page 182]\n[Project Framework]"}, {"num": 44, "text": "When are risk identification activities performed?", "options": {"A": "During the Perform Qualitative Risk Analysis process", "B": "During the Plan Risk Management process", "C": "During the Perform Quantitative Risk Analysis process", "D": "Ongoing throughout the project"}, "correct": ["D"], "explanation": "D - Identify Risks is the process of determining what risks can affect\nthe project. Many different stakeholders usually participate in the\nIdentify Risks process. The process of Identify Risks is iterative\nbecause unknown risks can be discovered throughout the life cycle of\nthe project. [PMBOK 6th edition, Page 409] [Project Risk\nManagement]"}, {"num": 45, "text": "Bill is the project manager of a software project that was originally\nestimated to be completed in 12 months. Two months into the project, it\nis discovered that the original estimating assumptions were\nfundamentally flawed. The Estimate at Completion (EAC) in such a\nproject will be:", "options": {"A": "EAC = AC + Bottom-up ETC", "B": "EAC = BAC/CPI", "C": "EAC = AC + [BAC - EV]/CPI", "D": "EAC = AC + BAC - EV"}, "correct": ["A"], "explanation": "A - The correct response is: EAC = AC + Bottom-up ETC, where AC\nstands for the Actual Cost and ETC stands for the Estimate to\nComplete. ETC based on a new estimate must be used because the\noriginal assumptions were fundamentally flawed. [PMBOK 6th edition,\nPage 267] [Project Cost Management]"}, {"num": 46, "text": "How would you calculate your EAC if the ETC work is performed at\nthe budgeted rate?", "options": {"A": "EAC = BAC/CPI", "B": "EAC= BAC-EV", "C": "EAC = AC + BAC - EV", "D": "EAC=(BAC-EV)*CPI"}, "correct": ["C"], "explanation": "C - If the remaining project work is expected to be performed at the\nbudgeted rate, then the formula for EAC is AC + (BAC – EV), where\nAC is the Actual Cost, BAC is the Budget at Completion, and EV is the\nEarned Value. [PMBOK 6th edition, Page 267] [Project Cost\nManagement]"}, {"num": 47, "text": "A project consists of multiple phases. Which of the following is a valid\nstatement and applies to each phase of the project?", "options": {"A": "Each phase is generally concluded with a review of the work\naccomplished but is only closed if the next phase has already\nstarted.", "B": "Each phase of the project is considered complete when the project\nsponsor signs off on that phase of the project.", "C": "Each phase of the project is generally concluded with a review of\nthe work accomplished and deliverables to determine acceptance\nand whether the phase should be considered closed.", "D": "Each phase is generally concluded with a review of the work\naccomplished. A phase is never considered complete until the end\nof the project when the entire project is complete."}, "correct": ["C"], "explanation": "C - A project phase is usually concluded with a review of the work\naccomplished and the deliverables to determine acceptance, whether\nextra work is still required and to decide whether the phase should be\nconsidered closed. The other options are not valid. [PMBOK 6th\nedition, Page 121] [Project Framework]"}, {"num": 48, "text": "Which of the following is not an example of data that may be presented\nin a performance report?", "options": {"A": "Earned value", "B": "Quality metrics", "C": "Schedule variance", "D": "Project charter"}, "correct": ["D"], "explanation": "D - The project charter is not a valid response. The other choices are\ndata that can be presented in a work performance report. [PMBOK 6th\nedition, Page 112] [Project Integration Management]"}, {"num": 49, "text": "Risks may be identified during the entire lifecycle of a project. Identify\nRisks is what type of process?", "options": {"A": "Qualitative", "B": "Effort-driven", "C": "Discrete", "D": "Iterative"}, "correct": ["D"], "explanation": "D - Identify Risks is an iterative process, because new risks may\nbecome known as the project progresses through its lifecycle. [PMBOK\n6th edition, Page 409] [Project Risk Management]"}, {"num": 50, "text": "The most effective method of resolving conflict or other issues with\nstakeholders is _________.", "options": {"A": "Ignore", "B": "Arbitrate", "C": "Collaborate", "D": "Avoid\nPMP Lite Mock Exam 9"}, "correct": ["C"], "explanation": "C - Collaboration requires incorporating multiple viewpoints from\ndifferent perspectives. It requires a cooperative attitude and open\ndialogue, and typically leads to consensus and commitment. [PMBOK\n6th edition, Page 349] [Project Resource Management]"}];
 
@@ -603,6 +1197,42 @@ function hideResetModal(){ document.getElementById('resetModal').classList.remov
 function resetAll(){ localStorage.removeItem(storageKey); state={ answers:{}, submitted:{}, flagged:{}, timers:{}, filter:'all', globalRemaining: TEST_META.timeMinutes*60, globalRunning:false, lastTick:null }; hideResetModal(); render(); }
 function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 render();
+
+
+(function initCompactScrollHeader() {
+  const header = document.querySelector('.header');
+  let isCompact = false;
+  let ticking = false;
+
+  function updateHeader() {
+    if (!header) return;
+
+    const y = window.scrollY || 0;
+
+    // Stable hysteresis:
+    // - once the user scrolls meaningfully down, keep the compact header
+    // - only restore the full header near the top of the page
+    // This avoids flashing caused by tiny up/down scroll movements.
+    if (!isCompact && y > 120) {
+      isCompact = true;
+      header.classList.add('compact-scroll');
+    } else if (isCompact && y < 35) {
+      isCompact = false;
+      header.classList.remove('compact-scroll');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateHeader();
+})();
 
 </script>
 </body>
